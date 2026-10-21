@@ -1,0 +1,33 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatNewsDate, getNews, isFullPost, type NewsItem } from "../../utils/news";
+
+export async function getStaticPaths() {
+	return (await getNews()).filter(isFullPost).map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+interface Props {
+	item: NewsItem;
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+---
+
+<BaseLayout title={item.data.title!}>
+	<a href="/news/" class="text-sm text-accent hover:underline">← All news</a>
+
+	<article class="mt-6">
+		<h1 class="text-3xl leading-tight font-semibold">{item.data.title}</h1>
+		<time datetime={item.data.date.toISOString().slice(0, 10)} class="mt-2 block text-sm text-muted">
+			{formatNewsDate(item.data.date)}
+		</time>
+
+		<div
+			class="prose mt-8 max-w-none [--tw-prose-body:var(--color-ink)] [--tw-prose-bold:var(--color-ink)] [--tw-prose-bullets:var(--color-muted)] [--tw-prose-counters:var(--color-muted)] [--tw-prose-headings:var(--color-ink)] [--tw-prose-hr:var(--color-line)] [--tw-prose-links:var(--color-accent)] [--tw-prose-quotes:var(--color-ink)] [--tw-prose-quote-borders:var(--color-line)] prose-a:no-underline hover:prose-a:underline"
+		>
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

@@ -1,8 +1,48 @@
 ---
+import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatNewsDate, getNews, isFullPost, newsUrl } from "../utils/news";
+
+const items = await Promise.all(
+	(await getNews()).map(async (item) => ({
+		item,
+		full: isFullPost(item),
+		Content: isFullPost(item) ? undefined : (await render(item)).Content,
+	})),
+);
+const years = [...new Set(items.map(({ item }) => item.data.date.getUTCFullYear()))];
 ---
 
 <BaseLayout title="News">
 	<h1 class="mb-4 text-3xl font-semibold">News</h1>
-	<p>Coming soon.</p>
+
+	{
+		years.map((year) => (
+			<section class="mt-10">
+				<h2 class="mb-4 border-b border-line pb-2 text-xl font-semibold">{year}</h2>
+				<ul class="space-y-3">
+					{items
+						.filter(({ item }) => item.data.date.getUTCFullYear() === year)
+						.map(({ item, full, Content }) => (
+							<li class="grid gap-x-5 sm:grid-cols-[7rem_1fr]">
+								<time datetime={item.data.date.toISOString().slice(0, 10)} class="text-sm leading-6 text-muted">
+									{formatNewsDate(item.data.date)}
+								</time>
+								{full ? (
+									<a href={newsUrl(item)} class="font-medium hover:text-accent hover:underline">
+										{item.data.title}
+									</a>
+								) : (
+									Content && (
+										<div class="[&_a]:text-accent [&_a:hover]:underline [&_p+p]:mt-2">
+											<Content />
+										</div>
+									)
+								)}
+							</li>
+						))}
+				</ul>
+			</section>
+		))
+	}
 </BaseLayout>

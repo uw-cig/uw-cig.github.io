@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { defineCollection } from "astro:content";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
 import { bibtexLoader } from "./loaders/bibtex";
@@ -187,4 +187,35 @@ const papers = defineCollection({
 	}),
 });
 
-export const collections = { team, students, venues, papers };
+// "2027-01-04" or "2027-01-04 08:00:00-0400". The date and time are kept as
+// written (stored as UTC, offset ignored), so the date shown is the one in the file.
+const NEWS_DATE = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?\s*(?:Z|[+-]\d{2}:?\d{2})?)?$/;
+
+const newsDate = z.union([z.date(), z.string()]).transform((value, ctx) => {
+	// YAML may already have turned the value into a Date (always UTC for a bare date).
+	if (value instanceof Date) return value;
+	const m = NEWS_DATE.exec(value.trim());
+	const date = m && new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] ?? 0), +(m[5] ?? 0), +(m[6] ?? 0)));
+	if (!date || date.getUTCDate() !== +m[3]) {
+		ctx.addIssue({
+			code: "custom",
+			message: `"date" must look like 2027-01-04 or 2027-01-04 08:00:00-0400, got "${value}"`,
+		});
+		return z.NEVER;
+	}
+	return date;
+});
+
+// al-folio news files. Other front-matter fields (layout, related_posts, ...) are ignored.
+const news = defineCollection({
+	loader: glob({ base: "src/content/news", pattern: "**/*.md" }),
+	schema: z.object({
+		date: newsDate,
+		// With a title the item is a full post with its own page; without one it is a one-line item.
+		title: z.string().min(1).optional(),
+		// Legacy al-folio flag: inline: true makes it a one-line item even with a title.
+		inline: z.boolean().optional(),
+	}),
+});
+
+export const collections = { team, students, venues, papers, news };

@@ -29,3 +29,32 @@ Both fields are optional. Without `color`, the badge uses the site's accent colo
 **Mark a venue selective.** Add `selective: true` to the venue. Its `@inproceedings` papers then move from Conference to Selective Conference.
 
 **Move a preprint to published.** Edit the existing entry: change `abbr` from `arXiv` to the venue's key, replace the `journal={arXiv:...}` line with the real `journal` (for `@article`) or `booktitle` (and change the entry type to `@inproceedings` for a conference), update `year`, add `volume`, `pages`, `doi`, etc. as available, and keep the `arxiv` field so the arXiv button stays. Then move the entry from the preprints part of the file to its year.
+
+## News
+
+News items are Markdown files in `src/content/news/`, shown on `/news/` newest first and grouped by year. Name files `YYYY-MM-DD-short-name.md` (e.g. `2027-01-04-new-student-harry.md`). For full posts the file name becomes the URL (`/news/2027-01-04-new-student-harry/`).
+
+**One-line item** (the common case): only a `date`, and the body is shown in the list.
+
+```markdown
+---
+date: 2027-01-04
+---
+
+Welcome to [Harry Mellow](https://www.linkedin.com/in/harrymellow), who has joined CIG as a PhD student!
+```
+
+**Full post**: add a `title`. The list shows the title, linking to a page with the full body.
+
+```markdown
+---
+date: 2027-01-04
+title: NSF awards nearly $1M for collaborative project
+---
+
+First paragraph...
+
+More paragraphs, lists, links...
+```
+
+`date` can also be written as `2027-01-04 08:00:00-0400`, as in the older al-folio files, and the date shown is the one written. Items dated in the future still appear, at the top of the list. In older files, `inline: true` makes an item one-line even if it has a title. Other front-matter fields (`layout`, `related_posts`) are ignored. A missing or malformed `date` fails the build with an error naming the file.
