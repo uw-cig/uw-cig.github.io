@@ -1,8 +1,64 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TeamCard from "../components/TeamCard.astro";
+
+const members = (await getCollection("team")).map((entry) => entry.data);
+type Member = (typeof members)[number];
+
+const byName = (a: Member, b: Member) => a.name.localeCompare(b.name);
+const byYearDesc = (a: Member, b: Member) => (b.year ?? 0) - (a.year ?? 0) || byName(a, b);
+
+const current = (type: Member["type"]) => members.filter((m) => m.current && m.type === type).sort(byName);
+const alumni = (type: Member["type"]) => members.filter((m) => !m.current && m.type === type).sort(byYearDesc);
+
+const currentSections = [
+	{ title: "Principal Investigator", people: current("pi"), fullWidth: true },
+	{ title: "Postdocs", people: current("postdoc") },
+	{ title: "PhD Students", people: current("phd") },
+	{ title: "MS Students", people: current("ms") },
+	{ title: "Undergraduate Students", people: current("undergrad") },
+].filter((s) => s.people.length > 0);
+
+const alumniSections = [
+	{ title: "PhD Alumni", people: alumni("phd") },
+	{ title: "Postdoc Alumni", people: alumni("postdoc") },
+	{ title: "MS Alumni", people: alumni("ms") },
+	{ title: "Undergraduate Alumni", people: alumni("undergrad") },
+].filter((s) => s.people.length > 0);
 ---
 
 <BaseLayout title="Team">
 	<h1 class="mb-4 text-3xl font-semibold">Team</h1>
-	<p>Coming soon.</p>
+
+	{
+		currentSections.map(({ title, people, fullWidth }) => (
+			<section class="mt-10">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">{title}</h2>
+				<div class:list={["grid gap-8", !fullWidth && "sm:grid-cols-2"]}>
+					{people.map((member) => (
+						<TeamCard member={member} />
+					))}
+				</div>
+			</section>
+		))
+	}
+
+	{
+		alumniSections.length > 0 && (
+			<section class="mt-14">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Alumni</h2>
+				{alumniSections.map(({ title, people }) => (
+					<div class="mt-8 first:mt-0">
+						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase">{title}</h3>
+						<div class="grid gap-8 sm:grid-cols-2">
+							{people.map((member) => (
+								<TeamCard member={member} />
+							))}
+						</div>
+					</div>
+				))}
+			</section>
+		)
+	}
 </BaseLayout>

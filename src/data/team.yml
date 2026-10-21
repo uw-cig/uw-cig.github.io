@@ -1,0 +1,181 @@
+#=======================================================================
+# Team members, shown on /team/. Validated by src/content.config.ts;
+# the build fails with an error naming the entry if a rule is broken.
+#
+# Fields:
+#   name:         full name                                   [always mandatory]
+#   type:         pi | postdoc | phd | ms | undergrad         [always mandatory]
+#   current:      true for current members; false or omitted for alumni
+#   institution:  e.g. UW-Madison, WashU                      [mandatory for current members]
+#   photo:        filename in public/images/team/, ideally square
+#                 (a gray placeholder is shown if the file is missing)
+#                                                             [always mandatory]
+#   website:      URL; the name links to it                   [optional]
+#   current_role: current members: overrides the default “PhD Student,
+#                 Institution” / “Postdoc, Institution” line;
+#                 alumni: shown as “Now: …”                   [optional]
+#                 Either a single string:
+#                   current_role: Research Scientist, Google
+#                 or a list, shown one item per line (for alumni,
+#                 only the first line gets the “Now:” prefix):
+#                   current_role:
+#                     - Assistant Professor, Johns Hopkins University
+#                     - Visiting Researcher, Google
+#   thesis:       thesis title (alumni)                       [optional]
+#   year:         year the person left / graduated            [mandatory for alumni]
+#   focus:        short research focus                        [optional]
+#=======================================================================
+
+#-----------------------
+# Principal Investigator
+#-----------------------
+
+- name: Ulugbek S. Kamilov
+  type: pi
+  current: true
+  institution: UW-Madison
+  photo: ulugbek-kamilov.jpg # placeholder: add the file to public/images/team/
+  website: https://ukmlv.github.io/
+  current_role:
+    - Leon and Elizabeth Janssen Associate Professor
+    - Department of Electrical and Computer Engineering
+    - Department of Computer Sciences (affiliate)
+    - Department of Radiology (affiliate)
+
+#-----------------------
+# Current PhD students
+#-----------------------
+
+# name: [mandatory]
+# type: phd [mandatory]
+# current: true [mandatory]
+# institution: [mandatory]
+# photo: [mandatory] (put in public/images/team/)
+# website: [optional]
+# current_role: [optional] (string or list of strings; override the default “PhD Student, Institution” line)
+
+- name: Shirin Shoushtari
+  type: phd
+  current: true
+  institution: WashU
+  photo: shirin-shoushtari.jpg
+  website: https://shirinsg.github.io/aboutme/
+
+- name: Edward Chandler
+  type: phd
+  current: true
+  institution: UW-Madison
+  photo: edward-chandler.jpg
+  website: https://edchandler00.github.io/
+
+- name: Chicago Park
+  type: phd
+  current: true
+  institution: UW-Madison
+  photo: chicago-park.jpg
+  website: https://chicagopark.github.io
+
+- name: Xiao Shi
+  type: phd
+  current: true
+  institution: UW-Madison
+  photo: xiao-shi.jpg
+  website: https://xiaoshi2610.github.io
+
+- name: Harry Mellow
+  type: phd
+  current: true
+  institution: UW-Madison
+  photo: harry-mellow.jpg
+  website: https://www.linkedin.com/in/harrymellow
+
+- name: Flora Sun
+  type: phd
+  current: true
+  institution: WashU
+  photo: flora-sun.jpg
+  website: https://flora-sun-zhixin.github.io
+
+- name: Junhao Hu
+  type: phd
+  current: true
+  institution: WashU
+  photo: junhao-hu.jpg
+  website: https://charles-hu.github.io/
+
+#-----------------------
+# Current Postdocs
+#-----------------------
+
+# name: [mandatory]
+# type: postdoc [mandatory]
+# current: true [mandatory]
+# institution: [mandatory]
+# photo: [mandatory] (put in public/images/team/, 125x125) 
+# website: [optional]
+# focus: [optional]
+# current_role: [optional] (string or list of strings; override the default Postdoc, Institution” line)
+
+#-----------------------
+# PhD alumnus
+#-----------------------
+
+# name: [mandatory]
+# type: phd [mandatory]
+# year: [mandatory]
+# photo: [mandatory] (put in public/images/team/)
+# website: [optional]
+# current_role: [optional] (string or list of strings; override the default “PhD Student, Institution” line)
+# thesis: [optional]
+
+- name: Yu Sun
+  type: phd # phd or postdoc
+  photo: yu-sun.jpg           # put in public/images/team/
+  year: 2022
+  thesis: Integrating Physical Models and Deep Priors for Computational Imaging
+  current_role: Assistant Professor, Johns Hopkins University
+  website: https://sunyumark.github.io/
+
+- name: Xiaojian Xu
+  type: phd
+  photo: xiaojian-xu.jpg           
+  year: 2022
+  thesis: Model-based Deep Learning for Computational Imaging
+  current_role: AI Research Scientist, GE HealthCare
+  website: https://xuxiaojian.github.io
+
+- name: Jiaming Liu
+  type: phd
+  photo: jiaming-liu.jpg           
+  year: 2024
+  thesis: Learning-based Artifacts Removal Priors for Computational Imaging
+  current_role: Research Scientist, Uber
+  website: https://jiamingliu-jeremy.github.io
+
+- name: Weijie Gan
+  type: phd
+  photo: weijie-gan.jpg           
+  year: 2025
+  thesis: Computational Imaging under Incomplete Information
+  current_role: Advanced Senior AI Research Scientist, Accenture
+  website: https://scholar.google.com/citations?user=Ib20Ge0AAAAJ&hl=en
+
+- name: Yuyang Hu
+  type: phd
+  photo: yuyang-hu.jpg
+  year: 2026
+  thesis: Inference-Time Scaling in Computational Imaging
+  current_role: Research Scientist, Google
+  website: https://hu-yuyang.github.io
+
+#-----------------------
+# Postdoc alumnus
+#-----------------------
+
+# name: [mandatory]
+# type: postdoc [mandatory]
+# photo: [mandatory] (put in public/images/team/, 125x125) 
+# website: [optional]
+# year: [mandatory]
+# current_role: [optional] (string or list of strings; override the default Postdoc, Institution” line)
+# focus: [optional]
