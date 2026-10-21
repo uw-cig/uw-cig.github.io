@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { site } from "../utils/site";
 
 interface Props {
 	title: string;
@@ -19,6 +20,13 @@ const navLinks = [
 const stripSlash = (path: string) => path.replace(/\/+$/, "") || "/";
 const currentPath = stripSlash(Astro.url.pathname);
 const year = new Date().getFullYear();
+
+const footerLinks = [
+	{ label: site.email, href: `mailto:${site.email}`, external: false },
+	...site.links.map(({ label, url }) => ({ label, href: url, external: true })),
+	{ label: "Google Scholar", href: site.google_scholar, external: true },
+];
+const footerLabel = "text-xs font-semibold tracking-widest text-accent uppercase";
 ---
 
 <html lang="en">
@@ -29,7 +37,7 @@ const year = new Date().getFullYear();
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{`${title} | CIG @ UW–Madison`}</title>
+		<title>{`${title} · ${site.university_short} ${site.short_name}`}</title>
 	</head>
 	<body class="flex min-h-screen flex-col bg-background text-ink">
 		<header class="border-b-2 border-accent">
@@ -37,8 +45,8 @@ const year = new Date().getFullYear();
 				<a href="/" class="flex items-center gap-3 leading-tight">
 					<img src="/favicon.svg" alt="" aria-hidden="true" width="40" height="40" class="size-8 shrink-0 sm:size-10" />
 					<span>
-						<span class="block text-[15px] font-semibold sm:text-[16px]">Computational Imaging Group</span>
-						<span class="block text-xs text-muted sm:text-sm">University of Wisconsin–Madison</span>
+						<span class="block text-[15px] font-semibold sm:text-[16px]">{site.name}</span>
+						<span class="block text-xs text-muted sm:text-sm">{site.university}</span>
 					</span>
 				</a>
 
@@ -85,8 +93,54 @@ const year = new Date().getFullYear();
 		</main>
 
 		<footer class="border-t border-line bg-surface">
-			<div class="mx-auto max-w-[960px] px-6 py-6 text-sm text-muted">
-				Computational Imaging Group · University of Wisconsin–Madison · © {year}
+			<div class="mx-auto max-w-[960px] px-6 pt-10 pb-6">
+				<div class="grid gap-8 md:grid-cols-3">
+					<div>
+						<p class={footerLabel}>{site.university}</p>
+						<p class="mt-2 text-xl leading-snug font-semibold">{site.name}</p>
+					</div>
+
+					<div>
+						<p class={footerLabel}>Find us</p>
+						<address class="mt-2 text-sm leading-6 text-muted not-italic">
+							{site.address.map((line) => <span class="block">{line}</span>)}
+						</address>
+					</div>
+
+					<div>
+						<p class={footerLabel}>Get in touch</p>
+						<ul class="mt-2 space-y-1 text-sm leading-6 text-muted">
+							{
+								footerLinks.map(({ label, href, external }) => (
+									<li>
+										<a
+											href={href}
+											class="hover:text-accent"
+											target={external ? "_blank" : undefined}
+											rel={external ? "noopener" : undefined}
+										>
+											{label}
+											{external && (
+												<>
+													<span aria-hidden="true"> ↗</span>
+													<span class="sr-only"> (opens in a new tab)</span>
+												</>
+											)}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+
+				<div class="mt-10 flex flex-col gap-3 border-t border-line pt-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+					<div class="flex items-center gap-2">
+						<img src="/favicon.svg" alt="" aria-hidden="true" width="24" height="24" class="size-6" />
+						<span class="font-medium text-ink">{site.name}</span>
+					</div>
+					<p>© {year} {site.name} · <span class="whitespace-nowrap">{site.university_short}</span></p>
+				</div>
 			</div>
 		</footer>
 

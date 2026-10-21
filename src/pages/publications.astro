@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PaperEntry from "../components/PaperEntry.astro";
-import { GOOGLE_SCHOLAR_URL } from "../consts";
+import { site } from "../utils/site";
 
 const venues = new Map((await getCollection("venues")).map((entry) => [entry.id, entry.data]));
 const papers = (await getCollection("papers")).map((entry) => entry.data).sort((a, b) => a.order - b.order);
@@ -36,7 +36,7 @@ const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 <BaseLayout title="Publications">
 	<h1 class="mb-4 text-3xl font-semibold">Publications</h1>
 	<p>
-		For a complete list, see <a href={GOOGLE_SCHOLAR_URL} class="text-accent hover:underline">Google Scholar</a>.
+		For a complete list, see <a href={site.google_scholar} class="text-accent hover:underline">Google Scholar</a>.
 	</p>
 
 	<div class="mt-8 space-y-3">

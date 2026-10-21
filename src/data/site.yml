@@ -1,0 +1,38 @@
+#=======================================================================
+# Site-wide details, shown in the header and footer of every page. Read by
+# src/utils/site.ts; the build fails with an error naming the field if
+# a rule is broken.
+#
+# Fields:
+#   name:             group name, shown in the header and footer
+#                                                             [mandatory]
+#   short_name:       abbreviation, used in browser-tab titles
+#                     ("Team · UW–Madison CIG")               [mandatory]
+#   university:       full university name (header, footer)   [mandatory]
+#   university_short: short form (copyright line, tab titles) [mandatory]
+#   address:          list of address lines ("Find us")       [mandatory]
+#   email:            contact address; shown as a mailto link [mandatory]
+#   google_scholar:   Google Scholar profile URL; shown in the footer and
+#                     linked from the Publications page       [mandatory]
+#   links:            other links under "Get in touch", each with a
+#                     `label` and a `url`; shown after the email and
+#                     before Google Scholar, opening in a new tab
+#                                                             [optional]
+#=======================================================================
+
+name: Computational Imaging Group
+short_name: CIG
+university: University of Wisconsin–Madison
+university_short: UW–Madison
+
+address:
+  - Discovery Building
+  - 330 N. Orchard St
+  - Madison, WI 53715
+
+email: kamilov@wisc.edu
+google_scholar: https://scholar.google.com/citations?user=3qYUSDwAAAAJ&hl=en
+
+links:
+  - label: X / Twitter
+    url: https://x.com/uwcig
