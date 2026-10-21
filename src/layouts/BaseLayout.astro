@@ -1,0 +1,99 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+const navLinks = [
+	{ href: "/", label: "Home" },
+	{ href: "/team/", label: "Team" },
+	{ href: "/publications/", label: "Publications" },
+	{ href: "/teaching/", label: "Teaching" },
+	{ href: "/news/", label: "News" },
+	{ href: "/join/", label: "Join" },
+];
+
+const stripSlash = (path: string) => path.replace(/\/+$/, "") || "/";
+const currentPath = stripSlash(Astro.url.pathname);
+const year = new Date().getFullYear();
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{`${title} | CIG @ UW–Madison`}</title>
+	</head>
+	<body class="flex min-h-screen flex-col bg-background text-ink">
+		<header class="border-b-2 border-accent">
+			<div class="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
+				<a href="/" class="leading-tight">
+					<span class="block font-semibold">Computational Imaging Group</span>
+					<span class="block text-sm text-muted">University of Wisconsin–Madison</span>
+				</a>
+
+				<button
+					id="nav-toggle"
+					type="button"
+					class="rounded border border-line px-3 py-1 text-sm md:hidden"
+					aria-controls="site-nav"
+					aria-expanded="false"
+				>
+					Menu
+				</button>
+
+				<nav id="site-nav" class="hidden w-full md:block md:w-auto" aria-label="Main">
+					<ul class="flex flex-col gap-2 md:flex-row md:gap-6">
+						{
+							navLinks.map(({ href, label }) => {
+								const isCurrent = stripSlash(href) === currentPath;
+								return (
+									<li>
+										<a
+											href={href}
+											aria-current={isCurrent ? "page" : undefined}
+											class:list={[
+												"inline-block border-b-2 pb-0.5",
+												isCurrent
+													? "border-accent text-accent"
+													: "border-transparent text-ink hover:text-accent",
+											]}
+										>
+											{label}
+										</a>
+									</li>
+								);
+							})
+						}
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main class="mx-auto w-full max-w-[960px] flex-1 px-6 py-10">
+			<slot />
+		</main>
+
+		<footer class="border-t border-line bg-surface">
+			<div class="mx-auto max-w-[960px] px-6 py-6 text-sm text-muted">
+				Computational Imaging Group · University of Wisconsin–Madison · © {year}
+			</div>
+		</footer>
+
+		<script>
+			const toggle = document.getElementById("nav-toggle");
+			const nav = document.getElementById("site-nav");
+			toggle?.addEventListener("click", () => {
+				const open = toggle.getAttribute("aria-expanded") === "true";
+				toggle.setAttribute("aria-expanded", String(!open));
+				nav?.classList.toggle("hidden", open);
+			});
+		</script>
+	</body>
+</html>

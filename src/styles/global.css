@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+	--color-background: #ffffff;
+	--color-ink: #1a1a1a;
+	--color-muted: #6b6b6b;
+	--color-surface: #f7f7f7;
+	--color-line: #e5e5e5;
+	--color-accent: #9b0000;
+}
