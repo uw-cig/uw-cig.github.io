@@ -24,8 +24,9 @@ const year = new Date().getFullYear();
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{`${title} | CIG @ UW–Madison`}</title>
@@ -33,9 +34,12 @@ const year = new Date().getFullYear();
 	<body class="flex min-h-screen flex-col bg-background text-ink">
 		<header class="border-b-2 border-accent">
 			<div class="mx-auto flex max-w-[960px] flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
-				<a href="/" class="leading-tight">
-					<span class="block font-semibold">Computational Imaging Group</span>
-					<span class="block text-sm text-muted">University of Wisconsin–Madison</span>
+				<a href="/" class="flex items-center gap-3 leading-tight">
+					<img src="/favicon.svg" alt="" aria-hidden="true" width="40" height="40" class="size-8 shrink-0 sm:size-10" />
+					<span>
+						<span class="block font-semibold">Computational Imaging Group</span>
+						<span class="block text-sm text-muted">University of Wisconsin–Madison</span>
+					</span>
 				</a>
 
 				<button
