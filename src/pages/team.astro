@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TeamCard from "../components/TeamCard.astro";
+import { termKey } from "../utils/terms";
 
 const members = (await getCollection("team")).map((entry) => entry.data);
 type Member = (typeof members)[number];
@@ -12,19 +13,27 @@ const byYearDesc = (a: Member, b: Member) => (b.year ?? 0) - (a.year ?? 0) || by
 const current = (type: Member["type"]) => members.filter((m) => m.current && m.type === type).sort(byName);
 const alumni = (type: Member["type"]) => members.filter((m) => !m.current && m.type === type).sort(byYearDesc);
 
+const students = (await getCollection("students")).map((entry) => entry.data);
+type Student = (typeof students)[number];
+
+const currentStudents = students.filter((s) => s.current).sort((a, b) => a.name.localeCompare(b.name));
+const formerStudents = students
+	.filter((s) => !s.current)
+	.sort((a, b) => termKey(b.end!) - termKey(a.end!) || a.name.localeCompare(b.name));
+
+const mentorSites = new Map(members.map((m) => [m.name, m.website]));
+const termRange = (s: Student) => (s.start === s.end ? s.start : `${s.start} – ${s.end}`);
+const programLabel = (s: Student) => `${s.program} Student, ${s.institution}`;
+
 const currentSections = [
 	{ title: "Principal Investigator", people: current("pi"), fullWidth: true },
 	{ title: "Postdocs", people: current("postdoc") },
 	{ title: "PhD Students", people: current("phd") },
-	{ title: "MS Students", people: current("ms") },
-	{ title: "Undergraduate Students", people: current("undergrad") },
 ].filter((s) => s.people.length > 0);
 
 const alumniSections = [
 	{ title: "PhD Alumni", people: alumni("phd") },
 	{ title: "Postdoc Alumni", people: alumni("postdoc") },
-	{ title: "MS Alumni", people: alumni("ms") },
-	{ title: "Undergraduate Alumni", people: alumni("undergrad") },
 ].filter((s) => s.people.length > 0);
 ---
 
@@ -45,7 +54,44 @@ const alumniSections = [
 	}
 
 	{
-		alumniSections.length > 0 && (
+		currentStudents.length > 0 && (
+			<section class="mt-10">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Student Researchers</h2>
+				<ul class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+					{currentStudents.map((s) => (
+						<li>
+							<h3 class="font-semibold">
+								{s.website ? (
+									<a href={s.website} class="hover:text-accent hover:underline">
+										{s.name}
+									</a>
+								) : (
+									s.name
+								)}
+							</h3>
+							<p class="text-sm">{programLabel(s)}</p>
+							<p class="text-sm text-muted italic">{s.project}</p>
+							{s.mentor && (
+								<p class="text-sm text-muted">
+									Mentor:{" "}
+									{mentorSites.get(s.mentor) ? (
+										<a href={mentorSites.get(s.mentor)} class="hover:text-accent hover:underline">
+											{s.mentor}
+										</a>
+									) : (
+										s.mentor
+									)}
+								</p>
+							)}
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
+
+	{
+		(alumniSections.length > 0 || formerStudents.length > 0) && (
 			<section class="mt-14">
 				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Alumni</h2>
 				{alumniSections.map(({ title, people }) => (
@@ -58,6 +104,72 @@ const alumniSections = [
 						</div>
 					</div>
 				))}
+				{formerStudents.length > 0 && (
+					<div class="mt-8 first:mt-0">
+						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase">
+							Former Student Researchers
+						</h3>
+						<table class="block w-full text-sm sm:table">
+							<thead class="hidden sm:table-header-group">
+								<tr class="border-b border-line text-left">
+									<th class="py-2 pr-4 font-semibold">Name</th>
+									<th class="py-2 pr-4 font-semibold">Program</th>
+									<th class="py-2 pr-4 font-semibold">Term</th>
+									<th class="py-2 pr-4 font-semibold">Project</th>
+									<th class="py-2 font-semibold">Mentor</th>
+								</tr>
+							</thead>
+							<tbody class="block sm:table-row-group">
+								{formerStudents.map((s) => {
+									const mentorSite = s.mentor ? mentorSites.get(s.mentor) : undefined;
+									return (
+										<tr class="block border-b border-line py-3 align-top sm:table-row sm:py-0">
+											<td class="block font-semibold sm:table-cell sm:py-2 sm:pr-4">
+												{s.website ? (
+													<a href={s.website} class="hover:text-accent hover:underline">
+														{s.name}
+													</a>
+												) : (
+													s.name
+												)}
+											</td>
+											<td
+												data-label="Program: "
+												class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:before:content-none"
+											>
+												{s.program}, {s.institution}
+											</td>
+											<td
+												data-label="Term: "
+												class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:whitespace-nowrap sm:before:content-none"
+											>
+												{termRange(s)}
+											</td>
+											<td
+												data-label="Project: "
+												class="block italic before:text-muted before:not-italic before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:before:content-none"
+											>
+												{s.project}
+											</td>
+											<td
+												data-label="Mentor: "
+												class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:before:content-none"
+											>
+												{mentorSite ? (
+													<a href={mentorSite} class="hover:text-accent hover:underline">
+														{s.mentor}
+													</a>
+												) : (
+													s.mentor
+												)}
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</section>
 		)
 	}

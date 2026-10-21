@@ -1,0 +1,52 @@
+#=======================================================================
+# BS and MS student researchers, current and former, shown on /team/.
+# Current students appear under "Student Researchers"; former students
+# appear in the "Former Student Researchers" table under Alumni.
+# Validated by src/content.config.ts; the build fails with an error
+# naming the student if a rule is broken.
+#
+# Fields:
+#   name:         full name                                   [always mandatory]
+#   program:      BS | MS                                     [always mandatory]
+#   institution:  e.g. UW-Madison, WashU                      [optional, default UW-Madison]
+#   project:      project title                               [always mandatory]
+#   mentor:       must match a `name` in src/data/team.yml exactly
+#                                                             [mandatory for former students,
+#                                                              optional for current]
+#   current:      true for current students; false or omitted for former
+#   start:        first term, "Spring|Summer|Fall YYYY", e.g. Fall 2026
+#                                                             [always mandatory]
+#   end:          last term, same format, not before start    [mandatory for former students]
+#   website:      URL; the name links to it                   [optional]
+#
+# End-of-semester update: for each student who has finished, set
+#   current: false
+# and fill in `end` with their last term (e.g. end: Fall 2026). Add a
+# mentor if the entry doesn't have one yet. The student then moves from
+# "Student Researchers" to the "Former Student Researchers" table.
+#=======================================================================
+
+#-----------------------
+# Current students
+#-----------------------
+
+- name: Chi-Chun (Joshua) Wang
+  program: BS
+  institution: UW-Madison
+  project: "Motion Correction in 3D Whole-Body MRI"
+  mentor: Chicago Park
+  current: true
+  start: Spring 2026
+  website: https://www.linkedin.com/in/chi-chun-wang-2204393a8
+
+#-----------------------
+# Former students
+#-----------------------
+
+# PLACEHOLDER: replace or delete
+- name: Placeholder Former Student
+  program: MS
+  project: Placeholder Project Title
+  mentor: Edward Chandler
+  start: Fall 2025
+  end: Spring 2026

@@ -2,9 +2,14 @@
 # Team members, shown on /team/. Validated by src/content.config.ts;
 # the build fails with an error naming the entry if a rule is broken.
 #
+# BS and MS student researchers (current and former) are not listed
+# here; they live in src/data/students.yml. Their "mentor" field must
+# match a name in this file exactly, so renaming someone here means
+# updating students.yml too.
+#
 # Fields:
 #   name:         full name                                   [always mandatory]
-#   type:         pi | postdoc | phd | ms | undergrad         [always mandatory]
+#   type:         pi | postdoc | phd                          [always mandatory]
 #   current:      true for current members; false or omitted for alumni
 #   institution:  e.g. UW-Madison, WashU                      [mandatory for current members]
 #   photo:        filename in public/images/team/, ideally square

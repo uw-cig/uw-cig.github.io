@@ -1,7 +1,9 @@
+import { readFileSync } from "node:fs";
 import { defineCollection } from "astro:content";
 import { file } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
+import { TERM, termKey } from "./utils/terms";
 
 const slugify = (s: string) =>
 	s
@@ -11,9 +13,11 @@ const slugify = (s: string) =>
 		.trim()
 		.replace(/[\s_]+/g, "-");
 
+const TEAM_FILE = "src/data/team.yml";
+
 const team = defineCollection({
 	// The file loader skips array items without an `id`, so derive one from the name.
-	loader: file("src/data/team.yml", {
+	loader: file(TEAM_FILE, {
 		parser: (text) =>
 			(parse(text) as Record<string, unknown>[]).map((item, i) => ({
 				id: typeof item?.name === "string" ? slugify(item.name) : `entry-${i + 1}`,
@@ -23,7 +27,7 @@ const team = defineCollection({
 	schema: z
 		.object({
 			name: z.string().min(1),
-			type: z.enum(["pi", "postdoc", "phd", "ms", "undergrad"]),
+			type: z.enum(["pi", "postdoc", "phd"]),
 			current: z.boolean().default(false),
 			institution: z.string().optional(),
 			photo: z.string().min(1),
@@ -54,4 +58,85 @@ const team = defineCollection({
 		}),
 });
 
-export const collections = { team };
+// Mentor names are checked against team.yml directly, since a schema
+// cannot query another collection while it is being validated.
+const teamNames = new Set(
+	(parse(readFileSync(TEAM_FILE, "utf8")) as Record<string, unknown>[])
+		.map((m) => m?.name)
+		.filter((n): n is string => typeof n === "string"),
+);
+
+const students = defineCollection({
+	loader: file("src/data/students.yml", {
+		parser: (text) =>
+			((parse(text) as Record<string, unknown>[] | null) ?? []).map((item, i) => ({
+				id:
+					typeof item?.name === "string"
+						? slugify(`${item.name} ${typeof item.start === "string" ? item.start : ""}`)
+						: `entry-${i + 1}`,
+				...item,
+			})),
+	}),
+	schema: z
+		.object({
+			name: z.string().min(1),
+			// Checked in superRefine so the error names the student.
+			program: z.string(),
+			institution: z.string().min(1).default("UW-Madison"),
+			project: z.string().min(1),
+			mentor: z.string().min(1).optional(),
+			current: z.boolean().default(false),
+			start: z.string(),
+			end: z.string().optional(),
+			website: z.url().optional(),
+		})
+		.superRefine((s, ctx) => {
+			if (s.program !== "BS" && s.program !== "MS") {
+				ctx.addIssue({
+					code: "custom",
+					path: ["program"],
+					message: `${s.name}: "program" must be BS or MS, got "${s.program}"`,
+				});
+			}
+			for (const field of ["start", "end"] as const) {
+				const term = s[field];
+				if (term !== undefined && !TERM.test(term)) {
+					ctx.addIssue({
+						code: "custom",
+						path: [field],
+						message: `${s.name}: "${field}" must look like "Fall 2026" (Spring, Summer or Fall + year), got "${term}"`,
+					});
+				}
+			}
+			if (!s.current && s.end === undefined) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["end"],
+					message: `${s.name}: former students (current: false or omitted) require "end"`,
+				});
+			}
+			if (!s.current && s.mentor === undefined) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["mentor"],
+					message: `${s.name}: former students (current: false or omitted) require "mentor"`,
+				});
+			}
+			if (s.end !== undefined && TERM.test(s.start) && TERM.test(s.end) && termKey(s.end) < termKey(s.start)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["end"],
+					message: `${s.name}: "end" (${s.end}) is before "start" (${s.start})`,
+				});
+			}
+			if (s.mentor !== undefined && !teamNames.has(s.mentor)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["mentor"],
+					message: `${s.name}: mentor "${s.mentor}" does not match any name in team.yml`,
+				});
+			}
+		}),
+});
+
+export const collections = { team, students };

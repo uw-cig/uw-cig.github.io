@@ -13,16 +13,12 @@ const typeLabels = {
 	pi: "Principal Investigator",
 	postdoc: "Postdoc",
 	phd: "PhD Student",
-	ms: "MS Student",
-	undergrad: "Undergraduate Student",
 } as const;
 
 const alumniLabels = {
 	pi: "PI",
 	postdoc: "Postdoc",
 	phd: "PhD",
-	ms: "MS",
-	undergrad: "BS",
 } as const;
 
 const hasPhoto = existsSync(join(process.cwd(), "public/images/team", member.photo));
