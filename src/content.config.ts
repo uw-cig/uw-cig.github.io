@@ -218,4 +218,28 @@ const news = defineCollection({
 	}),
 });
 
-export const collections = { team, students, venues, papers, news };
+// Homepage research tabs, in file order.
+const research = defineCollection({
+	loader: file("src/data/research.yml", {
+		parser: (text) =>
+			((parse(text) as Record<string, unknown>[] | null) ?? []).map((item, i) => ({
+				id: typeof item?.title === "string" ? slugify(item.title) : `entry-${i + 1}`,
+				order: i,
+				...item,
+			})),
+	}),
+	schema: z.object({
+		order: z.number().int(),
+		title: z.string().min(1),
+		summary: z.string().min(1),
+		// Filename in src/assets/research/; a missing file shows a placeholder.
+		image: z.string().min(1),
+		// One search string or a list of keywords (joined with "|", i.e. OR).
+		query: z
+			.union([z.string().min(1), z.array(z.string().min(1)).min(1)])
+			.transform((v) => (typeof v === "string" ? [v] : v))
+			.optional(),
+	}),
+});
+
+export const collections = { team, students, venues, papers, news, research };

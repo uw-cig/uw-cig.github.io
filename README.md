@@ -16,6 +16,8 @@ These site-only fields (plus `bibtex_show`, `selected`) are removed from the Bib
 
 Categories are assigned automatically: `abbr={arXiv}` is a **Preprint**, `@article` is a **Journal**, `@inproceedings` at a selective venue is a **Selective Conference**, and anything else is a **Conference**.
 
+**Searching.** The search box matches titles, authors, venues, and years, ignoring case and accents. Each term matches at the start of a word, so `score` finds "score-based" and `CT` does not match "reconstruction". A term in double quotes matches only whole words: `"SPECT"` finds "SPECT" but not "spectral", and `"phase retrieval"` finds that exact phrase. Words separated by spaces must all match; `|` separates alternatives, any of which may match: `diffusion | posterior sampling` finds papers with "diffusion", or with both "posterior" and "sampling". The search and the type filter are kept in the URL (`/publications/?q=diffusion%20%7C%20score&type=journal`), so a filtered view can be linked. The homepage "Related publications" links are built this way from the `query` lists in `src/data/research.yml`.
+
 **Add a venue.** Add a key to `venues.yml` that matches the paper's `abbr`:
 
 ```yaml

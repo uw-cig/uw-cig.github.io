@@ -1,0 +1,95 @@
+#=======================================================================
+# Research areas, shown as tabs on the homepage, in this order.
+# Validated by src/content.config.ts; the build fails with an error
+# naming the entry if a rule is broken.
+#
+# Fields:
+#   title:    area name, shown on the tab and above the summary
+#                                                             [mandatory]
+#   summary:  one or two sentences                            [mandatory]
+#   image:    filename in src/assets/research/                [mandatory]
+#             16:9, ideally 1600–2000px wide (PNG or JPG; it is resized
+#             and converted to AVIF/WebP automatically). If the file is
+#             missing, a dark placeholder is shown and the build warns.
+#   query:    search for the "Related publications →" link, which opens
+#             /publications/?q=<query>; no link without it      [optional]
+#             Either one search string, or a list of keywords that match
+#             if any one of them matches (joined with "|", i.e. OR):
+#               query:
+#                 - diffusion
+#                 - posterior sampling
+#             Within a keyword, all words must appear ("posterior
+#             sampling" needs both), each at the start of a word, so
+#             "score" matches "score-based" but "CT" does not match
+#             "reconstruction". Case and accents are ignored.
+#             Put a keyword in double quotes to match whole words only;
+#             wrap it in single quotes too, or YAML drops the double ones:
+#                 - '"SPECT"'     (matches "SPECT", not "spectral")
+#=======================================================================
+
+- title: Computational Imaging
+  summary: >-
+    We develop mathematical models and algorithms that reconstruct images
+    from incomplete, noisy, and indirect measurements, pushing the limits of
+    what imaging systems can recover.
+  image: computational-imaging.png
+  query:
+    - reconstruction
+    - inverse problem
+    - computational imaging
+    - phase retrieval
+    - tomography
+    - compressive
+
+- title: Generative Modeling
+  summary: >-
+    We develop generative AI methods that learn complex signal and image
+    distributions from data, and study how they enable efficient
+    reconstruction, uncertainty quantification, and inference in
+    high-dimensional inverse problems.
+  image: generative-modeling.png
+  query:
+    - diffusion
+    - score
+    - flow
+    - generative
+    - posterior sampling
+
+- title: Optimization and Inference
+  summary: >-
+    We advance the mathematical foundations of optimization and statistical
+    inference for imaging and sensing, developing scalable, reliable
+    algorithms that integrate physical models with learned representations.
+  image: optimization-inference.png
+  query:
+    - plug-and-play
+    - optimization
+    - proximal
+    - unfolding
+    - unroll
+    - convergence
+    - regularization
+    - generalized linear
+
+- title: Imaging Applications
+  summary: >-
+    We work with scientists and clinicians to bring these methods to real
+    imaging systems, including MRI, CT, PET and SPECT, optical microscopy,
+    and seismic and remote sensing.
+  image: imaging-applications.png
+  query:
+    - MRI
+    - magnetic resonance
+    - '"CT"'
+    - '"PET"'
+    - '"SPECT"'
+    - microscopy
+    - seismic
+    - remote sensing
+    - medical
+    - CBCT
+    - computed tomography
+    - radar
+    - holograph
+    - ptycho
+    - optical tomography

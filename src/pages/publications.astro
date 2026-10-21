@@ -128,14 +128,35 @@ const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 	const TYPES = filterButtons.map((b) => b.dataset.filter!);
 
 	const normalize = (s: string) => s.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+	const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+	// "a b | c" matches entries with (a and b) or c. A term matches at the start of a word;
+	// a quoted term ("CT", or a phrase such as "phase retrieval") only as whole words.
+	const WORD_START = "(?:^|[^\\p{L}\\p{N}])";
+	const termRegExp = (term: string, exact: boolean) =>
+		new RegExp(
+			WORD_START + escapeRegExp(term).replace(/\s+/g, "\\s+") + (exact ? "(?![\\p{L}\\p{N}])" : ""),
+			"u",
+		);
+	const parseQuery = (q: string) =>
+		normalize(q)
+			.split("|")
+			.map((alt) =>
+				[...alt.matchAll(/["“”]([^"“”]*)["“”]|(\S+)/g)].flatMap(([, quoted, word]) => {
+					const term = (quoted ?? word).replace(/["“”]/g, "").trim();
+					return term ? [termRegExp(term, quoted !== undefined)] : [];
+				}),
+			)
+			.filter((terms) => terms.length > 0);
 
 	const params = new URLSearchParams(location.search);
 	let type = TYPES.includes(params.get("type") ?? "") ? params.get("type")! : "all";
 	search.value = params.get("q") ?? "";
 
 	function update() {
-		const words = normalize(search.value).split(/\s+/).filter(Boolean);
-		const matches = (p: HTMLElement) => words.every((w) => p.dataset.search!.includes(w));
+		const alternatives = parseQuery(search.value);
+		const matches = (p: HTMLElement) =>
+			alternatives.length === 0 || alternatives.some((terms) => terms.every((re) => re.test(p.dataset.search!)));
 		const ofType = (p: HTMLElement, t: string) =>
 			t === "all" || (t === "award" ? p.dataset.award === "true" : p.dataset.category === t);
 
@@ -154,7 +175,7 @@ const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 
 		status.textContent = `Showing ${shown} of ${papers.length}`;
 		empty.hidden = shown > 0;
-		clear.hidden = words.length === 0 && type === "all";
+		clear.hidden = !search.value.trim() && type === "all";
 
 		const url = new URL(location.href);
 		if (search.value.trim()) url.searchParams.set("q", search.value.trim());

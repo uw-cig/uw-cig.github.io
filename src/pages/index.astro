@@ -1,8 +1,46 @@
 ---
+import { readFileSync } from "node:fs";
+import { z } from "astro/zod";
+import { parse } from "yaml";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ResearchTabs from "../components/ResearchTabs.astro";
+import NewsItem from "../components/NewsItem.astro";
+import { getRecentNews } from "../utils/news";
+
+const HOME_FILE = "src/data/home.yml";
+const home = z.object({ mission: z.string().min(1) }).safeParse(parse(readFileSync(HOME_FILE, "utf8")));
+if (!home.success) {
+	throw new Error(`${HOME_FILE}: ${home.error.issues.map((i) => `"${i.path.join(".")}" ${i.message}`).join("; ")}`);
+}
+const { mission } = home.data;
+
+const news = await getRecentNews(5);
+
+const headingClass = "mb-6 border-b border-line pb-2 text-sm font-semibold tracking-wide text-muted uppercase";
 ---
 
 <BaseLayout title="Home">
-	<h1 class="mb-4 text-3xl font-semibold">Computational Imaging Group</h1>
-	<p>Placeholder text for the group's home page.</p>
+	<h1 class="sr-only">Computational Imaging Group</h1>
+
+	<section>
+		<h2 class={headingClass}>Our mission</h2>
+		<p class="text-[19px] leading-relaxed">{mission}</p>
+	</section>
+
+	<section class="mt-14">
+		<h2 class={headingClass}>Research</h2>
+		<ResearchTabs />
+	</section>
+
+	<section class="mt-14">
+		<h2 class={headingClass}>News</h2>
+		<ul class="space-y-3">
+			{
+				news.map((item) => (
+					<NewsItem item={item} />
+				))
+			}
+		</ul>
+		<a href="/news/" class="mt-6 inline-block text-accent hover:underline">All news →</a>
+	</section>
 </BaseLayout>

@@ -1,0 +1,32 @@
+---
+import { render } from "astro:content";
+import { formatNewsDate, isFullPost, newsUrl, type NewsItem } from "../utils/news";
+
+interface Props {
+	item: NewsItem;
+}
+
+// One row of a news list: the date, then the title link (full posts) or the body (one-line items).
+const { item } = Astro.props;
+const full = isFullPost(item);
+const Content = full ? undefined : (await render(item)).Content;
+---
+
+<li class="grid gap-x-5 sm:grid-cols-[7rem_1fr]">
+	<time datetime={item.data.date.toISOString().slice(0, 10)} class="text-sm leading-6 text-muted">
+		{formatNewsDate(item.data.date)}
+	</time>
+	{
+		full ? (
+			<a href={newsUrl(item)} class="font-medium hover:text-accent hover:underline">
+				{item.data.title}
+			</a>
+		) : (
+			Content && (
+				<div class="[&_a]:text-accent [&_a:hover]:underline [&_p+p]:mt-2">
+					<Content />
+				</div>
+			)
+		)
+	}
+</li>

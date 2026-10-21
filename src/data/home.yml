@@ -1,0 +1,19 @@
+#=======================================================================
+# Homepage text. Read by src/pages/index.astro.
+#
+# Fields:
+#   mission:  shown under "Our mission" at the top of the homepage
+#                                                             [mandatory]
+#
+# Keep the text on the indented lines after "mission: >-"; line breaks
+# are joined into one paragraph.
+#=======================================================================
+
+mission: >-
+  The Computational Imaging Group (CIG) at UW–Madison develops the
+  mathematical and computational foundations of intelligent systems that
+  sense, reconstruct, and understand the physical world. We study how to
+  recover information from incomplete and noisy measurements by combining
+  physical models, statistical inference, optimization, and generative AI.
+  Our research connects fundamental theory with practical algorithms to
+  advance imaging and sensing across science, medicine, and engineering.
