@@ -23,9 +23,22 @@ const alumniLabels = {
 
 const hasPhoto = existsSync(join(process.cwd(), "public/images/team", member.photo));
 const roleLines = member.current_role ?? [`${typeLabels[member.type]}, ${member.institution}`];
+
+// The photo links to the same page as the name, but is hidden from keyboard
+// and screen readers since the name link already covers it.
+const PhotoLink = member.website ? "a" : Fragment;
+const photoLinkProps = member.website
+	? {
+			href: member.website,
+			tabindex: "-1",
+			"aria-hidden": "true",
+			class: "shrink-0 transition-opacity hover:opacity-80",
+		}
+	: {};
 ---
 
 <article class="flex items-start gap-5">
+	<PhotoLink {...photoLinkProps}>
 	{
 		hasPhoto ? (
 			<img
@@ -40,6 +53,7 @@ const roleLines = member.current_role ?? [`${typeLabels[member.type]}, ${member.
 			<div class="size-[125px] shrink-0 rounded-full border border-line bg-surface" role="img" aria-label={member.name} />
 		)
 	}
+	</PhotoLink>
 
 	<div class="min-w-0 pt-2">
 		<h3 class="text-lg leading-snug font-semibold">
