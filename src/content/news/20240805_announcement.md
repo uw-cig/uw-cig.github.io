@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I have co-organized the [IMSI Workshop on Computational Imaging](https://www.imsi.institute/activities/computational-imaging) in Chicago, IL, USA, on 5-9 August.
+Prof. Kamilov co-organized the [IMSI Workshop on Computational Imaging](https://www.imsi.institute/activities/computational-imaging) in Chicago, IL, USA, on 5-9 August.

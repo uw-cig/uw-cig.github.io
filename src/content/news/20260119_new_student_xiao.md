@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- Welcome to [Xiao Shi](https://xiaoshi2610.github.io/) who has joined CIG as a PhD student!
+ Welcome to [Xiao Shi](https://xiaoshi2610.github.io/), who has joined CIG as a PhD student.

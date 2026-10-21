@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I have been appointed an Affiliate Professor of [Radiology](https://www.radiology.wisc.edu) at UW–Madison.
+Prof. Kamilov has been appointed an Affiliate Professor of [Radiology](https://www.radiology.wisc.edu) at UW–Madison.

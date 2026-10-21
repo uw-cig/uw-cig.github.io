@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I will speak at the [IEEE SPS Webinar](https://landing.signalprocessingsociety.org/ieee-sps-webinars-03-jun-2026).
+Prof. Kamilov spoke at the [IEEE SPS Webinar](https://landing.signalprocessingsociety.org/ieee-sps-webinars-03-jun-2026).

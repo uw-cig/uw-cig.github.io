@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- My former PhD student [Jiaming Liu](https://jiamingliu-jeremy.github.io/) was awarded the <b>Outstanding Doctoral Dissertation Award</b> by the [Department of Electrical and Systems Engineering](https://ese.washu.edu) at [WashU](https://washu.edu/).
+ Former CIG PhD student [Jiaming Liu](https://jiamingliu-jeremy.github.io/) was awarded the <b>Outstanding Doctoral Dissertation Award</b> by the [Department of Electrical and Systems Engineering](https://ese.washu.edu) at [WashU](https://washu.edu/).

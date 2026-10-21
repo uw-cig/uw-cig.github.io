@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- I received an unrestricted research gift from [Google Research](https://research.google/) for the project "Innovative algorithms for computing solutions to imaging inverse problems using pretrained (generative) models".
+ Prof. Kamilov received an unrestricted research gift from [Google Research](https://research.google/) for the project "Innovative algorithms for computing solutions to imaging inverse problems using pretrained (generative) models".

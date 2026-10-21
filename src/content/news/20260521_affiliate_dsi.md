@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I have become an affiliate of the [Data Science Institute](https://dsi.wisc.edu) at UW–Madison.
+Prof. Kamilov has become an affiliate of the [Data Science Institute](https://dsi.wisc.edu) at UW–Madison.

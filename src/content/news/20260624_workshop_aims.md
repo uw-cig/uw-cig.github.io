@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Talk at the [AI for Multimodal Science](https://aims-2026.vercel.app) workshop in San Diego, CA.
+Prof. Kamilov gave a talk at the [AI for Multimodal Science](https://aims-2026.vercel.app) workshop in San Diego, CA.

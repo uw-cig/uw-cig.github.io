@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- I am teaching [Matrix Methods in Machine Learning]() in Spring 2026 at UW-Madison.
+ Prof. Kamilov is teaching [Matrix Methods in Machine Learning]() in Spring 2026 at UW-Madison.

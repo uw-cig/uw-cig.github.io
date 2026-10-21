@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- Welcome to [Harry Mellow](https://www.linkedin.com/in/harrymellow) who has joined CIG as a PhD student!
+ Welcome to [Harry Mellow](https://www.linkedin.com/in/harrymellow), who has joined CIG as a PhD student.

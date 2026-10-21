@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- My former PhD student [Xiaojian Xu](https://xuxiaojian.github.io) is now an AI Research Scientist at the [GE HealthCare](https://www.gehealthcare.com).
+ Former CIG PhD student [Xiaojian Xu](https://xuxiaojian.github.io) is now an AI Research Scientist at [GE HealthCare](https://www.gehealthcare.com).

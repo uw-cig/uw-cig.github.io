@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I will serve as an area chair at [NeurIPS 2026](https://neurips.cc).
+Prof. Kamilov is serving as an area chair for [NeurIPS 2026](https://neurips.cc).

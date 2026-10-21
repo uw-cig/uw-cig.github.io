@@ -5,5 +5,5 @@ inline: true
 related_posts: false
 ---
 
- My PhD student [Weijie Gan](https://wjgancn.github.io) has successfully defended his PhD thesis [Computational Imaging
-under Incomplete Information](). Congratulations to Weijie!
+ CIG PhD student [Weijie Gan](https://wjgancn.github.io) has successfully defended his PhD thesis [Computational Imaging
+under Incomplete Information](). Congratulations to Weijie.

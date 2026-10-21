@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I have been appointed an Affiliate Professor of [Computer Sciences](https://www.cs.wisc.edu/) at UW–Madison.
+Prof. Kamilov has been appointed an Affiliate Professor of [Computer Sciences](https://www.cs.wisc.edu/) at UW–Madison.

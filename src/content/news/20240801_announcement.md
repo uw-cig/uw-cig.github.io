@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- My former PhD student [Yu Sun](https://sunyumark.github.io) is now an Assistant Professor at the ECE department of the [Johns Hopkins University](https://www.jhu.edu).
+ Former CIG PhD student [Yu Sun](https://sunyumark.github.io) is now an Assistant Professor at the ECE department of the [Johns Hopkins University](https://www.jhu.edu).
