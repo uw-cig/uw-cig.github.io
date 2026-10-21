@@ -3,6 +3,7 @@ import { defineCollection } from "astro:content";
 import { file } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
+import { bibtexLoader } from "./loaders/bibtex";
 import { TERM, termKey } from "./utils/terms";
 
 const slugify = (s: string) =>
@@ -139,4 +140,51 @@ const students = defineCollection({
 		}),
 });
 
-export const collections = { team, students };
+const VENUES_FILE = "src/data/venues.yml";
+
+// Keyed by the `abbr` field of papers.bib entries.
+const venues = defineCollection({
+	loader: file(VENUES_FILE),
+	schema: z.object({
+		url: z.url().optional(),
+		color: z
+			.string()
+			.regex(/^#[0-9a-fA-F]{3,8}$/, 'must be a hex color like "#1F257F"')
+			.optional(),
+		selective: z.boolean().default(false),
+	}),
+});
+
+const optionalText = z.string().min(1).optional();
+
+const papers = defineCollection({
+	loader: bibtexLoader({ file: "src/data/papers.bib", venuesFile: VENUES_FILE }),
+	schema: z.object({
+		// Unique even when papers.bib repeats a key; `key` is the BibTeX key as written.
+		id: z.string(),
+		key: z.string(),
+		type: z.string(),
+		// Position in papers.bib, used to keep the file order within a year.
+		order: z.number().int(),
+		title: z.string().min(1),
+		authors: z.array(z.string()).min(1),
+		abbr: optionalText,
+		venue: optionalText,
+		volume: optionalText,
+		number: optionalText,
+		pages: optionalText,
+		address: optionalText,
+		year: z.coerce.number().int(),
+		award: optionalText,
+		arxiv: optionalText,
+		pdf: z.url().optional(),
+		html: z.url().optional(),
+		doi: optionalText,
+		code: z.url().optional(),
+		website: z.url().optional(),
+		category: z.enum(["journal", "selective", "conference"]).optional(),
+		bibtex: z.string(),
+	}),
+});
+
+export const collections = { team, students, venues, papers };

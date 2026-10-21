@@ -1,0 +1,265 @@
+#=======================================================================
+# Publication venues, keyed by the `abbr` field of entries in
+# src/data/papers.bib. Each key is shown as the venue badge on
+# /publications/. Validated by src/content.config.ts.
+#
+# Fields:
+#   url:        URL; the badge links to it                  [optional]
+#   color:      badge background, e.g. "#1F257F" (quoted)   [optional,
+#               default: the site accent color]
+#   selective:  true for selective conferences (ICML, ICLR, NeurIPS,
+#               CVPR, ICCV, ECCV); their @inproceedings entries are
+#               listed as "Selective Conference" rather than
+#               "Conference"                                [optional,
+#               default false]
+#
+# An `abbr` missing from this file gets a gray badge and a build warning.
+#=======================================================================
+
+"arXiv":
+  url: https://arxiv.org/
+  color: "#b31b1b"
+
+"AJP":
+  url: https://aapt.scitation.org/journal/ajp
+  color: "#00369f"
+
+"PhysRev":
+  url: https://journals.aps.org/
+
+"Vision":
+  color: "#009f36"
+
+"ICML":
+  url: https://icml.cc
+  color: "#323AB8"
+  selective: true
+
+"ICLR":
+  url: https://iclr.cc
+  color: "#323AB8"
+  selective: true
+
+"NeurIPS":
+  url: https://neurips.cc
+  color: "#323AB8"
+  selective: true
+
+"CVPR":
+  url: https://cvpr.thecvf.com/
+  color: "#323AB8"
+  selective: true
+
+"ICCV":
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000149/all-proceedings
+  color: "#323AB8"
+  selective: true
+
+"ECCV":
+  url: https://eccv.ecva.net/
+  color: "#323AB8"
+  selective: true
+
+"MRM":
+  url: https://onlinelibrary.wiley.com/journal/15222594
+  color: "#1F257F"
+
+"OJSP":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8782710
+  color: "#1F257F"
+
+"GRSL":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8859
+  color: "#1F257F"
+
+"TCI":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=6745852
+  color: "#1F257F"
+
+"SPM":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=79
+  color: "#1F257F"
+
+"SPL":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=97
+  color: "#1F257F"
+
+"TIP":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=83
+  color: "#1F257F"
+
+"TIT":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=18
+  color: "#1F257F"
+
+"TSP":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=78
+  color: "#1F257F"
+
+"TMI":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=42
+  color: "#1F257F"
+
+"JSAIT":
+  url: https://www.itsoc.org/jsait
+  color: "#1F257F"
+
+"JSTSP":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=4200690
+  color: "#1F257F"
+
+"MedPhys":
+  url: https://aapm.onlinelibrary.wiley.com/journal/24734209
+  color: "#1F257F"
+
+"TGRS":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=36
+  color: "#1F257F"
+
+"TRPMS":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=7433213
+  color: "#1F257F"
+
+"Optica":
+  url: https://opg.optica.org/optica/home.cfm
+  color: "#1F257F"
+
+"JOSAA":
+  url: https://opg.optica.org/josaa/home.cfm
+  color: "#1F257F"
+
+"NMR Biomed":
+  url: https://analyticalsciencejournals.onlinelibrary.wiley.com/journal/10991492
+  color: "#1F257F"
+
+"Nature MI":
+  url: https://www.nature.com/natmachintell/
+  color: "#1F257F"
+
+"Nature Comms":
+  url: https://www.nature.com/ncomms/
+  color: "#1F257F"
+
+"JMBBM":
+  url: https://www.sciencedirect.com/journal/journal-of-the-mechanical-behavior-of-biomedical-materials
+  color: "#1F257F"
+
+"Placenta":
+  url: https://www.sciencedirect.com/journal/placenta
+  color: "#1F257F"
+
+"InvRad":
+  url: https://journals.lww.com/investigativeradiology/pages/default.aspx
+  color: "#1F257F"
+
+"MIA":
+  url: https://www.sciencedirect.com/journal/medical-image-analysis
+  color: "#1F257F"
+
+"AdvPhoton":
+  url: https://www.spiedigitallibrary.org/journals/advanced-photonics#_=_
+  color: "#1F257F"
+
+"OpEx":
+  url: https://opg.optica.org/oe/home.cfm
+  color: "#1F257F"
+
+"EJNMMI Res":
+  url: https://ejnmmires.springeropen.com
+  color: "#1F257F"
+
+"JMIV":
+  url: https://link.springer.com/journal/10851
+  color: "#1F257F"
+
+"JMRI":
+  url: https://onlinelibrary.wiley.com/journal/15222586
+  color: "#1F257F"
+
+"BPEX":
+  url: https://iopscience.iop.org/journal/2057-1976
+  color: "#1F257F"
+
+"ISBI":
+  color: "#6B7280"
+  url: https://biomedicalimaging.org
+
+"CAMSAP":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1001691/all-proceedings
+
+"ICASSP":
+  color: "#6B7280"
+  url: http://ieeeicassp.org
+
+"ICIP":
+  color: "#6B7280"
+  url: http://ieeeicip.org
+
+"SSP":
+  color: "#6B7280"
+  url: https://2025.ieeessp.org/
+
+"ISIT":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000369/all-proceedings
+
+"CoSeRa":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1810005/all-proceedings
+
+"ITW":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000368/all-proceedings
+
+"IGARSS":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000307/all-proceedings
+
+"SampTA":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1807964/all-proceedings
+
+"Asilomar":
+  color: "#6B7280"
+  url: https://www.asilomarsscconf.org
+
+"ICCVW":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1000149/all-proceedings
+
+"CVPRF":
+  color: "#6B7280"
+  url: https://openreview.net/group?id=thecvf.com%2FCVPR%2F2026%2FFindings_Track&referrer=%5BHomepage%5D%28%2F%29#tab-recent-activity
+
+"WACV":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/servlet/opac?punumber=10483279
+
+"ICMEW":
+  color: "#6B7280"
+  url: https://ieeexplore.ieee.org/xpl/conhome/1801805/all-proceedings
+
+"MICCAIW":
+  color: "#6B7280"
+  url: https://miccai.org/
+
+"BASP":
+  color: "#6B7280"
+  url: https://baspfrontiers.org
+
+"iTWIST":
+  color: "#6B7280"
+  url: https://sites.google.com/view/itwist18
+
+"MATH":
+  color: "#6B7280"
+  url: https://opg.optica.org/conference.cfm?meetingid=178
+
+"LSC":
+  color: "#6B7280"
+  url: https://opg.optica.org/conference.cfm?meetingid=177
+
+"SPARS":
+  color: "#6B7280"
+  url: https://www.google.com/search?q=Signal+Processing+with+Adaptive+Sparse+Structured+Representations+%28SPARS%29&sca_esv=41b22d2abb3efe70&sca_upv=1&ei=wYrCZtV86q6m1A-zzsnhDQ&ved=0ahUKEwiV4d7N3_-HAxVql4kEHTNnMtwQ4dUDCA8&uact=5&oq=Signal+Processing+with+Adaptive+Sparse+Structured+Representations+%28SPARS%29&gs_lp=Egxnd3Mtd2l6LXNlcnAiSVNpZ25hbCBQcm9jZXNzaW5nIHdpdGggQWRhcHRpdmUgU3BhcnNlIFN0cnVjdHVyZWQgUmVwcmVzZW50YXRpb25zIChTUEFSUylIujdQizBYgTVwAngAkAEAmAEAoAEAqgEAuAEDyAEA-AEC-AEBmAIAoAIAmAMAiAYBkgcAoAcA&sclient=gws-wiz-serp

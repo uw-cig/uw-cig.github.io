@@ -1,8 +1,218 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PaperEntry from "../components/PaperEntry.astro";
+import { GOOGLE_SCHOLAR_URL } from "../consts";
+
+const venues = new Map((await getCollection("venues")).map((entry) => [entry.id, entry.data]));
+const papers = (await getCollection("papers")).map((entry) => entry.data).sort((a, b) => a.order - b.order);
+type Paper = (typeof papers)[number];
+
+const categoryOf = (p: Paper) => {
+	if (p.category) return p.category;
+	if (p.abbr === "arXiv") return "preprint";
+	if (p.type === "article") return "journal";
+	if (p.type === "inproceedings" && p.abbr && venues.get(p.abbr)?.selective) return "selective";
+	return "conference";
+};
+
+const entries = papers.map((paper) => ({ paper, category: categoryOf(paper) }));
+const preprints = entries.filter((e) => e.category === "preprint");
+const published = entries.filter((e) => e.category !== "preprint");
+const years = [...new Set(published.map((e) => e.paper.year))].sort((a, b) => b - a);
+
+const filters = [
+	{ type: "all", label: "All", count: entries.length },
+	{ type: "preprint", label: "Preprints" },
+	{ type: "journal", label: "Journal" },
+	{ type: "selective", label: "Selective Conference" },
+	{ type: "conference", label: "Conference" },
+	{ type: "award", label: "Awards", count: entries.filter((e) => e.paper.award).length },
+].map((f) => ({ ...f, count: f.count ?? entries.filter((e) => e.category === f.type).length }));
+
+const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 ---
 
 <BaseLayout title="Publications">
 	<h1 class="mb-4 text-3xl font-semibold">Publications</h1>
-	<p>Coming soon.</p>
+	<p>
+		For a complete list, see <a href={GOOGLE_SCHOLAR_URL} class="text-accent hover:underline">Google Scholar</a>.
+	</p>
+
+	<div class="mt-8 space-y-3">
+		<div class="relative">
+			<label for="pub-search" class="sr-only">Search publications</label>
+			<input
+				id="pub-search"
+				type="search"
+				autocomplete="off"
+				placeholder="Search by title, author, venue, or year"
+				class="w-full rounded border border-line bg-background px-3 py-2 pr-10 focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:appearance-none"
+			/>
+			<button
+				id="pub-clear"
+				type="button"
+				hidden
+				aria-label="Clear search and filter"
+				class="absolute top-1/2 right-2 -translate-y-1/2 px-2 text-xl leading-none text-muted hover:text-accent"
+			>
+				×
+			</button>
+		</div>
+
+		<div role="group" aria-label="Filter by type" class="flex flex-wrap gap-2">
+			{
+				filters.map(({ type, label, count }) => (
+					<button
+						type="button"
+						data-filter={type}
+						aria-pressed={type === "all" ? "true" : "false"}
+						class="rounded-full border border-line px-3 py-1 text-sm hover:border-accent hover:text-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+					>
+						{label} <span data-count class="opacity-75">({count})</span>
+					</button>
+				))
+			}
+		</div>
+
+		<p id="pub-status" class="text-sm text-muted" aria-live="polite">
+			Showing {entries.length} of {entries.length}
+		</p>
+	</div>
+
+	<p id="pub-empty" hidden class="mt-10 text-muted">No publications match your search.</p>
+
+	{
+		preprints.length > 0 && (
+			<section data-pub-group class="mt-10">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Preprints</h2>
+				<ul class="space-y-7">
+					{preprints.map(({ paper, category }) => (
+						<PaperEntry paper={paper} category={category} venue={venueOf(paper)} />
+					))}
+				</ul>
+			</section>
+		)
+	}
+
+	{
+		published.length > 0 && (
+			<section data-pub-group class="mt-12">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Published</h2>
+				{years.map((year) => (
+					<div data-pub-group class="mt-8 first-of-type:mt-0">
+						<h3 class="mb-5 text-lg font-semibold">{year}</h3>
+						<ul class="space-y-7">
+							{published
+								.filter((e) => e.paper.year === year)
+								.map(({ paper, category }) => (
+									<PaperEntry paper={paper} category={category} venue={venueOf(paper)} />
+								))}
+						</ul>
+					</div>
+				))}
+			</section>
+		)
+	}
 </BaseLayout>
+
+<script>
+	const search = document.getElementById("pub-search") as HTMLInputElement;
+	const clear = document.getElementById("pub-clear")!;
+	const status = document.getElementById("pub-status")!;
+	const empty = document.getElementById("pub-empty")!;
+	const filterButtons = [...document.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+	const papers = [...document.querySelectorAll<HTMLElement>("[data-paper]")];
+	// Innermost groups first, so a section is checked after its year groups.
+	const groups = [...document.querySelectorAll<HTMLElement>("[data-pub-group]")].reverse();
+	const TYPES = filterButtons.map((b) => b.dataset.filter!);
+
+	const normalize = (s: string) => s.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase();
+
+	const params = new URLSearchParams(location.search);
+	let type = TYPES.includes(params.get("type") ?? "") ? params.get("type")! : "all";
+	search.value = params.get("q") ?? "";
+
+	function update() {
+		const words = normalize(search.value).split(/\s+/).filter(Boolean);
+		const matches = (p: HTMLElement) => words.every((w) => p.dataset.search!.includes(w));
+		const ofType = (p: HTMLElement, t: string) =>
+			t === "all" || (t === "award" ? p.dataset.award === "true" : p.dataset.category === t);
+
+		let shown = 0;
+		for (const p of papers) {
+			p.hidden = !(matches(p) && ofType(p, type));
+			if (!p.hidden) shown++;
+		}
+		for (const g of groups) g.hidden = !g.querySelector("[data-paper]:not([hidden])");
+
+		for (const b of filterButtons) {
+			const t = b.dataset.filter!;
+			b.setAttribute("aria-pressed", String(t === type));
+			b.querySelector("[data-count]")!.textContent = `(${papers.filter((p) => matches(p) && ofType(p, t)).length})`;
+		}
+
+		status.textContent = `Showing ${shown} of ${papers.length}`;
+		empty.hidden = shown > 0;
+		clear.hidden = words.length === 0 && type === "all";
+
+		const url = new URL(location.href);
+		if (search.value.trim()) url.searchParams.set("q", search.value.trim());
+		else url.searchParams.delete("q");
+		if (type !== "all") url.searchParams.set("type", type);
+		else url.searchParams.delete("type");
+		history.replaceState(null, "", url);
+	}
+
+	search.addEventListener("input", update);
+	for (const b of filterButtons) {
+		b.addEventListener("click", () => {
+			type = b.dataset.filter!;
+			update();
+		});
+	}
+	clear.addEventListener("click", () => {
+		search.value = "";
+		type = "all";
+		update();
+		search.focus();
+	});
+
+	document.addEventListener("click", async (event) => {
+		const target = event.target as HTMLElement;
+
+		const more = target.closest("[data-more-authors]");
+		if (more) {
+			const authors = more.closest("p")!;
+			const full = authors.querySelector<HTMLElement>("[data-authors-full]")!;
+			authors.querySelector<HTMLElement>("[data-authors-short]")!.hidden = true;
+			full.hidden = false;
+			// The clicked button is gone, so keep keyboard focus on the list.
+			full.tabIndex = -1;
+			full.focus();
+			return;
+		}
+
+		const toggle = target.closest("[data-bib-toggle]");
+		if (toggle) {
+			const panel = document.getElementById(toggle.getAttribute("aria-controls")!)!;
+			panel.hidden = !panel.hidden;
+			toggle.setAttribute("aria-expanded", String(!panel.hidden));
+			return;
+		}
+
+		const copy = target.closest<HTMLElement>("[data-bib-copy]");
+		if (copy) {
+			const text = copy.parentElement!.querySelector("code")!.textContent ?? "";
+			try {
+				await navigator.clipboard.writeText(text);
+				copy.textContent = "Copied";
+			} catch {
+				copy.textContent = "Copy failed";
+			}
+			setTimeout(() => (copy.textContent = "Copy"), 1500);
+		}
+	});
+
+	update();
+</script>
