@@ -1,0 +1,135 @@
+---
+import { existsSync, readFileSync } from "node:fs";
+import type { ImageMetadata } from "astro";
+import { getImage, Picture } from "astro:assets";
+import { z } from "astro/zod";
+import { parse } from "yaml";
+
+const DATA_FILE = "src/data/group-photo.yml";
+
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/group/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}", {
+	eager: true,
+});
+
+const schema = z.object({
+	photo: z.string().min(1),
+	caption: z.string().min(1).optional(),
+	alt: z.string().min(1),
+	// CSS object-position for the banner crop, e.g. "center 30%".
+	position: z
+		.string()
+		.regex(/^[a-z0-9.%\s-]+$/i, 'must be a CSS object-position value such as "center" or "center 30%"')
+		.default("center"),
+});
+
+// A missing data file or image hides the section; a file without `alt` fails the build.
+const data = existsSync(DATA_FILE) ? parse(readFileSync(DATA_FILE, "utf8")) : undefined;
+const result = data ? schema.safeParse(data) : undefined;
+if (result && !result.success) {
+	throw new Error(`${DATA_FILE}: ${result.error.issues.map((i) => `"${i.path.join(".")}" ${i.message}`).join("; ")}`);
+}
+const photo = result?.data;
+const image = photo && images[`/src/assets/group/${photo.photo}`]?.default;
+if (photo && !image) console.warn(`${DATA_FILE}: src/assets/group/${photo.photo} not found; group photo hidden`);
+
+// Large, uncropped versions for the lightbox (and the no-JS link target).
+const LARGE_WIDTH = 2400;
+const large =
+	image &&
+	Object.fromEntries(
+		await Promise.all(
+			(["avif", "webp", "jpg"] as const).map(async (format) => [
+				format,
+				(await getImage({ src: image, width: Math.min(LARGE_WIDTH, image.width), format })).src,
+			]),
+		),
+	);
+---
+
+{
+	photo && image && large && (
+		<figure class="mt-6">
+			<a
+				href={large.jpg}
+				data-lightbox-open
+				aria-label="View full group photo"
+				class="block cursor-zoom-in rounded-lg transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+			>
+				<Picture
+					src={image}
+					alt={photo.alt}
+					formats={["avif", "webp"]}
+					width={1824}
+					widths={[480, 768, 912, 1280, 1824]}
+					sizes="(min-width: 960px) 912px, calc(100vw - 48px)"
+					loading="eager"
+					class="aspect-[2/1] h-auto w-full rounded-lg object-cover sm:aspect-[3/1]"
+					style={`object-position: ${photo.position}`}
+				/>
+			</a>
+			{photo.caption && <figcaption class="mt-2 text-sm text-muted">{photo.caption}</figcaption>}
+
+			<dialog
+				data-lightbox
+				aria-label="Full group photo"
+				class="m-auto max-h-none max-w-none overflow-visible border-0 bg-transparent p-0 backdrop:bg-black/85"
+			>
+				<button
+					type="button"
+					data-lightbox-close
+					aria-label="Close"
+					class="fixed top-4 right-4 flex size-10 items-center justify-center rounded-full bg-black/60 text-3xl leading-none text-white hover:bg-black/80 focus-visible:outline-2 focus-visible:outline-white"
+				>
+					×
+				</button>
+				<figure class="flex flex-col items-center">
+					{/* Sources are filled in on first open, so the large image is not downloaded before. */}
+					<picture>
+						<source data-srcset={large.avif} type="image/avif" />
+						<source data-srcset={large.webp} type="image/webp" />
+						<img data-src={large.jpg} alt={photo.alt} class="max-h-[calc(90vh-2.5rem)] max-w-[95vw] object-contain" />
+					</picture>
+					{photo.caption && <figcaption class="mt-3 text-sm text-white/85">{photo.caption}</figcaption>}
+				</figure>
+			</dialog>
+		</figure>
+	)
+}
+
+<script>
+	const opener = document.querySelector<HTMLAnchorElement>("[data-lightbox-open]");
+	const dialog = document.querySelector<HTMLDialogElement>("[data-lightbox]");
+
+	if (opener && dialog) {
+		// With JS the banner acts as a button; without it, it is a plain link to the large image.
+		opener.setAttribute("role", "button");
+
+		const open = () => {
+			for (const el of dialog.querySelectorAll<HTMLElement>("[data-srcset], [data-src]")) {
+				if (el.dataset.srcset) el.setAttribute("srcset", el.dataset.srcset);
+				if (el.dataset.src) el.setAttribute("src", el.dataset.src);
+				delete el.dataset.srcset;
+				delete el.dataset.src;
+			}
+			dialog.showModal();
+		};
+
+		opener.addEventListener("click", (event) => {
+			event.preventDefault();
+			open();
+		});
+		opener.addEventListener("keydown", (event) => {
+			if (event.key === " ") {
+				event.preventDefault();
+				open();
+			}
+		});
+
+		dialog.querySelector("[data-lightbox-close]")?.addEventListener("click", () => dialog.close());
+		// A click on the dialog element itself (not its contents) is a click on the backdrop.
+		dialog.addEventListener("click", (event) => {
+			if (event.target === dialog) dialog.close();
+		});
+		dialog.addEventListener("close", () => opener.focus());
+	}
+</script>

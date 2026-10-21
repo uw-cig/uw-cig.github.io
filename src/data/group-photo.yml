@@ -1,0 +1,26 @@
+#=======================================================================
+# Group photo shown at the top of /team/. Read by
+# src/components/GroupPhoto.astro; the photo is resized and converted to
+# AVIF/WebP automatically at build time.
+#
+# Fields:
+#   photo:    filename in src/assets/group/, e.g. group-photo.jpg
+#                                                             [mandatory]
+#   caption:  shown below the photo in small text             [optional]
+#   alt:      describes the photo for screen readers          [mandatory]
+#   position: which part of the photo stays visible in the banner crop
+#             (3:1 on desktop, 2:1 on phones), as a CSS object-position:
+#             "center" (default), "top", "center 30%" (keeps more of
+#             the top), "center 70%" (keeps more of the bottom)
+#                                                             [optional]
+#
+# To update the photo: put the new image (JPG, PNG, or WebP; a large
+# original is fine) in src/assets/group/, set `photo` to its filename,
+# and update `caption` and `alt`. If this file or the image is missing,
+# the photo section is hidden.
+#=======================================================================
+
+  photo: group-photo.jpg
+  caption: CIG at WashU, Spring 2022
+  alt: Members of the Computational Imaging Group standing outside the McKelvey Hall
+  position: center 25%

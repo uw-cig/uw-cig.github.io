@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TeamCard from "../components/TeamCard.astro";
+import GroupPhoto from "../components/GroupPhoto.astro";
 import { termKey } from "../utils/terms";
 
 const members = (await getCollection("team")).map((entry) => entry.data);
@@ -40,6 +41,7 @@ const alumniSections = [
 <BaseLayout title="Team">
 	<h1 class="mb-4 text-3xl font-semibold">Team</h1>
 
+	<GroupPhoto />
 	{
 		currentSections.map(({ title, people, fullWidth }) => (
 			<section class="mt-10">
