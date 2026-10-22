@@ -4,6 +4,7 @@ import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
 import { bibtexLoader } from "./loaders/bibtex";
+import { markdownWithLinkCheck } from "./loaders/empty-links";
 import { SEASONS, TERM, termKey } from "./utils/terms";
 
 const slugify = (s: string) =>
@@ -83,7 +84,7 @@ const students = defineCollection({
 			name: z.string().min(1),
 			// Checked in superRefine so the error names the student.
 			program: z.string(),
-			institution: z.string().min(1).default("UW-Madison"),
+			institution: z.string().min(1).default("UW–Madison"),
 			project: z.string().min(1),
 			// One name or a list of names.
 			mentor: z
@@ -218,7 +219,7 @@ const newsDate = z.union([z.date(), z.string()]).transform((value, ctx) => {
 
 // al-folio news files. Other front-matter fields (layout, related_posts, ...) are ignored.
 const news = defineCollection({
-	loader: glob({ base: "src/content/news", pattern: "**/*.md" }),
+	loader: markdownWithLinkCheck("src/content/news"),
 	schema: z.object({
 		date: newsDate,
 		// With a title the item is a full post with its own page; without one it is a one-line item.
@@ -302,7 +303,7 @@ const research = defineCollection({
 
 // Positions on /join/, one file per category, in `order`. Closed sections are hidden.
 const join = defineCollection({
-	loader: glob({ base: "src/content/join", pattern: "**/*.md" }),
+	loader: markdownWithLinkCheck("src/content/join"),
 	schema: z.object({
 		title: z.string().min(1),
 		order: z.number(),

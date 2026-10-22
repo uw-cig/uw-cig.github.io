@@ -54,6 +54,7 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 
 - Astro 7 renders Markdown with Sätteri, so `markdown.remarkPlugins` doesn't work without adding `@astrojs/markdown-remark`.
 - Restart the dev server after changing `src/content.config.ts` or adding a new data file. Hot reload doesn't pick these up.
+- The build warns about Markdown links with an empty URL (`[text]()`) in news and join files, naming the file and line (`src/loaders/empty-links.ts`). Ask for the URL rather than guessing one.
 - Before finishing, run `npm run check` (0 errors, warnings and hints) and `npm run build`, and check that both pass.
 - `@types/node` is pinned to the Node 22 line to match `engines`; keep it in step if the minimum Node version changes.
 

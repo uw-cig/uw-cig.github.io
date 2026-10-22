@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- Prof. Kamilov spoke at the [Machine Learning for Medical Imaging](https://ml4mi.wisc.edu/computational-imaging-restoration-deep-networks-as-implicit-priors-ulugbek-s-kamilov) seminar series at UW-Madison.
+ Prof. Kamilov spoke at the [Machine Learning for Medical Imaging](https://ml4mi.wisc.edu/computational-imaging-restoration-deep-networks-as-implicit-priors-ulugbek-s-kamilov) seminar series at UW–Madison.

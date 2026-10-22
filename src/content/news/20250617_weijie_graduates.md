@@ -6,4 +6,4 @@ related_posts: false
 ---
 
  CIG PhD student [Weijie Gan](https://wjgancn.github.io) has successfully defended his PhD thesis [Computational Imaging
-under Incomplete Information](). Congratulations to Weijie.
+under Incomplete Information](https://repository.library.washu.edu/eng_etds/1284/). Congratulations to Weijie.

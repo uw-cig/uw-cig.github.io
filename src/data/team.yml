@@ -11,7 +11,7 @@
 #   name:         full name                                   [always mandatory]
 #   type:         pi | postdoc | phd                          [always mandatory]
 #   current:      true for current members; false or omitted for alumni
-#   institution:  e.g. UW-Madison, WashU                      [mandatory for current members]
+#   institution:  e.g. UW–Madison, WashU                      [mandatory for current members]
 #   photo:        filename in public/images/team/, ideally square
 #                 (a gray placeholder is shown if the file is missing)
 #                                                             [always mandatory]
@@ -38,7 +38,7 @@
 - name: Ulugbek S. Kamilov
   type: pi
   current: true
-  institution: UW-Madison
+  institution: UW–Madison
   photo: ulugbek-kamilov.jpg # placeholder: add the file to public/images/team/
   website: https://ukmlv.github.io/
   current_role:
@@ -69,28 +69,28 @@
 - name: Edward Chandler
   type: phd
   current: true
-  institution: UW-Madison
+  institution: UW–Madison
   photo: edward-chandler.jpg
   website: https://edchandler00.github.io/
 
 - name: Chicago Park
   type: phd
   current: true
-  institution: UW-Madison
+  institution: UW–Madison
   photo: chicago-park.jpg
   website: https://chicagopark.github.io
 
 - name: Xiao Shi
   type: phd
   current: true
-  institution: UW-Madison
+  institution: UW–Madison
   photo: xiao-shi.jpg
   website: https://xiaoshi2610.github.io
 
 - name: Harry Mellow
   type: phd
   current: true
-  institution: UW-Madison
+  institution: UW–Madison
   photo: harry-mellow.jpg
   website: https://www.linkedin.com/in/harrymellow
 

@@ -8,7 +8,7 @@
 # Fields:
 #   name:         full name                                   [always mandatory]
 #   program:      BS | MS                                     [always mandatory]
-#   institution:  e.g. UW-Madison, WashU                      [optional, default UW-Madison]
+#   institution:  e.g. UW–Madison, WashU                      [optional, default UW–Madison]
 #   project:      project title                               [always mandatory]
 #   mentor:       one name, or a list for several mentors, e.g.
 #                   mentor: Chicago Park
@@ -35,7 +35,7 @@
 
 - name: Joshua Wang
   program: BS
-  institution: UW-Madison
+  institution: UW–Madison
   project: "Motion Correction in 3D Whole-Body MRI"
   mentor: Chicago Park
   current: true
@@ -44,7 +44,7 @@
 
 - name: Yan Li
   program: MS
-  institution: UW-Madison
+  institution: UW–Madison
   project: "Generative Models as Priors for Ptychography"
   mentor: Edward Chandler
   current: true
@@ -52,7 +52,7 @@
 
 - name: Tyler Seils
   program: BS
-  institution: UW-Madison
+  institution: UW–Madison
   project: "Reconstructing MRI Images with Diffusion Models"
   mentor: Xiao Shi
   current: true
@@ -60,7 +60,7 @@
 
 - name: Sam Cook
   program: BS
-  institution: UW-Madison
+  institution: UW–Madison
   project: "Estimating Quantitative MRI using Diffusion Models"
   mentor: Xiao Shi
   current: true
