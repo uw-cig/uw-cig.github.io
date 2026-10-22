@@ -83,7 +83,7 @@ const students = defineCollection({
 		.object({
 			name: z.string().min(1),
 			// Checked in superRefine so the error names the student.
-			program: z.string(),
+			program: z.string().optional(),
 			institution: z.string().min(1).default("UW–Madison"),
 			project: z.string().min(1),
 			// One name or a list of names.
@@ -97,7 +97,15 @@ const students = defineCollection({
 			website: z.url().optional(),
 		})
 		.superRefine((s, ctx) => {
-			if (s.program !== "BS" && s.program !== "MS") {
+			if (s.program === undefined) {
+				if (s.current) {
+					ctx.addIssue({
+						code: "custom",
+						path: ["program"],
+						message: `${s.name}: current students require "program" (BS or MS)`,
+					});
+				}
+			} else if (s.program !== "BS" && s.program !== "MS") {
 				ctx.addIssue({
 					code: "custom",
 					path: ["program"],

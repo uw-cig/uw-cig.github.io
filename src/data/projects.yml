@@ -32,20 +32,20 @@
 # set finished ones to `completed` (or delete them), and add new ones.
 #=======================================================================
 
-# PLACEHOLDER: replace or delete
-#- title: Placeholder Project on Diffusion Models for Imaging
-#  semester: Spring 2027
-#  mentors:
-#    - Chicago Park
-#    - Ulugbek S. Kamilov
-#  description: >-
-#    PLACEHOLDER. One to three sentences on the problem, what the student
-#    will build, and the skills they will learn.
-#  status: available
-#  media: cig-project-placeholder.gif
-#  level:
-#    - BS
-#    - MS
+# # PLACEHOLDER: replace or delete
+# - title: Placeholder Project on Diffusion Models for Imaging
+#   semester: Spring 2027
+#   mentors:
+#     - Chicago Park
+#     - Ulugbek S. Kamilov
+#   description: >-
+#     PLACEHOLDER. One to three sentences on the problem, what the student
+#     will build, and the skills they will learn.
+#   status: available
+#   media: cig-project-placeholder.mp4
+#   level:
+#     - BS
+#     - MS
 
 - title: Generative Models as Priors for Ptychography
   semester: Fall 2026

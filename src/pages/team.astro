@@ -24,7 +24,7 @@ const formerStudents = students
 
 const mentorSites = new Map(members.map((m) => [m.name, m.website]));
 const termRange = (s: Student) => (s.start === s.end ? s.start : `${s.start} – ${s.end}`);
-const programLabel = (s: Student) => `${s.program} Student, ${s.institution}`;
+const programLabel = (s: Student) => `${s.program ? `${s.program} Student` : "Student Researcher"}, ${s.institution}`;
 
 const currentSections = [
 	{ title: "Principal Investigator", people: current("pi"), fullWidth: true },
@@ -146,7 +146,7 @@ const alumniSections = [
 												data-label="Program: "
 												class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:before:content-none"
 											>
-												{s.program}, {s.institution}
+												{s.program ? `${s.program}, ${s.institution}` : s.institution}
 											</td>
 											<td
 												data-label="Term: "

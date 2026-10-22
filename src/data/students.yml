@@ -7,7 +7,10 @@
 #
 # Fields:
 #   name:         full name                                   [always mandatory]
-#   program:      BS | MS                                     [always mandatory]
+#   program:      BS | MS                                     [mandatory for current students,
+#                                                              optional for former; if omitted,
+#                                                              the Program column shows only
+#                                                              the institution]
 #   institution:  e.g. UW–Madison, WashU                      [optional, default UW–Madison]
 #   project:      project title                               [always mandatory]
 #   mentor:       one name, or a list for several mentors, e.g.
