@@ -128,3 +128,514 @@
   current: false
   start: Spring 2018
   end: Spring 2019
+
+# ---------- Fall 2024 (full names given on the old page) ----------
+
+- name: Rahul Chavali
+  program: BS
+  institution: WashU
+  project: "Advanced Spectral Unmixing for Hyperspectral Imaging"
+  mentor: [Edward Chandler, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Eugene Joo
+  program: BS
+  institution: WashU
+  project: "Super-Resolution for Magnetic Resonance Imaging"
+  mentor: [Edward Chandler, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Spring 2025   # CV: 2024-2025
+
+- name: Hanson Li
+  program: BS
+  institution: WashU
+  project: "Generative Models for Texture Synthesis"
+  mentor: [Edward Chandler, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Jason Zhao
+  program: BS
+  institution: WashU
+  project: "Stabilizing Langevin Dynamics for Image Sampling"
+  mentor: [Chicago Park, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Kyle Wolford
+  institution: WashU
+  project: "Image Registration in Digital Mammography"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Kevin Kotzbauer
+  institution: WashU
+  project: "Robust Diffusion Inverse Solvers for Computational Imaging"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: David Chen
+  institution: WashU
+  project: "Generative AI for Art"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Daedalus Chen
+  program: BS
+  institution: WashU
+  project: "Advanced Image Segmentation of Placenta"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Albert Peng
+  program: BS
+  institution: WashU
+  project: "Self-Supervised Learning for MRI"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024   # CV says 2023-2024; earlier start term unknown
+  end: Fall 2024
+
+- name: Harry Gao
+  program: BS
+  institution: WashU
+  project: "Generative Models for Computational Imaging"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2022
+  end: Fall 2024
+
+- name: David Wang
+  institution: WashU
+  program: BS
+  project: "Diffusion Models for Medical Image Synthesis"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2024   # assumes "D. Wang" (Spring 2024, two-photon video restoration) is the same person
+  end: Fall 2024
+
+- name: Anqi Li
+  institution: WashU
+  project: "Posterior Sampling using Diffusion Models"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Yusheng Tan
+  institution: WashU
+  project: "Optimal Restoration Operators for Computational Imaging"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2024
+  end: Fall 2024
+
+- name: Jianan Wu
+  institution: WashU
+  project: "Implicit Neural Representations for MRI"
+  mentor: Ulugbek S. Kamilov   # day-to-day mentor Yuanhao Wang is not in team.yml
+  current: false
+  start: Spring 2024   # assumes "J. Wu" (Spring 2024) is the same person
+  end: Fall 2024
+
+# ---------- Spring 2024 and earlier (initials only on the old page) ----------
+
+- name: Vincent Siu
+  program: BS
+  institution: WashU
+  project: "Deep Learning for Diagnosis of Post-Traumatic Elbow Disease"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2024
+
+- name: Emma McMillian
+  institution: WashU
+  project: "Noise-Adaptive Deep Denoisers for Imaging"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Chang (Jason) Ti
+  institution: WashU
+  program: MS
+  project: "Interactive Digit Recognition for ML Education"
+  mentor: [Flora Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: X. Yang
+  institution: WashU
+  project: "Detecting Multiple Myeloma using Deep Image Analysis"
+  mentor: [Flora Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Kerri Prinos
+  institution: WashU
+  project: "Deep Learning for 3D Quantitative Brain MRI"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Z. Xiang
+  institution: WashU
+  project: "Machine Learning Biomarkers for Fetal Growth Restrictions"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Eddy Sul
+  institution: WashU
+  project: "Deep Learning for Digital Mammography"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Junyi Yao
+  institution: WashU
+  project: "Deep Learning for the Next-Generation Scientific Imaging"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]   # old page also lists "W. Zhang" (not in team.yml)
+  current: false
+  start: Spring 2023
+  end: Spring 2023
+
+- name: Nan Huang
+  institution: WashU
+  project: "Continuous Regularizer for Inverse Problems"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Spring 2023
+
+- name: Chaoye Jin
+  institution: WashU
+  project: "Breast Cancer Risk Assessment using Machine Learning"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Spring 2023
+
+- name: Yubo Wang   # CV lists Yubo Wang (2023); old page lists "Y. Wang" Fall 2022-Spring 2023 -- verify
+  institution: WashU
+  project: "Deep Learning for the Next-Generation Microscopy"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Spring 2023
+
+- name: Eddie Choi
+  program: BS
+  institution: WashU
+  project: "Deep Learning for Digital Mammography"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Fall 2022
+
+- name: Henry Li   # CV lists Henry Li (2023); old page lists "H. Li" in Fall 2022 -- verify
+  program: BS
+  institution: WashU
+  project: "Quantitative Brain MRI using Deep Learning"
+  mentor: [Yuyang Hu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Fall 2022
+
+- name: Yangruo Ma
+  program: MS
+  institution: WashU
+  project: "Image Restoration using Generative Models"
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Fall 2022
+
+- name: Minghao Yu
+  program: MS
+  institution: WashU
+  project: "Deep Complex Neural Networks for Imaging"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2022
+  end: Fall 2022
+
+- name: Zihao Zou
+  program: MS
+  institution: WashU
+  project: "Memory and Computationally Efficient Deep Learning"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2022
+  end: Fall 2022
+
+- name: Xiangyu Chen
+  program: MS
+  institution: WashU
+  project: "Deep Learning for the Next-Generation Microscopy"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2022
+  end: Spring 2022
+
+- name: Julia Zeng
+  program: BS
+  institution: WashU
+  project: "Memory-Efficient Deep Image Restoration"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2022
+  end: Spring 2022
+
+- name: Yixuan Luo
+  program: MS
+  institution: WashU
+  project: "Deep Learning for Calf Muscle and Fat Measurement"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Spring 2022
+
+- name: Jiwon Choi
+  program: BS
+  institution: WashU
+  project: "Regularization by Artifact Removal for PET"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Fall 2021
+
+- name: Yanpeng Yuan
+  program: BS
+  institution: WashU
+  project: "Deep Learning for Diagnosis of Post-Traumatic Elbow Disease"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2021
+  end: Fall 2021
+
+- name: Xinhan Huang
+  program: MS
+  institution: WashU
+  project: "Implementing Optimization Algorithms in Jupyter Notebook"
+  mentor: Ulugbek S. Kamilov
+  current: false
+  start: Fall 2021
+  end: Fall 2021
+
+- name: T. Lee
+  institution: WashU
+  project: "Deep Learning for Abdominal Visceral and Subcutaneous Fat Measurement"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Fall 2021
+
+- name: Hao Qin
+  program: MS
+  institution: WashU
+  project: "Asynchronous Plug-and-Play Priors with Theoretical Guarantees"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Fall 2021
+
+- name: Dian Jin
+  institution: WashU
+  project: "Learning Optimal Sampling Strategies for MRI"
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Fall 2021
+
+- name: Ann Zhou
+  program: BS
+  institution: WashU
+  project: "Tunable Deep Learning for Computational Imaging"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2021
+  end: Spring 2021
+
+- name: Ziwen Wang
+  program: BS
+  institution: WashU
+  project: "Low-Complexity Learning for Large-Scale Imaging"
+  mentor: [Jiaming Liu, Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2020
+  end: Spring 2021
+
+- name: Yukun Li
+  institution: WashU
+  project: "Cycle GAN for Quantitative MRI"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2020
+  end: Fall 2020
+
+- name: Mingyang Xie
+  program: BS
+  institution: WashU
+  project: "Autocalibration for Regularization by Denoising"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2020
+
+- name: Rob Schurz
+  institution: WashU
+  project: "Proximal Optimization for Computerized Tomography"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2020
+  end: Spring 2020
+
+- name: Guangyu Meng
+  institution: WashU
+  project: "End-to-End Training of VAE-GAN Priors"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2020
+  end: Spring 2020
+
+- name: Abdalla Bani
+  institution: WashU
+  project: "Design of GAN Priors for Iterative Algorithms"
+  mentor: [Jiaming Liu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2020
+  end: Spring 2020
+
+- name: Yongcheng Song
+  institution: WashU
+  project: "Fast Automatic Focal Plane Selection for Brightfield Microscopy using Machine Learning"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2020
+  end: Spring 2020
+
+- name: Zihui Wu
+  program: BS
+  institution: WashU
+  project: "Stochastic Algorithms using Deep Priors"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2018
+  end: Spring 2020
+
+- name: Nina Woythaler
+  program: BS
+  institution: WashU
+  project: "Motion Artifact Reduction in Quantitative Brain MRI"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2019
+
+- name: Y. Jia
+  institution: WashU
+  project: "Large-Scale Optimization for Computational Imaging"
+  mentor: Ulugbek S. Kamilov
+  current: false
+  start: Fall 2019
+  end: Fall 2019
+
+- name: Ryogo Suzuki
+  program: MS
+  institution: WashU
+  project: "Generative Adversarial Networks for Image Restoration"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2019
+
+- name: Eric Tang
+  institution: WashU
+  project: "Motion-Artifact Correction in Quantitative MRI"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2020
+
+- name: Max Torop
+  program: MS
+  institution: WashU
+  project: "Computational Methods for Quantitative Brain MR Imaging"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2019
+
+- name: Yiran Sun
+  program: MS
+  institution: WashU
+  project: "Asynchronous Large-Scale Optimization for Imaging"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2019
+  end: Fall 2019
+
+- name: Fa Long
+  program: MS
+  institution: WashU
+  project: "Convolutional Dictionary Learning for Image Reconstruction"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2018
+  end: Fall 2018
+
+- name: Hanrui Zou
+  program: MS
+  institution: WashU
+  project: "Unsupervised Deep Image Learning"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2018
+  end: Fall 2018
+
+- name: Melena Abijaoude
+  program: MS
+  institution: WashU
+  project: "Distributed Algorithms for Nonconvex Stochastic Optimization"
+  mentor: Ulugbek S. Kamilov
+  current: false
+  start: Fall 2018
+  end: Fall 2018
+
+- name: Fangying Zhai
+  program: MS
+  institution: WashU
+  project: "Image Restoration with GANs"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2018
+  end: Fall 2018
+
+- name: Jerry Xing
+  program: MS
+  institution: WashU
+  project: "Learning for MRI"
+  mentor: [Xiaojian Xu, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2018
+  end: Fall 2018
