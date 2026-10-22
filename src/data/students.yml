@@ -40,7 +40,7 @@
   program: BS
   institution: UW–Madison
   project: "Motion Correction in 3D Whole-Body MRI"
-  mentor: Chicago Park
+  mentor: [Chicago Park, Ulugbek S. Kamilov]
   current: true
   start: Spring 2026
   website: https://www.linkedin.com/in/chi-chun-wang-2204393a8
@@ -49,7 +49,7 @@
   program: MS
   institution: UW–Madison
   project: "Generative Models as Priors for Ptychography"
-  mentor: Edward Chandler
+  mentor: [Edward Chandler, Ulugbek S. Kamilov]
   current: true
   start: Fall 2026
 
@@ -57,7 +57,7 @@
   program: BS
   institution: UW–Madison
   project: "Reconstructing MRI Images with Diffusion Models"
-  mentor: Xiao Shi
+  mentor: [Xiao Shi, Ulugbek S. Kamilov]
   current: true
   start: Summer 2026
 
@@ -65,15 +65,39 @@
   program: BS
   institution: UW–Madison
   project: "Estimating Quantitative MRI using Diffusion Models"
-  mentor: Xiao Shi
+  mentor: [Xiao Shi, Ulugbek S. Kamilov]
   current: true
   start: Summer 2026
+
+- name: Alex Ryan
+  program: BS
+  institution: UW–Madison
+  project: "Deep Parameter Interpolation for MRI Reconstruction"
+  mentor: [Chicago Park, Ulugbek S. Kamilov]
+  current: true
+  start: Spring 2026
 
 #-----------------------
 # Former students
 #-----------------------
 
-# --- Former MS students (WashU), from their MS theses ---
+- name: Saksham Mittal
+  program: BS
+  institution: UW-Madison
+  project: Decoupled Noise Injection in PnP
+  mentor: [Chicago Park, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2026
+  end: Spring 2026
+
+- name: Mikhail Chalakov
+  program: BS
+  institution: UW-Madison
+  project: ODE and SDE-based Diffusion Models as Deblurrers
+  mentor: Ulugbek S. Kamilov
+  current: false
+  start: Spring 2026
+  end: Spring 2026
 
 - name: Naveen Asokan
   program: MS
