@@ -23,6 +23,12 @@ const formerStudents = students
 	.sort((a, b) => termKey(b.end!) - termKey(a.end!) || a.name.localeCompare(b.name));
 
 const mentorSites = new Map(members.map((m) => [m.name, m.website]));
+// Former Student Researchers and Visitors show this many rows, with a
+// button to show the rest when there are more.
+const ROW_LIMIT = 10;
+const collapseButtonClass =
+	"mt-4 inline-block rounded-full border border-line px-4 py-1.5 text-sm hover:border-accent hover:text-accent";
+
 const termRange = (s: Student) => (s.start === s.end ? s.start : `${s.start} – ${s.end}`);
 const programLabel = (s: Student) => `${s.program ? `${s.program} Student` : "Student Researcher"}, ${s.institution}`;
 
@@ -127,8 +133,8 @@ const alumniSections = [
 					</div>
 				))}
 				{formerStudents.length > 0 && (
-					<div class="mt-8 first:mt-0">
-						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase">
+					<div class="mt-8 first:mt-0" data-collapsible>
+						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase" data-collapsible-heading>
 							Former Student Researchers
 						</h3>
 						<table class="block w-full text-sm sm:table">
@@ -141,10 +147,13 @@ const alumniSections = [
 									<th class="py-2 font-semibold">Mentor</th>
 								</tr>
 							</thead>
-							<tbody class="block sm:table-row-group">
-								{formerStudents.map((s) => {
+							<tbody id="former-students-rows" class="block sm:table-row-group">
+								{formerStudents.map((s, i) => {
 									return (
-										<tr class="block border-b border-line py-3 align-top sm:table-row sm:py-0">
+										<tr
+											class="block border-b border-line py-3 align-top sm:table-row sm:py-0"
+											data-overflow={i >= ROW_LIMIT ? "" : undefined}
+										>
 											<td class="block font-semibold sm:table-cell sm:py-2 sm:pr-4">
 												{s.website ? (
 													<a href={s.website} class="hover:text-accent hover:underline">
@@ -194,11 +203,26 @@ const alumniSections = [
 								})}
 							</tbody>
 						</table>
+						{formerStudents.length > ROW_LIMIT && (
+							<button
+								type="button"
+								class={collapseButtonClass}
+								aria-expanded="false"
+								aria-controls="former-students-rows"
+								data-collapse-toggle
+								data-label-more={`Show all ${formerStudents.length} former student researchers`}
+								hidden
+							>
+								Show all {formerStudents.length} former student researchers
+							</button>
+						)}
 					</div>
 				)}
 				{sortedVisitors.length > 0 && (
-					<div class="mt-8 first:mt-0">
-						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase">Visitors</h3>
+					<div class="mt-8 first:mt-0" data-collapsible>
+						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase" data-collapsible-heading>
+							Visitors
+						</h3>
 						<table class="block w-full text-sm sm:table">
 							<thead class="hidden sm:table-header-group">
 								<tr class="border-b border-line text-left">
@@ -208,9 +232,12 @@ const alumniSections = [
 									<th class="py-2 font-semibold">Year</th>
 								</tr>
 							</thead>
-							<tbody class="block sm:table-row-group">
-								{sortedVisitors.map((v) => (
-									<tr class="block border-b border-line py-3 align-top sm:table-row sm:py-0">
+							<tbody id="visitors-rows" class="block sm:table-row-group">
+								{sortedVisitors.map((v, i) => (
+									<tr
+										class="block border-b border-line py-3 align-top sm:table-row sm:py-0"
+										data-overflow={i >= ROW_LIMIT ? "" : undefined}
+									>
 										<td class="block font-semibold sm:table-cell sm:py-2 sm:pr-4">
 											{v.website ? (
 												<a href={v.website} class="hover:text-accent hover:underline">
@@ -242,9 +269,43 @@ const alumniSections = [
 								))}
 							</tbody>
 						</table>
+						{sortedVisitors.length > ROW_LIMIT && (
+							<button
+								type="button"
+								class={collapseButtonClass}
+								aria-expanded="false"
+								aria-controls="visitors-rows"
+								data-collapse-toggle
+								data-label-more={`Show all ${sortedVisitors.length} visitors`}
+								hidden
+							>
+								Show all {sortedVisitors.length} visitors
+							</button>
+						)}
 					</div>
 				)}
 			</section>
 		)
 	}
 </BaseLayout>
+
+<script>
+	// Without JS every row is shown and the buttons stay hidden.
+	for (const toggle of document.querySelectorAll<HTMLButtonElement>("[data-collapse-toggle]")) {
+		const rows = document.getElementById(toggle.getAttribute("aria-controls")!)!;
+		const extra = rows.querySelectorAll<HTMLElement>("[data-overflow]");
+		const heading = toggle.closest("[data-collapsible]")!.querySelector("[data-collapsible-heading]")!;
+		const setExpanded = (expanded: boolean) => {
+			for (const row of extra) row.hidden = !expanded;
+			toggle.setAttribute("aria-expanded", String(expanded));
+			toggle.textContent = expanded ? "Show fewer" : toggle.dataset.labelMore!;
+		};
+		setExpanded(false);
+		toggle.hidden = false;
+		toggle.addEventListener("click", () => {
+			const expanded = toggle.getAttribute("aria-expanded") !== "true";
+			setExpanded(expanded);
+			if (!expanded) heading.scrollIntoView({ block: "start" });
+		});
+	}
+</script>
