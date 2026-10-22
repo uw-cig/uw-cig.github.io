@@ -39,14 +39,38 @@
   start: Spring 2026
   website: https://www.linkedin.com/in/chi-chun-wang-2204393a8
 
+- name: Yan Li
+  program: MS
+  institution: UW-Madison
+  project: "Generative Models as Priors for Ptychography"
+  mentor: Edward Chandler
+  current: true
+  start: Fall 2026
+
+- name: Tyler Seils
+  program: BS
+  institution: UW-Madison
+  project: "Reconstructing MRI Images with Diffusion Models"
+  mentor: Xiao Shi
+  current: true
+  start: Summer 2026
+
+- name: Sam Cook
+  program: BS
+  institution: UW-Madison
+  project: "Estimating Quantitative MRI using Diffusion Models"
+  mentor: Xiao Shi
+  current: true
+  start: Summer 2026
+
 #-----------------------
 # Former students
 #-----------------------
 
 # PLACEHOLDER: replace or delete
-- name: Placeholder Former Student
-  program: MS
-  project: Placeholder Project Title
-  mentor: Edward Chandler
-  start: Fall 2025
-  end: Spring 2026
+#- name: Placeholder Former Student
+#  program: MS
+#  project: Placeholder Project Title
+#  mentor: Edward Chandler
+#  start: Fall 2025
+#  end: Spring 2026

@@ -290,4 +290,96 @@ const research = defineCollection({
 	}),
 });
 
-export const collections = { team, students, venues, papers, news, research, teaching };
+// Positions on /join/, one file per category, in `order`. Closed sections are hidden.
+const join = defineCollection({
+	loader: glob({ base: "src/content/join", pattern: "**/*.md" }),
+	schema: z.object({
+		title: z.string().min(1),
+		order: z.number(),
+		status: z.enum(["open", "closed"]),
+		status_label: z.string().min(1).default("Recruiting"),
+		// Google Form URL; "" means no Apply button.
+		form: z
+			.union([z.literal(""), z.url()])
+			.optional()
+			.transform((v) => v || undefined),
+	}),
+});
+
+// Animations (served as-is) or static images (optimized by astro:assets).
+const PROJECT_MEDIA = /\.(gif|mp4|webm|png|jpe?g|webp|avif)$/i;
+
+// Student projects, shown under "Student Researchers" on /join/.
+const projects = defineCollection({
+	loader: file("src/data/projects.yml", {
+		parser: (text) =>
+			((parse(text) as Record<string, unknown>[] | null) ?? []).map((item, i) => ({
+				id: typeof item?.title === "string" ? slugify(item.title) : `entry-${i + 1}`,
+				order: i,
+				...item,
+			})),
+	}),
+	schema: z
+		.object({
+			order: z.number().int(),
+			title: z.string().min(1),
+			// Checked in superRefine so the error names the project.
+			semester: z.string(),
+			mentors: z.array(z.string().min(1)).min(1),
+			description: z.string().min(1),
+			// Filename in src/assets/projects/; without it a placeholder is shown.
+			media: z.string().min(1).optional(),
+			// Older name for `media`.
+			image: z.string().min(1).optional(),
+			status: z.enum(["available", "reserved", "completed"]),
+			student: z.string().min(1).optional(),
+			level: z.array(z.enum(["BS", "MS"])).optional(),
+		})
+		.superRefine((p, ctx) => {
+			if (!TERM.test(p.semester)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["semester"],
+					message: `${p.title}: "semester" must look like "Fall 2026" (Spring, Summer or Fall + year), got "${p.semester}"`,
+				});
+			}
+			for (const [i, mentor] of p.mentors.entries()) {
+				if (!teamNames.has(mentor)) {
+					ctx.addIssue({
+						code: "custom",
+						path: ["mentors", i],
+						message: `${p.title}: mentor "${mentor}" does not match any name in team.yml`,
+					});
+				}
+			}
+			if (p.media !== undefined && p.image !== undefined) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["image"],
+					message: `${p.title}: use "media" or its older name "image", not both`,
+				});
+			}
+			const media = p.media ?? p.image;
+			if (media !== undefined && !PROJECT_MEDIA.test(media)) {
+				ctx.addIssue({
+					code: "custom",
+					path: [p.media !== undefined ? "media" : "image"],
+					message: `${p.title}: media must be a .gif, .mp4, .webm, .png, .jpg, .webp or .avif file, got "${media}"`,
+				});
+			}
+			if (p.status === "reserved" && p.student === undefined) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["student"],
+					message: `${p.title}: reserved projects require "student"`,
+				});
+			}
+		})
+		.transform(({ image, ...p }) => ({
+			...p,
+			media: p.media ?? image,
+			semesterOrder: TERM.test(p.semester) ? termKey(p.semester) : 0,
+		})),
+});
+
+export const collections = { team, students, venues, papers, news, research, teaching, join, projects };

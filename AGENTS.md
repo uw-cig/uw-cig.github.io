@@ -15,6 +15,8 @@ Website for the Computational Imaging Group (CIG) at UW–Madison. Built with As
 | `src/data/venues.yml` | Keyed by BibTeX `abbr`: venue URL, badge color, `selective` flag. |
 | `src/data/group-photo.yml` | Team-page banner: photo (in `src/assets/group/`), alt, caption, crop position. |
 | `src/content/teaching/*.md` | al-folio course files (`teaching` collection): title, course code, institution, description, year, semester, optional links. |
+| `src/content/join/*.md` | Join-page sections (`join` collection), one per position type: title, order, status (open/closed), status_label, form. |
+| `src/data/projects.yml` | Student project cards under Student Researchers on /join/. Mentors must match team.yml, and reserved projects need `student`. Square `media` (alias `image`) goes in `src/assets/projects/`: GIF/MP4/WebM are served as-is via `?url`, and static images go through astro:assets. |
 | `src/content/news/*.md` | al-folio news files. A file with a `title` gets its own page; one without a title (or with `inline: true`) is a one-line item. |
 
 Each YAML file starts with a comment header that documents its fields. Keep that header up to date when you change a schema.
@@ -27,11 +29,11 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 - `src/pages/publications.astro` lists papers (`PaperEntry`) as Preprints and Published by year. It has a type filter and a search box that syncs `?q=` and `?type=` to the URL; `|` in `q` means OR.
 - `src/pages/news.astro` (grouped by year) and `src/pages/news/[...slug].astro` (full posts).
 - `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` with the "Course Information" section stripped, so local images in course files aren't supported.
-- `src/pages/join.astro` is a placeholder for now.
+- `src/pages/join.astro` shows the open `join` sections in order, with jump links, status badges and Apply buttons. The `student-researchers` section also gets a grid of `ProjectCard`s.
 
 ## Design conventions
 
-- Colors are theme variables in `src/styles/global.css` (`@theme`): `background` #ffffff, `ink` #1a1a1a, `muted` #6b6b6b, `surface` #f7f7f7, `line` #e5e5e5, `accent` #9b0000, `gold` #8b6508. Use them as `text-accent`, `border-line` and so on. Don't hard-code hex values in components.
+- Colors are theme variables in `src/styles/global.css` (`@theme`): `background` #ffffff, `ink` #1a1a1a, `muted` #6b6b6b, `surface` #f7f7f7, `line` #e5e5e5, `accent` #9b0000, `gold` #8b6508, `green` #2e7d32 (the "Available" badge). Use them as `text-accent`, `border-line` and so on. Don't hard-code hex values in components.
 - Section headings: `mb-6 border-b border-line pb-2 text-xl font-semibold`. The homepage uses a smaller uppercase variant (`text-sm tracking-wide text-muted uppercase`). Each page has one `h1`; it is `sr-only` on the homepage.
 - Links and active states use `hover:text-accent` and `hover:underline`. Selected tabs and filters are filled with the accent color.
 - Accessibility patterns:
@@ -55,7 +57,6 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 
 ## Remaining work
 
-- Join page.
 - Housekeeping: add `@astrojs/check` and `@types/node`, and address the `npm audit` warnings.
 
 ## Development

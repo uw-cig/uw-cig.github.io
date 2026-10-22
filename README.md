@@ -88,3 +88,34 @@ links:
 ```
 
 All fields except `links` are required, and `semester` must be `Spring`, `Summer`, or `Fall`. The `links` show as buttons under the course header. A section headed `## Course Information` is not shown on the course page, since the header already gives the course code, term, and institution. Older al-folio files may keep `semester_id` (`"Spring 2027"`) and `semester_sort` (`"2027-1"` for Spring, `"2027-2"` for Fall), but they must agree with `year` and `semester`, or the build fails with an error naming the file. Summer courses must omit `semester_sort`. Other front-matter fields (`layout`) are ignored. Images in course files are not supported.
+
+## Join
+
+The Join page (`/join/`) has one section per position type, from the Markdown files in `src/content/join/`, and student project cards from `src/data/projects.yml`.
+
+**Positions.** Each file is one section (`postdoc.md`, `phd.md`, `student-researchers.md`, `interns.md`), shown in `order`. Edit the Markdown body for the description, and the front matter for the rest:
+
+```markdown
+---
+title: PhD Students
+order: 2
+status: open                         # open | closed; closed sections are hidden
+status_label: Recruiting for Fall 2027   # badge text; default "Recruiting"
+form: "https://forms.gle/..."        # Google Form; "" for no Apply button
+---
+```
+
+Closed sections and their jump links are hidden. If every section is closed, the page says there are no open positions. When Student Researchers has available projects, its badge shows "N projects available" instead of `status_label`.
+
+**Projects.** Each entry in `projects.yml` becomes a card under Student Researchers (the field reference is at the top of the file). Available projects are shown first, then reserved ones (dimmed); completed projects are hidden. Mentors must match names in `team.yml`, and a reserved project needs a `student`. The student's name is linked if they are in `students.yml` with a `website`. For a card animation or image, put the file in `src/assets/projects/` and set `media` to its filename (the older name `image` still works). It is shown as a square on the left of the card, or above the text on phones.
+
+- **Animations:** MP4 is preferred (smaller and smoother than GIF); WebM and GIF also work. They are served as-is, without conversion. Videos play muted on a loop, load only when scrolled into view, and stay on the first frame for visitors who have turned on reduced motion.
+- **Static images:** PNG, JPG, WebP or AVIF, resized and converted automatically.
+- **Recommended:** 600×600 px, a 2–5 second loop, and GIFs under about 2 MB. The build warns about GIFs over 3 MB and videos over 5 MB.
+
+**Each semester:**
+
+1. Update `status` and `status_label` in each position file, and the `form` links.
+2. In `projects.yml`, mark taken projects `status: reserved` with the `student`, set finished ones to `status: completed` (or delete them), and add new projects with `status: available`.
+3. Add new student researchers to `students.yml`, and move finished ones to former students, as described at the top of that file.
+4. Run `npm run build`; a typo in a mentor name, semester or status fails the build with an error naming the project.

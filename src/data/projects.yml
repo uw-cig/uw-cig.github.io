@@ -1,0 +1,93 @@
+#=======================================================================
+# Student research projects, shown as cards under "Student Researchers"
+# on /join/. Available projects come first, then by semester. Validated
+# by src/content.config.ts; the build fails with an error naming the
+# project if a rule is broken.
+#
+# Fields:
+#   title:        project title                               [mandatory]
+#   semester:     "Spring|Summer|Fall YYYY", e.g. Fall 2026   [mandatory]
+#   mentors:      list of names; each must match a `name` in
+#                 src/data/team.yml exactly; linked to their websites
+#                                                             [mandatory]
+#   description:  one to three sentences                      [mandatory]
+#   media:        filename in src/assets/projects/, shown as a square
+#                 on the left of the card; without it a plain
+#                 placeholder is shown                        [optional]
+#                 (`image` is accepted as an older name for this field)
+#                 Animations: .mp4 (preferred), .webm or .gif, served
+#                 as-is. Videos play muted on a loop while on screen.
+#                 Static: .png, .jpg, .webp or .avif, resized and
+#                 converted automatically.
+#                 Recommended: 600×600 px, a 2–5 s loop, GIFs under
+#                 about 2 MB. The build warns about GIFs over 3 MB and
+#                 videos over 5 MB.
+#   status:       available | reserved | completed            [mandatory]
+#                 completed projects are not shown
+#   student:      who took the project; linked if they are in
+#                 src/data/students.yml with a website        [mandatory if reserved]
+#   level:        list of BS and/or MS, shown as tags         [optional]
+#
+# Each semester: mark taken projects `reserved` with the `student`,
+# set finished ones to `completed` (or delete them), and add new ones.
+#=======================================================================
+
+# PLACEHOLDER: replace or delete
+#- title: Placeholder Project on Diffusion Models for Imaging
+#  semester: Spring 2027
+#  mentors:
+#    - Chicago Park
+#    - Ulugbek S. Kamilov
+#  description: >-
+#    PLACEHOLDER. One to three sentences on the problem, what the student
+#    will build, and the skills they will learn.
+#  status: available
+#  media: cig-project-placeholder.gif
+#  level:
+#    - BS
+#    - MS
+
+- title: Generative Models as Priors for Ptychography
+  semester: Fall 2026
+  mentors:
+    - Edward Chandler
+    - Ulugbek S. Kamilov
+  description: >-
+    Ptychography reconstructs high-resolution images from overlapping 
+    diffraction measurements, but limited or noisy data can make reconstruction 
+    challenging. This project explores generative models as learned priors to 
+    guide reconstruction toward images consistent with both the measurements 
+    and the structure of the sample. By combining physical models of diffraction 
+    with generative modeling and optimization, we aim to improve reconstruction 
+    quality and reduce data acquisition requirements.
+  status: reserved
+  student: Yan Li
+  media: generative-ptychography.gif
+  level:
+    - MS
+
+- title: Motion Correction in 3D Whole-Body MRI
+  semester: Fall 2026
+  mentors:
+    - Chicago Park
+    - Ulugbek S. Kamilov
+  description: >-
+    Patient motion during 3D whole-body MRI can blur images and obscure anatomical details. In collaboration with the UW School of Medicine, this project develops computational methods to estimate and correct motion during image reconstruction. By combining MRI physics with optimization and generative modeling, we aim to improve image quality and the reliability of whole-body imaging.
+  status: reserved
+  student: Joshua Wang
+  media: mri-motion-correction.gif
+  level:
+    - BS
+
+- title: Reconstructing MRI Images with Diffusion Models
+  semester: Fall 2026
+  mentors:
+    - Xiao Shi
+    - Ulugbek S. Kamilov
+  description: >-
+    This project develops MRI reconstruction methods that use diffusion models as learned image priors. By combining generative modeling with MRI physics, we aim to recover high-quality images from undersampled measurements, enabling faster scans. The work is conducted in collaboration with the UW School of Medicine.
+  status: reserved
+  student: Tyler Seils
+  media: mri-diffusion-reconstruction.gif
+  level:
+    - BS
