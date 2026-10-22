@@ -15,6 +15,11 @@ const schema = z.object({
 	google_scholar: z.url(),
 	links: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
 	google_site_verification: z.string().min(1).optional(),
+	// The site code from <code>.goatcounter.com.
+	goatcounter: z
+		.string()
+		.regex(/^[a-z0-9-]+$/, 'must be the GoatCounter site code, e.g. "uw-cig" for uw-cig.goatcounter.com')
+		.optional(),
 });
 
 const result = schema.safeParse(parse(readFileSync(SITE_FILE, "utf8")));

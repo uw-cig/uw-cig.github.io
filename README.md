@@ -41,6 +41,8 @@ Categories are assigned automatically: `abbr={arXiv}` is a **Preprint**, `@artic
 }
 ```
 
+**Link a PhD thesis from the Team page.** In `team.yml`, set a PhD alum's `thesis_key` to the thesis's BibTeX key (`thesis_key: Sun2022phd`), and the thesis title on their alumni card becomes a link to the thesis's `html` URL, else its `pdf`, else its DOI. Only PhD theses are linked: a key that doesn't match a `@phdthesis` entry in `papers.bib` (including a `@mastersthesis` key) fails the build with an error naming the person. MS theses are listed on the Publications page but not linked from the Team page.
+
 **Searching.** The search box matches titles, authors, venues, and years, ignoring case and accents. Each term matches at the start of a word, so `score` finds "score-based" and `CT` does not match "reconstruction". A term in double quotes matches only whole words: `"SPECT"` finds "SPECT" but not "spectral", and `"phase retrieval"` finds that exact phrase. Words separated by spaces must all match; `|` separates alternatives, any of which may match: `diffusion | posterior sampling` finds papers with "diffusion", or with both "posterior" and "sampling". The search and the type filter are kept in the URL (`/publications/?q=diffusion%20%7C%20score&type=journal`), so a filtered view can be linked. The homepage "Related publications" links are built this way from the `query` lists in `src/data/research.yml`.
 
 **Add a venue.** Add a key to `venues.yml` that matches the paper's `abbr`:
@@ -169,5 +171,6 @@ Every page has a description, a canonical URL, and Open Graph / Twitter tags, so
 - **Preview image.** `public/og-default.png` (1200×630) is used for every page. Regenerate it with `node scripts/make-og-image.mjs` after changing the group name, university or colors, and commit the PNG; it uses the system UI font, as the site does. A page can use another image with `<BaseLayout image="/my-image.png" imageAlt="…">`.
 - **Structured data.** The homepage includes JSON-LD for the group (name, address, X and Google Scholar links) built from `site.yml`.
 - **Google Search Console.** To verify the site, choose the "HTML tag" method and put its `content` value in `site.yml` as `google_site_verification`.
+- **Analytics.** If `goatcounter` is set in `site.yml` (currently `uw-cig`), every page loads GoatCounter's counting script, and visits show up at `https://uw-cig.goatcounter.com`. GoatCounter uses no cookies and no other trackers are loaded. The script is only added to production builds, so `npm run dev` doesn't count your own visits. Remove the field to turn analytics off.
 - **Sitemap.** `@astrojs/sitemap` writes `https://uw-cig.github.io/sitemap-index.xml` on every build; `public/robots.txt` points crawlers to it.
 - **404 page.** `src/pages/404.astro` is served by GitHub Pages for unknown URLs. It links to the main pages, has a publications search box, and is kept out of search results.

@@ -16,6 +16,18 @@ const slugify = (s: string) =>
 		.replace(/[\s_]+/g, "-");
 
 const TEAM_FILE = "src/data/team.yml";
+const PAPERS_FILE = "src/data/papers.bib";
+
+// thesis_key values are checked against papers.bib directly, since a schema
+// cannot query another collection while it is being validated.
+const thesisKeys = (type: string) =>
+	new Set(
+		[...readFileSync(PAPERS_FILE, "utf8").matchAll(new RegExp(`@${type}\\s*\\{\\s*([^,\\s]+)`, "gi"))].map(
+			(m) => m[1],
+		),
+	);
+const phdThesisKeys = thesisKeys("phdthesis");
+const msThesisKeys = thesisKeys("mastersthesis");
 
 const team = defineCollection({
 	// The file loader skips array items without an `id`, so derive one from the name.
@@ -39,10 +51,20 @@ const team = defineCollection({
 				.transform((v) => (typeof v === "string" ? [v] : v))
 				.optional(),
 			thesis: z.string().optional(),
+			thesis_key: z.string().min(1).optional(),
 			year: z.number().int().optional(),
 			focus: z.string().optional(),
 		})
 		.superRefine((m, ctx) => {
+			if (m.thesis_key !== undefined && !phdThesisKeys.has(m.thesis_key)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["thesis_key"],
+					message: msThesisKeys.has(m.thesis_key)
+						? `${m.name}: thesis_key "${m.thesis_key}" is a @mastersthesis entry; only PhD theses (@phdthesis) are linked`
+						: `${m.name}: thesis_key "${m.thesis_key}" does not match any @phdthesis entry in papers.bib`,
+				});
+			}
 			if (m.current && !m.institution) {
 				ctx.addIssue({
 					code: "custom",
@@ -229,7 +251,7 @@ const venues = defineCollection({
 const optionalText = z.string().min(1).optional();
 
 const papers = defineCollection({
-	loader: bibtexLoader({ file: "src/data/papers.bib", venuesFile: VENUES_FILE }),
+	loader: bibtexLoader({ file: PAPERS_FILE, venuesFile: VENUES_FILE }),
 	schema: z.object({
 		// Unique even when papers.bib repeats a key; `key` is the BibTeX key as written.
 		id: z.string(),

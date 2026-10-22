@@ -6,7 +6,7 @@ Website for the Computational Imaging Group (CIG) at UW–Madison. Built with As
 
 | File | Controls |
 | --- | --- |
-| `src/data/site.yml` | Group/university names, default page `description`, address, email, Scholar URL, footer links and optional `google_site_verification`. Read by `src/utils/site.ts` and used in the header, footer, tab titles, meta tags and the homepage JSON-LD. |
+| `src/data/site.yml` | Group/university names, default page `description`, address, email, Scholar URL, footer links, optional `google_site_verification` and optional `goatcounter` (analytics site code). Read by `src/utils/site.ts` and used in the header, footer, tab titles, meta tags and the homepage JSON-LD. |
 | `src/data/home.yml` | `mission` paragraph on the homepage. |
 | `src/data/research.yml` | Homepage research tabs: title, summary, image (filename in `src/assets/research/`), optional `query` for the "Related publications" link. |
 | `src/data/team.yml` | PI, postdocs, PhD students and alumni (`team` collection). Photos are in `public/images/team/`. |
@@ -24,7 +24,7 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 
 ## Pages and components
 
-- `src/layouts/BaseLayout.astro` holds the header, the mobile nav toggle, the main nav (marks the current page with `aria-current`) and the contact footer. Its `<head>` has the meta description, canonical URL, Open Graph/Twitter tags (`twitter:site` comes from the X link in site.yml), the optional Google verification tag and, on the homepage, `ResearchOrganization` JSON-LD. Props: `title`, `description` (default from site.yml), `image`/`imageAlt` (default `public/og-default.png`), `type` (`article` for news posts) and `noindex`.
+- `src/layouts/BaseLayout.astro` holds the header, the mobile nav toggle, the main nav (marks the current page with `aria-current`) and the contact footer. Its `<head>` has the meta description, canonical URL, Open Graph/Twitter tags (`twitter:site` comes from the X link in site.yml), the optional Google verification tag, the GoatCounter script (only when `goatcounter` is set and only in production builds) and, on the homepage, `ResearchOrganization` JSON-LD. Props: `title`, `description` (default from site.yml), `image`/`imageAlt` (default `public/og-default.png`), `type` (`article` for news posts) and `noindex`.
 - Every page passes a one-sentence `description`. News posts use the first sentence of the body (`newsSummary` in `src/utils/news.ts`), and course pages use their `description` field.
 - `src/pages/404.astro` is the GitHub Pages 404 page (`noindex`, no canonical): links to the main pages and a search form that submits `q` to /publications/.
 - `src/pages/index.astro` shows the mission, `ResearchTabs` and the latest 5 news items (`NewsItem`, via `src/utils/news.ts`).

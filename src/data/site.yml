@@ -26,6 +26,12 @@
 #   google_site_verification:
 #                     token from Google Search Console's "HTML tag"
 #                     method (the content="..." value)        [optional]
+#   goatcounter:      GoatCounter site code, e.g. uw-cig for
+#                     uw-cig.goatcounter.com; adds GoatCounter's
+#                     counting script to every page in production
+#                     builds (not in `npm run dev`). GoatCounter sets
+#                     no cookies. Omit to turn analytics off.
+#                                                             [optional]
 #
 # The group's structured data (JSON-LD) uses name, address, the links
 # and google_scholar; the last address line should look like
@@ -54,3 +60,5 @@ links:
     url: https://x.com/uwcig
 
 google_site_verification: rZVEoi6Isaft36118odw0qp-8BP-4hjqfdf6VxBOejI
+
+goatcounter: uw-cig

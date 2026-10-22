@@ -108,6 +108,18 @@ const footerLabel = "text-xs font-semibold tracking-widest text-accent uppercase
 				<script type="application/ld+json" is:inline set:html={JSON.stringify(organization).replace(/</g, "\\u003c")} />
 			)
 		}
+
+		{
+			// GoatCounter's standard snippet; production builds only, so local visits aren't counted.
+			import.meta.env.PROD && site.goatcounter && (
+				<script
+					is:inline
+					data-goatcounter={`https://${site.goatcounter}.goatcounter.com/count`}
+					async
+					src="https://gc.zgo.at/count.js"
+				/>
+			)
+		}
 	</head>
 	<body class="flex min-h-screen flex-col bg-background text-ink">
 		<header class="border-b-2 border-accent">

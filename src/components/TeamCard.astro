@@ -2,6 +2,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { CollectionEntry } from "astro:content";
+import { thesisLinks } from "../utils/theses";
 
 interface Props {
 	member: CollectionEntry<"team">["data"];
@@ -21,6 +22,7 @@ const alumniLabels = {
 	phd: "PhD",
 } as const;
 
+const thesisUrl = member.thesis_key && (await thesisLinks()).get(member.thesis_key);
 const hasPhoto = existsSync(join(process.cwd(), "public/images/team", member.photo));
 const roleLines = member.current_role ?? [`${typeLabels[member.type]}, ${member.institution}`];
 
@@ -81,7 +83,18 @@ const photoLinkProps = member.website
 					{member.current_role?.map((line, i) => (
 						<p class="mt-1">{i === 0 ? `Now: ${line}` : line}</p>
 					))}
-					{member.thesis && <p class="mt-1 text-sm text-muted italic">Thesis: {member.thesis}</p>}
+					{member.thesis && (
+						<p class="mt-1 text-sm text-muted italic">
+							Thesis:{" "}
+							{thesisUrl ? (
+								<a href={thesisUrl} class="hover:text-accent hover:underline">
+									{member.thesis}
+								</a>
+							) : (
+								member.thesis
+							)}
+						</p>
+					)}
 				</>
 			)
 		}

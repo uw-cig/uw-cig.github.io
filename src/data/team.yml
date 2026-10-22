@@ -27,6 +27,10 @@
 #                     - Assistant Professor, Johns Hopkins University
 #                     - Visiting Researcher, Google
 #   thesis:       thesis title (alumni)                       [optional]
+#   thesis_key:   BibTeX key of the PhD thesis in src/data/papers.bib
+#                 (a @phdthesis entry), e.g. Sun2022phd;
+#                 the thesis title links to its html URL, else pdf,
+#                 else DOI. An unknown key fails the build.  [optional]
 #   year:         year the person left / graduated            [mandatory for alumni]
 #   focus:        short research focus                        [optional]
 #=======================================================================
@@ -133,12 +137,14 @@
 # website: [optional]
 # current_role: [optional] (string or list of strings; override the default “PhD Student, Institution” line)
 # thesis: [optional]
+# thesis_key: [optional] (BibTeX key in papers.bib; links the thesis title)
 
 - name: Yu Sun
   type: phd # phd or postdoc
   photo: yu-sun.jpg           # put in public/images/team/
   year: 2022
   thesis: Integrating Physical Models and Deep Priors for Computational Imaging
+  thesis_key: Sun2022phd
   current_role: Assistant Professor, Johns Hopkins University
   website: https://sunyumark.github.io/
 
@@ -147,6 +153,7 @@
   photo: xiaojian-xu.jpg           
   year: 2022
   thesis: Model-based Deep Learning for Computational Imaging
+  thesis_key: Xu2023phd
   current_role: AI Research Scientist, GE HealthCare
   website: https://xuxiaojian.github.io
 
@@ -155,6 +162,7 @@
   photo: jiaming-liu.jpg           
   year: 2024
   thesis: Learning-based Artifacts Removal Priors for Computational Imaging
+  thesis_key: Liu2024phd
   current_role: Research Scientist, Uber
   website: https://jiamingliu-jeremy.github.io
 
@@ -163,6 +171,7 @@
   photo: weijie-gan.jpg           
   year: 2025
   thesis: Computational Imaging under Incomplete Information
+  thesis_key: Gan2025phd
   current_role: Research Engineer, Apple
   website: https://wjgancn.github.io/
 
@@ -171,6 +180,7 @@
   photo: yuyang-hu.jpg
   year: 2026
   thesis: Inference-Time Scaling for Robust and Adaptive Computational Imaging
+  thesis_key: Hu2026phd
   current_role: Research Scientist, Google
   website: https://hu-yuyang.github.io
 
