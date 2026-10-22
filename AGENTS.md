@@ -11,6 +11,7 @@ Website for the Computational Imaging Group (CIG) at UW–Madison. Built with As
 | `src/data/research.yml` | Homepage research tabs: title, summary, image (filename in `src/assets/research/`), optional `query` for the "Related publications" link. |
 | `src/data/team.yml` | PI, postdocs, PhD students and alumni (`team` collection). Photos are in `public/images/team/`. |
 | `src/data/students.yml` | BS/MS student researchers. Terms look like "Fall 2026", and `mentor` must match a name in team.yml. |
+| `src/data/visitors.yml` | Visiting PhD students, visiting students and interns (`visitors` collection): name, type (`phd`/`student`/`intern`), affiliation, optional country, start/end years, optional website. |
 | `src/data/papers.bib` | Publications, parsed by `src/loaders/bibtex.ts` (al-folio-style fields: `abbr`, `arxiv`, `pdf`, `code`, `award`, …). |
 | `src/data/venues.yml` | Keyed by BibTeX `abbr`: venue URL, badge color, `selective` flag. |
 | `src/data/group-photo.yml` | Team-page banner: photo (in `src/assets/group/`), alt, caption, crop position. |
@@ -27,7 +28,7 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 - Every page passes a one-sentence `description`. News posts use the first sentence of the body (`newsSummary` in `src/utils/news.ts`), and course pages use their `description` field.
 - `src/pages/404.astro` is the GitHub Pages 404 page (`noindex`, no canonical): links to the main pages and a search form that submits `q` to /publications/.
 - `src/pages/index.astro` shows the mission, `ResearchTabs` and the latest 5 news items (`NewsItem`, via `src/utils/news.ts`).
-- `src/pages/team.astro` shows `GroupPhoto`, then `TeamCard`s grouped by role, student researchers and alumni.
+- `src/pages/team.astro` shows `GroupPhoto`, then `TeamCard`s grouped by role, student researchers and alumni. Under Alumni, Former Student Researchers and Visitors are compact tables that become stacked rows on phones; each is hidden when empty.
 - `src/pages/publications.astro` lists papers (`PaperEntry`) as Preprints and Published by year. It has a type filter and a search box that syncs `?q=` and `?type=` to the URL; `|` in `q` means OR.
 - `src/pages/news.astro` (grouped by year) and `src/pages/news/[...slug].astro` (full posts).
 - `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` with the "Course Information" section stripped, so local images in course files aren't supported.

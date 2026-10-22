@@ -1,0 +1,122 @@
+#=======================================================================
+# Visitors, shown on /team/ in the "Visitors" table under Alumni,
+# newest first. The table is hidden while this list is empty.
+# Validated by src/content.config.ts; the build fails with an error
+# naming the visitor if a rule is broken.
+#
+# Fields:
+#   name:         full name                                   [mandatory]
+#   type:         phd | student | intern                      [mandatory]
+#                 shown as Visiting PhD Student / Visiting Student / Intern
+#   affiliation:  home institution, e.g. UCLouvain             [mandatory]
+#   country:      e.g. Belgium; shown as "UCLouvain, Belgium"  [optional]
+#   start:        4-digit year, e.g. 2023                     [mandatory]
+#   end:          4-digit year, not before start; omit for a
+#                 single-year visit                           [optional]
+#   website:      URL; the name links to it                   [optional]
+#
+# Example:
+#   - name: Jane Doe
+#     type: phd
+#     affiliation: UCLouvain
+#     country: Belgium
+#     start: 2018
+#     end: 2020
+#=======================================================================
+
+# ---------- Visiting PhD students ----------
+ 
+- name: Paul Goyes
+  type: phd
+  affiliation: Universidad Industrial de Santander
+  country: Colombia
+  start: 2023
+ 
+- name: Olivier Leblanc
+  type: phd
+  affiliation: UCLouvain
+  country: Belgium
+  start: 2023
+ 
+- name: Tomáš Kerepecký
+  type: phd
+  affiliation: Czech Technical University in Prague
+  country: Czech Republic
+  start: 2021
+  end: 2022
+ 
+- name: Guangxiao Song
+  type: phd
+  affiliation: Donghua University
+  country: China
+  start: 2018
+  end: 2020
+ 
+# ---------- Visiting BS/MS students and interns ----------
+ 
+- name: Yu-Chieh Yu
+  type: student
+  affiliation: National Taiwan University
+  country: Taiwan
+  start: 2023
+ 
+- name: Anthony Wang
+  type: student
+  affiliation: MIT
+  country: USA
+  start: 2023
+ 
+- name: Marien Renaud
+  type: student
+  affiliation: École Polytechnique
+  country: France
+  start: 2023
+ 
+- name: Anis Chihoub
+  type: student
+  affiliation: Rutgers University
+  country: USA
+  start: 2022
+ 
+- name: Hee Yun Suh
+  type: student
+  affiliation: Johns Hopkins University
+  country: USA
+  start: 2022
+ 
+- name: Yukun Huang
+  type: student
+  affiliation: Tsinghua University
+  country: China
+  start: 2019
+ 
+- name: Moran Xu
+  type: student
+  affiliation: Southeast University
+  country: China
+  start: 2019
+ 
+- name: Ishika Jain
+  type: student
+  affiliation: Cornell University
+  country: USA
+  start: 2019
+ 
+- name: Tram-Anh Nguyen
+  type: student
+  affiliation: George Mason University
+  country: USA
+  start: 2019
+ 
+- name: Jhoan Hernandez
+  type: student
+  affiliation: Benedict College
+  country: USA
+  start: 2018
+ 
+- name: Sergio Goodwin
+  type: student
+  affiliation: Morehouse College
+  country: USA
+  start: 2018
+ 

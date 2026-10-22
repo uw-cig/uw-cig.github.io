@@ -26,6 +26,18 @@ const mentorSites = new Map(members.map((m) => [m.name, m.website]));
 const termRange = (s: Student) => (s.start === s.end ? s.start : `${s.start} – ${s.end}`);
 const programLabel = (s: Student) => `${s.program ? `${s.program} Student` : "Student Researcher"}, ${s.institution}`;
 
+const visitors = (await getCollection("visitors")).map((entry) => entry.data);
+type Visitor = (typeof visitors)[number];
+
+const visitorYear = (v: Visitor) => Number(v.end ?? v.start);
+const sortedVisitors = visitors.sort((a, b) => visitorYear(b) - visitorYear(a) || a.name.localeCompare(b.name));
+const visitorTypes: Record<Visitor["type"], string> = {
+	phd: "Visiting PhD Student",
+	student: "Visiting Student",
+	intern: "Intern",
+};
+const visitorYears = (v: Visitor) => (v.end && v.end !== v.start ? `${v.start}–${v.end}` : v.start);
+
 const currentSections = [
 	{ title: "Principal Investigator", people: current("pi"), fullWidth: true },
 	{ title: "Postdocs", people: current("postdoc") },
@@ -101,7 +113,7 @@ const alumniSections = [
 	}
 
 	{
-		(alumniSections.length > 0 || formerStudents.length > 0) && (
+		(alumniSections.length > 0 || formerStudents.length > 0 || sortedVisitors.length > 0) && (
 			<section class="mt-14">
 				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Alumni</h2>
 				{alumniSections.map(({ title, people }) => (
@@ -180,6 +192,54 @@ const alumniSections = [
 										</tr>
 									);
 								})}
+							</tbody>
+						</table>
+					</div>
+				)}
+				{sortedVisitors.length > 0 && (
+					<div class="mt-8 first:mt-0">
+						<h3 class="mb-6 text-sm font-semibold tracking-wide text-muted uppercase">Visitors</h3>
+						<table class="block w-full text-sm sm:table">
+							<thead class="hidden sm:table-header-group">
+								<tr class="border-b border-line text-left">
+									<th class="py-2 pr-4 font-semibold">Name</th>
+									<th class="py-2 pr-4 font-semibold">Type</th>
+									<th class="py-2 pr-4 font-semibold">Affiliation</th>
+									<th class="py-2 font-semibold">Year</th>
+								</tr>
+							</thead>
+							<tbody class="block sm:table-row-group">
+								{sortedVisitors.map((v) => (
+									<tr class="block border-b border-line py-3 align-top sm:table-row sm:py-0">
+										<td class="block font-semibold sm:table-cell sm:py-2 sm:pr-4">
+											{v.website ? (
+												<a href={v.website} class="hover:text-accent hover:underline">
+													{v.name}
+												</a>
+											) : (
+												v.name
+											)}
+										</td>
+										<td
+											data-label="Type: "
+											class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:before:content-none"
+										>
+											{visitorTypes[v.type]}
+										</td>
+										<td
+											data-label="Affiliation: "
+											class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:pr-4 sm:before:content-none"
+										>
+											{v.country ? `${v.affiliation}, ${v.country}` : v.affiliation}
+										</td>
+										<td
+											data-label="Year: "
+											class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:whitespace-nowrap sm:before:content-none"
+										>
+											{visitorYears(v)}
+										</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>

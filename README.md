@@ -145,6 +145,22 @@ Closed sections and their jump links are hidden. If every section is closed, the
 3. Add new student researchers to `students.yml`, and move finished ones to former students, as described at the top of that file. A student's `mentor` can be one name or a list (`mentor: [Chicago Park, Ulugbek S. Kamilov]`); each must match a name in `team.yml`, and several are shown as "Mentors: A, B" on the Team page.
 4. Run `npm run build`; a typo in a mentor name, semester or status fails the build with an error naming the project.
 
+## Visitors
+
+Visiting PhD students, visiting students and interns are listed in `src/data/visitors.yml` (the field reference is at the top of the file) and shown in the Visitors table under Alumni on the Team page, newest first. For example:
+
+```yaml
+- name: Jane Doe
+  type: phd            # phd | student | intern
+  affiliation: UCLouvain
+  country: Belgium     # optional
+  start: 2018
+  end: 2020            # optional; omit for a one-year visit
+  website: https://example.com   # optional
+```
+
+This shows as "Jane Doe · Visiting PhD Student · UCLouvain, Belgium · 2018–2020". The table is hidden while the file has no entries. A wrong `type`, a year that isn't four digits, or an `end` before `start` fails the build with an error naming the visitor.
+
 ## Search engines and link previews
 
 Every page has a description, a canonical URL, and Open Graph / Twitter tags, so links shared on Slack, X, LinkedIn and similar sites show a title, description and image.

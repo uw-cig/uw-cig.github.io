@@ -155,6 +155,62 @@ const students = defineCollection({
 		}),
 });
 
+// YAML reads 2023 as a number and "2023" as a string; both are accepted.
+const visitorYear = z.union([z.number(), z.string()]).transform(String);
+const YEAR = /^\d{4}$/;
+const VISITOR_TYPES = ["phd", "student", "intern"] as const;
+
+const visitors = defineCollection({
+	loader: file("src/data/visitors.yml", {
+		parser: (text) =>
+			((parse(text) as Record<string, unknown>[] | null) ?? []).map((item, i) => ({
+				id:
+					typeof item?.name === "string"
+						? slugify(`${item.name} ${item.start ?? ""}`)
+						: `entry-${i + 1}`,
+				...item,
+			})),
+	}),
+	schema: z
+		.object({
+			name: z.string().min(1),
+			// Checked in superRefine so the error names the visitor.
+			type: z.string(),
+			affiliation: z.string().min(1),
+			country: z.string().min(1).optional(),
+			start: visitorYear,
+			end: visitorYear.optional(),
+			website: z.url().optional(),
+		})
+		.superRefine((v, ctx) => {
+			if (!(VISITOR_TYPES as readonly string[]).includes(v.type)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["type"],
+					message: `${v.name}: "type" must be phd, student or intern, got "${v.type}"`,
+				});
+			}
+			for (const field of ["start", "end"] as const) {
+				const year = v[field];
+				if (year !== undefined && !YEAR.test(year)) {
+					ctx.addIssue({
+						code: "custom",
+						path: [field],
+						message: `${v.name}: "${field}" must be a 4-digit year like 2023, got "${year}"`,
+					});
+				}
+			}
+			if (v.end !== undefined && YEAR.test(v.start) && YEAR.test(v.end) && Number(v.end) < Number(v.start)) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["end"],
+					message: `${v.name}: "end" (${v.end}) is before "start" (${v.start})`,
+				});
+			}
+		})
+		.transform((v) => ({ ...v, type: v.type as (typeof VISITOR_TYPES)[number] })),
+});
+
 const VENUES_FILE = "src/data/venues.yml";
 
 // Keyed by the `abbr` field of papers.bib entries.
@@ -401,4 +457,4 @@ const projects = defineCollection({
 		})),
 });
 
-export const collections = { team, students, venues, papers, news, research, teaching, join, projects };
+export const collections = { team, students, visitors, venues, papers, news, research, teaching, join, projects };
