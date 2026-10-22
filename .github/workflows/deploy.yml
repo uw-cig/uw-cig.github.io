@@ -20,8 +20,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Install, build, and upload site
+      - name: Install, type-check, build, and upload site
         uses: withastro/action@v6
+        with:
+          # A failed type check stops the deploy before the build runs.
+          build-cmd: npm run check && npm run build
 
   deploy:
     needs: build

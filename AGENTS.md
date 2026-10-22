@@ -1,6 +1,6 @@
 # Project guide
 
-Website for the Computational Imaging Group (CIG) at UW–Madison. Built with Astro and Tailwind v4 (`@tailwindcss/vite`, plus `@tailwindcss/typography`). Every push to `main` deploys to GitHub Pages through `.github/workflows/deploy.yml`.
+Website for the Computational Imaging Group (CIG) at UW–Madison. Built with Astro and Tailwind v4 (`@tailwindcss/vite`, plus `@tailwindcss/typography`). Every push to `main` deploys to GitHub Pages through `.github/workflows/deploy.yml`, which runs `npm run check` (`astro check`) before `npm run build`, so a type error stops the deploy.
 
 ## Where content lives
 
@@ -29,7 +29,7 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 - `src/pages/publications.astro` lists papers (`PaperEntry`) as Preprints and Published by year. It has a type filter and a search box that syncs `?q=` and `?type=` to the URL; `|` in `q` means OR.
 - `src/pages/news.astro` (grouped by year) and `src/pages/news/[...slug].astro` (full posts).
 - `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` with the "Course Information" section stripped, so local images in course files aren't supported.
-- `src/pages/join.astro` shows the open `join` sections in order, with jump links, status badges and Apply buttons. The `student-researchers` section also gets a grid of `ProjectCard`s.
+- `src/pages/join.astro` shows the open `join` sections in order, with jump links, status badges and Apply buttons. The `student-researchers` section also gets a list of `ProjectCard`s (square media on the left) with All/Available/Reserved filter pills.
 
 ## Design conventions
 
@@ -47,17 +47,19 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 
 - Validate all data with Zod: collection schemas in `src/content.config.ts`, and inline schemas for site.yml, home.yml and group-photo.yml. A bad entry must fail the build with an error that names the file, the entry and the field (use `superRefine` with custom messages).
 - Don't edit content files (`src/data/*`, `src/content/news/*`, images) unless asked.
+- Placeholder files and entries (in `projects.yml`, `src/content/join/`, `src/assets/`) are intentional, even when unreferenced; never delete them. Ask before deleting any other file.
 - Keep news files compatible with al-folio front matter (`date`, `title`, `inline`; other fields are ignored), and keep papers.bib valid BibTeX with al-folio fields, so both can be copied from or to an al-folio site.
 
 ## Workflow
 
 - Astro 7 renders Markdown with Sätteri, so `markdown.remarkPlugins` doesn't work without adding `@astrojs/markdown-remark`.
 - Restart the dev server after changing `src/content.config.ts` or adding a new data file. Hot reload doesn't pick these up.
-- Before finishing, run `npm run build` and check that it passes.
+- Before finishing, run `npm run check` (0 errors, warnings and hints) and `npm run build`, and check that both pass.
+- `@types/node` is pinned to the Node 22 line to match `engines`; keep it in step if the minimum Node version changes.
 
-## Remaining work
+## Known issues
 
-- Housekeeping: add `@astrojs/check` and `@types/node`, and address the `npm audit` warnings.
+- `npm audit` reports a moderate advisory in `postcss-selector-parser` 6.0.10, pinned by `@tailwindcss/typography` 0.5.20 (the latest). It only runs at build time, on Tailwind's own selectors. Don't run `npm audit fix --force`: it downgrades typography to 0.5.4.
 
 ## Development
 

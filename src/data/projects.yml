@@ -62,7 +62,7 @@
     quality and reduce data acquisition requirements.
   status: reserved
   student: Yan Li
-  media: generative-ptychography.gif
+  media: generative-ptychography.mp4
   level:
     - MS
 
@@ -75,7 +75,7 @@
     Patient motion during 3D whole-body MRI can blur images and obscure anatomical details. In collaboration with the UW School of Medicine, this project develops computational methods to estimate and correct motion during image reconstruction. By combining MRI physics with optimization and generative modeling, we aim to improve image quality and the reliability of whole-body imaging.
   status: reserved
   student: Joshua Wang
-  media: mri-motion-correction.gif
+  media: mri-motion-correction.mp4
   level:
     - BS
 
@@ -88,6 +88,6 @@
     This project develops MRI reconstruction methods that use diffusion models as learned image priors. By combining generative modeling with MRI physics, we aim to recover high-quality images from undersampled measurements, enabling faster scans. The work is conducted in collaboration with the UW School of Medicine.
   status: reserved
   student: Tyler Seils
-  media: mri-diffusion-reconstruction.gif
+  media: mri-diffusion-reconstruction.mp4
   level:
     - BS

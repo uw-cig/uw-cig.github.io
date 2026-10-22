@@ -1,6 +1,16 @@
 # uw-cig.github.io
 Website of the Computational Imaging Group (CIG) at UW–Madison
 
+## Development
+
+Requires Node 22 or later. Run `npm install` once, then:
+
+- `npm run dev` starts a local server with live reload.
+- `npm run check` type-checks the site (`astro check`).
+- `npm run build` builds the site into `dist/`. Data errors (for example a misspelled mentor name) fail the build with a message naming the file and entry.
+
+Every push to `main` runs `npm run check` and `npm run build` on GitHub Actions, then deploys to GitHub Pages. If either fails, the site isn't updated.
+
 ## Publications
 
 The Publications page (`/publications/`) is built from `src/data/papers.bib` and `src/data/venues.yml`. Free-text lines between entries (e.g. `--- 2025`) are ignored, so you can keep using them to organize the file. Unknown venues and duplicate BibTeX keys show up as warnings in the build output.
