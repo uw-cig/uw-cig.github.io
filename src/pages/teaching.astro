@@ -1,8 +1,37 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { courseUrl, getCourses } from "../utils/teaching";
+
+const courses = await getCourses();
+const terms = [...new Set(courses.map((course) => course.data.term))];
 ---
 
 <BaseLayout title="Teaching">
 	<h1 class="mb-4 text-3xl font-semibold">Teaching</h1>
-	<p>Coming soon.</p>
+	<p class="text-muted">Courses taught by CIG.</p>
+
+	{
+		terms.map((term) => (
+			<section class="mt-10">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">{term}</h2>
+				<ul class="space-y-6">
+					{courses
+						.filter((course) => course.data.term === term)
+						.map((course) => (
+							<li>
+								<h3 class="text-lg leading-snug font-semibold">
+									<a href={courseUrl(course)} class="hover:text-accent hover:underline">
+										{course.data.title}
+									</a>
+								</h3>
+								<p class="mt-1">
+									<span class="font-semibold">{course.data.course}</span> · {course.data.institution}
+								</p>
+								<p class="mt-1 text-muted">{course.data.description}</p>
+							</li>
+						))}
+				</ul>
+			</section>
+		))
+	}
 </BaseLayout>

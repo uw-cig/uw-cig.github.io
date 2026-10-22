@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { courseBodyHtml, getCourses, type Course } from "../../utils/teaching";
+
+export async function getStaticPaths() {
+	return (await getCourses()).map((course) => ({ params: { slug: course.id }, props: { course } }));
+}
+
+interface Props {
+	course: Course;
+}
+
+const { course } = Astro.props;
+const { data } = course;
+// Rendered Markdown without its "Course Information" section. Local images in course
+// files are not supported here, since rendered.html leaves them unresolved.
+const body = courseBodyHtml(course);
+---
+
+<BaseLayout title={data.title}>
+	<article>
+		<h1 class="text-3xl leading-tight font-semibold">{data.title}</h1>
+		<p class="mt-2 text-muted">{data.course} · {data.term} · {data.institution}</p>
+
+		{
+			data.links.length > 0 && (
+				<ul class="mt-4 flex flex-wrap gap-2">
+					{data.links.map((link) => (
+						<li>
+							<a
+								href={link.url}
+								class="inline-block rounded border border-line px-2 py-0.5 text-xs hover:border-accent hover:text-accent"
+							>
+								{link.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			)
+		}
+
+		<div
+			class="prose mt-8 max-w-none [--tw-prose-body:var(--color-ink)] [--tw-prose-bold:var(--color-ink)] [--tw-prose-bullets:var(--color-muted)] [--tw-prose-counters:var(--color-muted)] [--tw-prose-headings:var(--color-ink)] [--tw-prose-hr:var(--color-line)] [--tw-prose-links:var(--color-accent)] [--tw-prose-quotes:var(--color-ink)] [--tw-prose-quote-borders:var(--color-line)] prose-a:no-underline hover:prose-a:underline"
+		>
+			<Fragment set:html={body} />
+		</div>
+	</article>
+
+	<a href="/teaching/" class="mt-10 inline-block text-sm text-accent hover:underline">← All teaching</a>
+</BaseLayout>

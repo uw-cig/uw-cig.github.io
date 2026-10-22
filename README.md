@@ -60,3 +60,31 @@ More paragraphs, lists, links...
 ```
 
 `date` can also be written as `2027-01-04 08:00:00-0400`, as in the older al-folio files, and the date shown is the one written. Items dated in the future still appear, at the top of the list. In older files, `inline: true` makes an item one-line even if it has a title. Other front-matter fields (`layout`, `related_posts`) are ignored. A missing or malformed `date` fails the build with an error naming the file.
+
+## Teaching
+
+Courses are Markdown files in `src/content/teaching/`, shown on `/teaching/` grouped by term, newest first. Name files `YYYY-term-coursecode.md` (e.g. `2027-spring-ece532.md`); the file name becomes the course page URL (`/teaching/2027-spring-ece532/`).
+
+```markdown
+---
+title: Matrix Methods in Machine Learning
+course: ECE 532
+institution: University of Wisconsin–Madison
+description: Undergraduate course on matrix methods and their applications in machine learning.
+year: 2027
+semester: Spring
+links:
+  - label: Canvas
+    url: https://canvas.wisc.edu/courses/123456
+---
+
+## Course Description
+
+...
+
+## Lecture Topics
+
+1. ...
+```
+
+All fields except `links` are required, and `semester` must be `Spring`, `Summer`, or `Fall`. The `links` show as buttons under the course header. A section headed `## Course Information` is not shown on the course page, since the header already gives the course code, term, and institution. Older al-folio files may keep `semester_id` (`"Spring 2027"`) and `semester_sort` (`"2027-1"` for Spring, `"2027-2"` for Fall), but they must agree with `year` and `semester`, or the build fails with an error naming the file. Summer courses must omit `semester_sort`. Other front-matter fields (`layout`) are ignored. Images in course files are not supported.

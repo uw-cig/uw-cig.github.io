@@ -4,7 +4,7 @@ import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { parse } from "yaml";
 import { bibtexLoader } from "./loaders/bibtex";
-import { TERM, termKey } from "./utils/terms";
+import { SEASONS, TERM, termKey } from "./utils/terms";
 
 const slugify = (s: string) =>
 	s
@@ -218,6 +218,54 @@ const news = defineCollection({
 	}),
 });
 
+// Legacy al-folio `semester_sort` suffixes. Summer has none, so Summer courses must omit the field.
+const LEGACY_SORT: Record<string, number | undefined> = { Spring: 1, Fall: 2 };
+
+// al-folio course files. Other front-matter fields (layout, ...) are ignored.
+const teaching = defineCollection({
+	loader: glob({ base: "src/content/teaching", pattern: "**/*.md" }),
+	schema: z
+		.object({
+			title: z.string().min(1),
+			course: z.string().min(1),
+			institution: z.string().min(1),
+			description: z.string().min(1),
+			year: z.number().int(),
+			semester: z.enum(SEASONS),
+			semester_id: z.string().optional(),
+			semester_sort: z.string().optional(),
+			links: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
+		})
+		.superRefine((c, ctx) => {
+			const term = `${c.semester} ${c.year}`;
+			if (c.semester_id !== undefined && c.semester_id !== term) {
+				ctx.addIssue({
+					code: "custom",
+					path: ["semester_id"],
+					message: `"semester_id" ("${c.semester_id}") must match year + semester ("${term}"), or be removed`,
+				});
+			}
+			if (c.semester_sort !== undefined) {
+				const suffix = LEGACY_SORT[c.semester];
+				const expected = suffix === undefined ? undefined : `${c.year}-${suffix}`;
+				if (c.semester_sort !== expected) {
+					ctx.addIssue({
+						code: "custom",
+						path: ["semester_sort"],
+						message:
+							expected === undefined
+								? `"semester_sort" has no legacy value for ${c.semester} terms; remove it`
+								: `"semester_sort" ("${c.semester_sort}") must match year + semester ("${expected}"), or be removed`,
+					});
+				}
+			}
+		})
+		.transform(({ semester_id, semester_sort, ...c }) => {
+			const term = `${c.semester} ${c.year}`;
+			return { ...c, term, termOrder: termKey(term) };
+		}),
+});
+
 // Homepage research tabs, in file order.
 const research = defineCollection({
 	loader: file("src/data/research.yml", {
@@ -242,4 +290,4 @@ const research = defineCollection({
 	}),
 });
 
-export const collections = { team, students, venues, papers, news, research };
+export const collections = { team, students, venues, papers, news, research, teaching };

@@ -14,6 +14,7 @@ Website for the Computational Imaging Group (CIG) at UW–Madison. Built with As
 | `src/data/papers.bib` | Publications, parsed by `src/loaders/bibtex.ts` (al-folio-style fields: `abbr`, `arxiv`, `pdf`, `code`, `award`, …). |
 | `src/data/venues.yml` | Keyed by BibTeX `abbr`: venue URL, badge color, `selective` flag. |
 | `src/data/group-photo.yml` | Team-page banner: photo (in `src/assets/group/`), alt, caption, crop position. |
+| `src/content/teaching/*.md` | al-folio course files (`teaching` collection): title, course code, institution, description, year, semester, optional links. |
 | `src/content/news/*.md` | al-folio news files. A file with a `title` gets its own page; one without a title (or with `inline: true`) is a one-line item. |
 
 Each YAML file starts with a comment header that documents its fields. Keep that header up to date when you change a schema.
@@ -25,7 +26,8 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 - `src/pages/team.astro` shows `GroupPhoto`, then `TeamCard`s grouped by role, student researchers and alumni.
 - `src/pages/publications.astro` lists papers (`PaperEntry`) as Preprints and Published by year. It has a type filter and a search box that syncs `?q=` and `?type=` to the URL; `|` in `q` means OR.
 - `src/pages/news.astro` (grouped by year) and `src/pages/news/[...slug].astro` (full posts).
-- `src/pages/teaching.astro` and `src/pages/join.astro` are placeholders for now.
+- `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` with the "Course Information" section stripped, so local images in course files aren't supported.
+- `src/pages/join.astro` is a placeholder for now.
 
 ## Design conventions
 
@@ -47,12 +49,12 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 
 ## Workflow
 
+- Astro 7 renders Markdown with Sätteri, so `markdown.remarkPlugins` doesn't work without adding `@astrojs/markdown-remark`.
 - Restart the dev server after changing `src/content.config.ts` or adding a new data file. Hot reload doesn't pick these up.
 - Before finishing, run `npm run build` and check that it passes.
 
 ## Remaining work
 
-- Teaching page.
 - Join page.
 - Housekeeping: add `@astrojs/check` and `@types/node`, and address the `npm audit` warnings.
 
