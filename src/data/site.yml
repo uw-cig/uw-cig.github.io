@@ -10,6 +10,9 @@
 #                     ("Team · UW–Madison CIG")               [mandatory]
 #   university:       full university name (header, footer)   [mandatory]
 #   university_short: short form (copyright line, tab titles) [mandatory]
+#   description:      one or two sentences about the group; the default
+#                     search-engine and link-preview description for
+#                     pages that don't set their own           [mandatory]
 #   address:          list of address lines ("Find us")       [mandatory]
 #   email:            contact address; shown as a mailto link [mandatory]
 #   google_scholar:   Google Scholar profile URL; shown in the footer and
@@ -18,12 +21,25 @@
 #                     `label` and a `url`; shown after the email and
 #                     before Google Scholar, opening in a new tab
 #                                                             [optional]
+#                     An X/Twitter link here also sets the twitter:site
+#                     handle in link previews (x.com/uwcig -> @uwcig).
+#   google_site_verification:
+#                     token from Google Search Console's "HTML tag"
+#                     method (the content="..." value)        [optional]
+#
+# The group's structured data (JSON-LD) uses name, address, the links
+# and google_scholar; the last address line should look like
+# "Madison, WI 53715".
 #=======================================================================
 
 name: Computational Imaging Group
 short_name: CIG
 university: University of Wisconsin–Madison
 university_short: UW–Madison
+description: >-
+  The Computational Imaging Group (CIG) at UW–Madison develops the
+  mathematical and computational foundations of intelligent systems that
+  sense, reconstruct, and understand the physical world.
 
 address:
   - Discovery Building
@@ -36,3 +52,5 @@ google_scholar: https://scholar.google.com/citations?user=3qYUSDwAAAAJ&hl=en
 links:
   - label: X / Twitter
     url: https://x.com/uwcig
+
+# google_site_verification: "token-from-search-console"

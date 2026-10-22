@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const links = [
+	{ href: "/", label: "Home" },
+	{ href: "/team/", label: "Team" },
+	{ href: "/publications/", label: "Publications" },
+	{ href: "/news/", label: "News" },
+	{ href: "/join/", label: "Join" },
+];
+---
+
+<BaseLayout title="Page not found" description="This page could not be found." noindex>
+	<h1 class="mb-4 text-3xl font-semibold">Page not found</h1>
+	<p>Sorry, we couldn't find that page. It may have moved, or the link may be out of date.</p>
+
+	<nav aria-label="Site pages" class="mt-8">
+		<ul class="flex flex-wrap gap-x-6 gap-y-2">
+			{
+				links.map(({ href, label }) => (
+					<li>
+						<a href={href} class="text-accent hover:underline">
+							{label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+
+	<form action="/publications/" method="get" role="search" class="mt-10 max-w-md">
+		<label for="notfound-search" class="mb-2 block text-sm text-muted">Looking for a paper? Search our publications:</label>
+		<div class="flex gap-2">
+			<input
+				id="notfound-search"
+				name="q"
+				type="search"
+				autocomplete="off"
+				placeholder="Title, author, venue, or year"
+				class="min-w-0 flex-1 rounded border border-line bg-background px-3 py-2 focus:border-accent focus:outline-none"
+			/>
+			<button
+				type="submit"
+				class="rounded border border-accent bg-accent px-4 py-2 text-sm text-white hover:opacity-85"
+			>
+				Search
+			</button>
+		</div>
+	</form>
+</BaseLayout>

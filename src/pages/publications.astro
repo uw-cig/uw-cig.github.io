@@ -38,7 +38,10 @@ const filters = [
 const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 ---
 
-<BaseLayout title="Publications">
+<BaseLayout
+	title="Publications"
+	description="Journal articles, conference papers, preprints, and theses from the Computational Imaging Group at UW–Madison, searchable by title, author, venue, and year."
+>
 	<h1 class="mb-4 text-3xl font-semibold">Publications</h1>
 	<p>
 		For a complete list, see <a href={site.google_scholar} class="text-accent hover:underline">Google Scholar</a>.

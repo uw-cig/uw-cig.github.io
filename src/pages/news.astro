@@ -7,7 +7,10 @@ const items = await getNews();
 const years = [...new Set(items.map((item) => item.data.date.getUTCFullYear()))];
 ---
 
-<BaseLayout title="News">
+<BaseLayout
+	title="News"
+	description="News from the Computational Imaging Group at UW–Madison: accepted papers, awards, talks, grants, and group milestones."
+>
 	<h1 class="mb-4 text-3xl font-semibold">News</h1>
 
 	{

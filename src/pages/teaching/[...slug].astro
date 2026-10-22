@@ -17,7 +17,7 @@ const { data } = course;
 const body = courseBodyHtml(course);
 ---
 
-<BaseLayout title={data.title}>
+<BaseLayout title={data.title} description={data.description}>
 	<article>
 		<h1 class="text-3xl leading-tight font-semibold">{data.title}</h1>
 		<p class="mt-2 text-muted">{data.course} · {data.term} · {data.institution}</p>

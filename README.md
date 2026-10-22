@@ -144,3 +144,14 @@ Closed sections and their jump links are hidden. If every section is closed, the
 2. In `projects.yml`, mark taken projects `status: reserved` with the `student`, set finished ones to `status: completed` (or delete them), and add new projects with `status: available`.
 3. Add new student researchers to `students.yml`, and move finished ones to former students, as described at the top of that file. A student's `mentor` can be one name or a list (`mentor: [Chicago Park, Ulugbek S. Kamilov]`); each must match a name in `team.yml`, and several are shown as "Mentors: A, B" on the Team page.
 4. Run `npm run build`; a typo in a mentor name, semester or status fails the build with an error naming the project.
+
+## Search engines and link previews
+
+Every page has a description, a canonical URL, and Open Graph / Twitter tags, so links shared on Slack, X, LinkedIn and similar sites show a title, description and image.
+
+- **Descriptions.** The homepage uses `description` from `site.yml`. Team, Publications, Teaching, News and Join set their own in `src/pages/*.astro` (the `description` prop of `BaseLayout`). A news post uses the first sentence of its body, and a course page uses its `description` field.
+- **Preview image.** `public/og-default.png` (1200×630) is used for every page. Regenerate it with `node scripts/make-og-image.mjs` after changing the group name, university or colors, and commit the PNG; it uses the system UI font, as the site does. A page can use another image with `<BaseLayout image="/my-image.png" imageAlt="…">`.
+- **Structured data.** The homepage includes JSON-LD for the group (name, address, X and Google Scholar links) built from `site.yml`.
+- **Google Search Console.** To verify the site, choose the "HTML tag" method and put its `content` value in `site.yml` as `google_site_verification`.
+- **Sitemap.** `@astrojs/sitemap` writes `https://uw-cig.github.io/sitemap-index.xml` on every build; `public/robots.txt` points crawlers to it.
+- **404 page.** `src/pages/404.astro` is served by GitHub Pages for unknown URLs. It links to the main pages, has a publications search box, and is kept out of search results.

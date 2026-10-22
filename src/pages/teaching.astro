@@ -6,7 +6,10 @@ const courses = await getCourses();
 const terms = [...new Set(courses.map((course) => course.data.term))];
 ---
 
-<BaseLayout title="Teaching">
+<BaseLayout
+	title="Teaching"
+	description="Courses taught by Prof. Ulugbek Kamilov at UW–Madison and Washington University in St. Louis, with course descriptions and materials."
+>
 	<h1 class="mb-4 text-3xl font-semibold">Teaching</h1>
 	<p class="text-muted">Courses taught by CIG.</p>
 

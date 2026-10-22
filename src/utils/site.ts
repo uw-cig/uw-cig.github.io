@@ -9,10 +9,12 @@ const schema = z.object({
 	short_name: z.string().min(1),
 	university: z.string().min(1),
 	university_short: z.string().min(1),
+	description: z.string().min(1),
 	address: z.array(z.string().min(1)).min(1),
 	email: z.email(),
 	google_scholar: z.url(),
 	links: z.array(z.object({ label: z.string().min(1), url: z.url() })).default([]),
+	google_site_verification: z.string().min(1).optional(),
 });
 
 const result = schema.safeParse(parse(readFileSync(SITE_FILE, "utf8")));

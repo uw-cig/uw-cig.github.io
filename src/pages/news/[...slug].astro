@@ -1,7 +1,7 @@
 ---
 import { render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatNewsDate, getNews, isFullPost, type NewsItem } from "../../utils/news";
+import { formatNewsDate, getNews, isFullPost, newsSummary, type NewsItem } from "../../utils/news";
 
 export async function getStaticPaths() {
 	return (await getNews()).filter(isFullPost).map((item) => ({ params: { slug: item.id }, props: { item } }));
@@ -15,7 +15,7 @@ const { item } = Astro.props;
 const { Content } = await render(item);
 ---
 
-<BaseLayout title={item.data.title!}>
+<BaseLayout title={item.data.title!} description={newsSummary(item)} type="article">
 	<a href="/news/" class="text-sm text-accent hover:underline">← All news</a>
 
 	<article class="mt-6">

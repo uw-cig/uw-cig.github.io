@@ -4,9 +4,57 @@ import { site } from "../utils/site";
 
 interface Props {
 	title: string;
+	// For search results and link previews; defaults to `description` in site.yml.
+	description?: string;
+	// Link-preview image: a path under public/ or an absolute URL.
+	image?: string;
+	imageAlt?: string;
+	// "article" for news posts.
+	type?: "website" | "article";
+	// Keeps the page out of search results (e.g. the 404 page).
+	noindex?: boolean;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description = site.description,
+	image = "/og-default.png",
+	imageAlt = `${site.name}, ${site.university}`,
+	type = "website",
+	noindex = false,
+} = Astro.props;
+
+if (!Astro.site) throw new Error("astro.config.mjs: `site` must be set for canonical and link-preview URLs");
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = new URL(image, Astro.site).href;
+
+// x.com/uwcig -> @uwcig
+const xLink = site.links.find((l) => /^https?:\/\/(www\.)?(x|twitter)\.com\/\w+/.test(l.url));
+const twitterHandle = xLink && `@${new URL(xLink.url).pathname.split("/")[1]}`;
+
+// Structured data for the group, on the homepage. The last address line is
+// split into city, state and ZIP when it looks like "Madison, WI 53715".
+const cityLine = site.address.at(-1)!.match(/^(.+?),\s*([A-Z]{2})\s+(\d{5}(?:-\d{4})?)$/);
+const organization = {
+	"@context": "https://schema.org",
+	"@type": "ResearchOrganization",
+	name: site.name,
+	alternateName: `${site.university_short} ${site.short_name}`,
+	url: Astro.site.href,
+	logo: new URL("/icon-512.png", Astro.site).href,
+	email: site.email,
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: (cityLine ? site.address.slice(0, -1) : site.address).join(", "),
+		...(cityLine && {
+			addressLocality: cityLine[1],
+			addressRegion: cityLine[2],
+			postalCode: cityLine[3],
+			addressCountry: "US",
+		}),
+	},
+	sameAs: [...site.links.map((l) => l.url), site.google_scholar],
+};
 
 const navLinks = [
 	{ href: "/", label: "Home" },
@@ -19,6 +67,9 @@ const navLinks = [
 
 const stripSlash = (path: string) => path.replace(/\/+$/, "") || "/";
 const currentPath = stripSlash(Astro.url.pathname);
+// The homepage is titled with the group's full name; other pages are "Page · UW–Madison CIG".
+const fullTitle =
+	currentPath === "/" ? `${site.university_short} ${site.name}` : `${title} · ${site.university_short} ${site.short_name}`;
 const year = new Date().getFullYear();
 
 const footerLinks = [
@@ -37,7 +88,26 @@ const footerLabel = "text-xs font-semibold tracking-widest text-accent uppercase
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{`${title} · ${site.university_short} ${site.short_name}`}</title>
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		{noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+		{site.google_site_verification && <meta name="google-site-verification" content={site.google_site_verification} />}
+
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		{!noindex && <meta property="og:url" content={canonical} />}
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:alt" content={imageAlt} />
+		<meta property="og:type" content={type} />
+		<meta property="og:site_name" content={`${site.name} · ${site.university_short}`} />
+		<meta name="twitter:card" content="summary_large_image" />
+		{twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
+
+		{
+			currentPath === "/" && (
+				<script type="application/ld+json" is:inline set:html={JSON.stringify(organization).replace(/</g, "\\u003c")} />
+			)
+		}
 	</head>
 	<body class="flex min-h-screen flex-col bg-background text-ink">
 		<header class="border-b-2 border-accent">
