@@ -10,7 +10,10 @@
 #   program:      BS | MS                                     [always mandatory]
 #   institution:  e.g. UW-Madison, WashU                      [optional, default UW-Madison]
 #   project:      project title                               [always mandatory]
-#   mentor:       must match a `name` in src/data/team.yml exactly
+#   mentor:       one name, or a list for several mentors, e.g.
+#                   mentor: Chicago Park
+#                   mentor: [Chicago Park, Ulugbek S. Kamilov]
+#                 each must match a `name` in src/data/team.yml exactly
 #                                                             [mandatory for former students,
 #                                                              optional for current]
 #   current:      true for current students; false or omitted for former
@@ -67,10 +70,58 @@
 # Former students
 #-----------------------
 
-# PLACEHOLDER: replace or delete
-#- name: Placeholder Former Student
-#  program: MS
-#  project: Placeholder Project Title
-#  mentor: Edward Chandler
-#  start: Fall 2025
-#  end: Spring 2026
+# --- Former MS students (WashU), from their MS theses ---
+
+- name: Naveen Asokan
+  program: MS
+  institution: WashU
+  project: Adaptive Noise Estimation and Denoising with Deep Learning for NMR Spectroscopy
+  mentor: [Shirin Shoushtari, Edward Chandler, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2024
+  end: Spring 2025
+
+- name: Haoyu Zhang
+  program: MS
+  institution: WashU
+  project: Learning-based MRI Reconstruction Method with Coil Sensitivity Estimation and Prior Adaptation
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2024
+  end: Spring 2025
+
+- name: Hugh James
+  program: MS
+  institution: WashU
+  project: Investigating Applications of Deep Learning for Diagnosis of Post Traumatic Elbow Disease
+  mentor: [Weijie Gan, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2021
+  end: Fall 2022
+
+- name: Wentao Shangguan
+  program: MS
+  institution: WashU
+  project: "NeVR: Learning Continuous Neural Video Representation with Local Feature Codes for Video Interpolation"
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Fall 2020
+  end: Fall 2021
+
+- name: Renhao Liu
+  program: MS
+  institution: WashU
+  project: Regularized Coordinate-based Neural Representation Learning for Optical Tomography
+  mentor: [Yu Sun, Ulugbek S. Kamilov]
+  current: false
+  start: Summer 2020
+  end: Summer 2021
+
+- name: Shiqi Xu
+  program: MS
+  institution: WashU
+  project: Regularized Fourier Ptychographic Microscopy
+  mentor: Ulugbek S. Kamilov
+  current: false
+  start: Spring 2018
+  end: Spring 2019

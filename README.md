@@ -142,5 +142,5 @@ Closed sections and their jump links are hidden. If every section is closed, the
 
 1. Update `status` and `status_label` in each position file, and the `form` links.
 2. In `projects.yml`, mark taken projects `status: reserved` with the `student`, set finished ones to `status: completed` (or delete them), and add new projects with `status: available`.
-3. Add new student researchers to `students.yml`, and move finished ones to former students, as described at the top of that file.
+3. Add new student researchers to `students.yml`, and move finished ones to former students, as described at the top of that file. A student's `mentor` can be one name or a list (`mentor: [Chicago Park, Ulugbek S. Kamilov]`); each must match a name in `team.yml`, and several are shown as "Mentors: A, B" on the Team page.
 4. Run `npm run build`; a typo in a mentor name, semester or status fails the build with an error naming the project.

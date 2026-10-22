@@ -85,7 +85,11 @@ const students = defineCollection({
 			program: z.string(),
 			institution: z.string().min(1).default("UW-Madison"),
 			project: z.string().min(1),
-			mentor: z.string().min(1).optional(),
+			// One name or a list of names.
+			mentor: z
+				.union([z.string().min(1), z.array(z.string().min(1)).min(1)])
+				.transform((v) => (typeof v === "string" ? [v] : v))
+				.optional(),
 			current: z.boolean().default(false),
 			start: z.string(),
 			end: z.string().optional(),
@@ -130,12 +134,14 @@ const students = defineCollection({
 					message: `${s.name}: "end" (${s.end}) is before "start" (${s.start})`,
 				});
 			}
-			if (s.mentor !== undefined && !teamNames.has(s.mentor)) {
-				ctx.addIssue({
-					code: "custom",
-					path: ["mentor"],
-					message: `${s.name}: mentor "${s.mentor}" does not match any name in team.yml`,
-				});
+			for (const [i, mentor] of (s.mentor ?? []).entries()) {
+				if (!teamNames.has(mentor)) {
+					ctx.addIssue({
+						code: "custom",
+						path: s.mentor!.length > 1 ? ["mentor", i] : ["mentor"],
+						message: `${s.name}: mentor "${mentor}" does not match any name in team.yml`,
+					});
+				}
 			}
 		}),
 });

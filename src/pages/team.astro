@@ -75,14 +75,19 @@ const alumniSections = [
 							<p class="text-sm text-muted italic">{s.project}</p>
 							{s.mentor && (
 								<p class="text-sm text-muted">
-									Mentor:{" "}
-									{mentorSites.get(s.mentor) ? (
-										<a href={mentorSites.get(s.mentor)} class="hover:text-accent hover:underline">
-											{s.mentor}
-										</a>
-									) : (
-										s.mentor
-									)}
+									{s.mentor.length > 1 ? "Mentors" : "Mentor"}:{" "}
+									{s.mentor.map((name, i) => (
+										<>
+											{i > 0 && ", "}
+											{mentorSites.get(name) ? (
+												<a href={mentorSites.get(name)} class="hover:text-accent hover:underline">
+													{name}
+												</a>
+											) : (
+												name
+											)}
+										</>
+									))}
 								</p>
 							)}
 						</li>
@@ -123,7 +128,6 @@ const alumniSections = [
 							</thead>
 							<tbody class="block sm:table-row-group">
 								{formerStudents.map((s) => {
-									const mentorSite = s.mentor ? mentorSites.get(s.mentor) : undefined;
 									return (
 										<tr class="block border-b border-line py-3 align-top sm:table-row sm:py-0">
 											<td class="block font-semibold sm:table-cell sm:py-2 sm:pr-4">
@@ -154,16 +158,21 @@ const alumniSections = [
 												{s.project}
 											</td>
 											<td
-												data-label="Mentor: "
+												data-label={(s.mentor?.length ?? 0) > 1 ? "Mentors: " : "Mentor: "}
 												class="block before:text-muted before:content-[attr(data-label)] sm:table-cell sm:py-2 sm:before:content-none"
 											>
-												{mentorSite ? (
-													<a href={mentorSite} class="hover:text-accent hover:underline">
-														{s.mentor}
-													</a>
-												) : (
-													s.mentor
-												)}
+												{s.mentor?.map((name, i) => (
+													<>
+														{i > 0 && ", "}
+														{mentorSites.get(name) ? (
+															<a href={mentorSites.get(name)} class="hover:text-accent hover:underline">
+																{name}
+															</a>
+														) : (
+															name
+														)}
+													</>
+												))}
 											</td>
 										</tr>
 									);
