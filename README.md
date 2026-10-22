@@ -24,7 +24,22 @@ The Publications page (`/publications/`) is built from `src/data/papers.bib` and
 
 These site-only fields (plus `bibtex_show`, `selected`) are removed from the BibTeX shown by the Bib button.
 
-Categories are assigned automatically: `abbr={arXiv}` is a **Preprint**, `@article` is a **Journal**, `@inproceedings` at a selective venue is a **Selective Conference**, and anything else is a **Conference**.
+Categories are assigned automatically: `abbr={arXiv}` is a **Preprint**, `@article` is a **Journal**, `@inproceedings` at a selective venue is a **Selective Conference**, `@phdthesis` and `@mastersthesis` are a **Thesis**, and anything else is a **Conference**.
+
+**Add a thesis.** Use `@phdthesis` or `@mastersthesis`. Theses are listed in their own section after Published, newest first, with a "PhD Thesis" or "MS Thesis" badge in the accent color; they need no `abbr` or `venues.yml` entry. The venue line reads "PhD thesis, *school*, *address*, *year*" (`address` is optional), and an optional `advisor` (in BibTeX name format, `and` between several) is shown as "Advisor: M. Unser" on its own line and kept in the Bib output. Link buttons and `award` work as for papers.
+
+```bibtex
+@phdthesis{Kamilov2015,
+  author={Kamilov, U. S.},
+  title={Sparsity-Driven Statistical Inference for Inverse Problems},
+  school={École Polytechnique Fédérale de Lausanne (EPFL)},
+  address={Lausanne, Switzerland},
+  year={2015},
+  advisor={Unser, M.},
+  doi={10.5075/epfl-thesis-6545},
+  pdf={https://infoscience.epfl.ch/...}
+}
+```
 
 **Searching.** The search box matches titles, authors, venues, and years, ignoring case and accents. Each term matches at the start of a word, so `score` finds "score-based" and `CT` does not match "reconstruction". A term in double quotes matches only whole words: `"SPECT"` finds "SPECT" but not "spectral", and `"phase retrieval"` finds that exact phrase. Words separated by spaces must all match; `|` separates alternatives, any of which may match: `diffusion | posterior sampling` finds papers with "diffusion", or with both "posterior" and "sampling". The search and the type filter are kept in the URL (`/publications/?q=diffusion%20%7C%20score&type=journal`), so a filtered view can be linked. The homepage "Related publications" links are built this way from the `query` lists in `src/data/research.yml`.
 

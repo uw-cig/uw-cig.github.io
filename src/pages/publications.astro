@@ -9,6 +9,7 @@ const papers = (await getCollection("papers")).map((entry) => entry.data).sort((
 type Paper = (typeof papers)[number];
 
 const categoryOf = (p: Paper) => {
+	if (p.thesis) return "thesis";
 	if (p.category) return p.category;
 	if (p.abbr === "arXiv") return "preprint";
 	if (p.type === "article") return "journal";
@@ -18,7 +19,10 @@ const categoryOf = (p: Paper) => {
 
 const entries = papers.map((paper) => ({ paper, category: categoryOf(paper) }));
 const preprints = entries.filter((e) => e.category === "preprint");
-const published = entries.filter((e) => e.category !== "preprint");
+const published = entries.filter((e) => e.category !== "preprint" && e.category !== "thesis");
+const theses = entries
+	.filter((e) => e.category === "thesis")
+	.sort((a, b) => b.paper.year - a.paper.year || a.paper.order - b.paper.order);
 const years = [...new Set(published.map((e) => e.paper.year))].sort((a, b) => b - a);
 
 const filters = [
@@ -27,6 +31,7 @@ const filters = [
 	{ type: "journal", label: "Journal" },
 	{ type: "selective", label: "Selective Conference" },
 	{ type: "conference", label: "Conference" },
+	{ type: "thesis", label: "Theses" },
 	{ type: "award", label: "Awards", count: entries.filter((e) => e.paper.award).length },
 ].map((f) => ({ ...f, count: f.count ?? entries.filter((e) => e.category === f.type).length }));
 
@@ -111,6 +116,19 @@ const venueOf = (p: Paper) => (p.abbr ? venues.get(p.abbr) : undefined);
 						</ul>
 					</div>
 				))}
+			</section>
+		)
+	}
+
+	{
+		theses.length > 0 && (
+			<section data-pub-group class="mt-12">
+				<h2 class="mb-6 border-b border-line pb-2 text-xl font-semibold">Theses</h2>
+				<ul class="space-y-7">
+					{theses.map(({ paper, category }) => (
+						<PaperEntry paper={paper} category={category} venue={venueOf(paper)} />
+					))}
+				</ul>
 			</section>
 		)
 	}

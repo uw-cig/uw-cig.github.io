@@ -17,6 +17,9 @@ const SITE_ONLY_FIELDS = new Set([
 	"category",
 ]);
 
+// Thesis entry types; they get a fixed badge instead of a venue from venues.yml.
+const THESIS_TYPES: Record<string, "PhD" | "MS"> = { phdthesis: "PhD", mastersthesis: "MS" };
+
 // "Last, F. M." -> "F. M. Last", keeping particles such as "de" or "von".
 const formatName = (c: Creator) =>
 	c.name ?? [c.firstName, c.prefix, c.lastName].filter(Boolean).join(" ") + (c.suffix ? `, ${c.suffix}` : "");
@@ -84,6 +87,9 @@ export function bibtexLoader({ file, venuesFile }: { file: string; venuesFile: s
 				const raw = parse(text, { ...options, raw: true }).entries;
 				const awardText = (key: string, award: string) =>
 					parse(`@misc{${key}, award={${award.replace(/(?<!\\)%/g, "\\%")}}}`, options).entries[0]?.fields.award?.trim();
+				// The parser only splits author/editor into names, so read the advisor as an author.
+				const advisorNames = (key: string, advisor: string) =>
+					(parse(`@misc{${key}, author={${advisor}}}`, options).entries[0]?.fields.author ?? []).map(formatName);
 
 				store.clear();
 				const seen = new Map<string, number>();
@@ -96,10 +102,14 @@ export function bibtexLoader({ file, venuesFile }: { file: string; venuesFile: s
 					if (n > 1) logger.warn(`${entry.key}: duplicate BibTeX key (entry ${order + 1}); listed as "${id}"`);
 					const rawAward = raw[order]?.key === entry.key ? raw[order].fields.award : undefined;
 					const award = rawAward && awardText(entry.key, rawAward);
-					if (!f.abbr) {
-						logger.warn(`${entry.key}: no "abbr" field, so no venue badge is shown`);
-					} else if (!venues.has(f.abbr)) {
-						logger.warn(`${entry.key}: abbr "${f.abbr}" is not in ${venuesFile}; using a gray badge`);
+					const thesis = THESIS_TYPES[entry.type.toLowerCase()];
+					// Theses get their badge from the entry type, so they need no venue.
+					if (!thesis) {
+						if (!f.abbr) {
+							logger.warn(`${entry.key}: no "abbr" field, so no venue badge is shown`);
+						} else if (!venues.has(f.abbr)) {
+							logger.warn(`${entry.key}: abbr "${f.abbr}" is not in ${venuesFile}; using a gray badge`);
+						}
 					}
 					const data = await parseData({
 						id,
@@ -116,6 +126,9 @@ export function bibtexLoader({ file, venuesFile }: { file: string; venuesFile: s
 							number: f.number ?? f.no,
 							pages: f.pages,
 							address: f.address,
+							school: f.school,
+							advisors: f.advisor ? advisorNames(entry.key, f.advisor) : undefined,
+							thesis,
 							year: f.year,
 							award: award || undefined,
 							arxiv: f.arxiv,

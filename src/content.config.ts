@@ -174,6 +174,10 @@ const papers = defineCollection({
 		number: optionalText,
 		pages: optionalText,
 		address: optionalText,
+		// Theses only (@phdthesis / @mastersthesis).
+		school: optionalText,
+		advisors: z.array(z.string()).min(1).optional(),
+		thesis: z.enum(["PhD", "MS"]).optional(),
 		year: z.coerce.number().int(),
 		award: optionalText,
 		arxiv: optionalText,
