@@ -77,6 +77,14 @@
   current: true
   start: Spring 2026
 
+- name: Tirth Patel
+  program: BS
+  institution: UW–Madison
+  project: "Generative Models for Computational Imaging"
+  mentor: [Edward Chandler, Ulugbek S. Kamilov]
+  current: true
+  start: Fall 2026
+
 #-----------------------
 # Former students
 #-----------------------
