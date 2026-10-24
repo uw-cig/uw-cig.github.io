@@ -107,6 +107,24 @@
   start: Spring 2026
   end: Spring 2026
 
+- name: Kevin (Yi) Wang
+  program: BS
+  institution: WashU
+  project: Out-of-Distribution Detection in Diffusion models
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2025
+  end: Spring 2025
+
+- name: Weining Wang
+  program: MS
+  institution: WashU
+  project: Generative MRI Reconstruction
+  mentor: [Shirin Shoushtari, Ulugbek S. Kamilov]
+  current: false
+  start: Spring 2025
+  end: Fall 2025
+
 - name: Naveen Asokan
   program: MS
   institution: WashU

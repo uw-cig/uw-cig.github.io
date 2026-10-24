@@ -44,13 +44,14 @@
   current: true
   institution: UW–Madison
   photo: ulugbek-kamilov.jpg # placeholder: add the file to public/images/team/
-  website: https://ukmlv.github.io/
+  website: https://kamilov.io/
   current_role:
     - Leon and Elizabeth Janssen Associate Professor
     - Department of Electrical and Computer Engineering
     - Department of Computer Sciences (affiliate)
     - Department of Radiology (affiliate)
     - Data Science Institute (affiliate)
+    - Wisconsin Institute for Discovery (fellow)
 
 #-----------------------
 # Current PhD students
