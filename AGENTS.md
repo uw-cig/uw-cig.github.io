@@ -1,6 +1,6 @@
 # Project guide
 
-Website for the Computational Imaging Group (CIG) at UW–Madison. Built with Astro and Tailwind v4 (`@tailwindcss/vite`, plus `@tailwindcss/typography`). Every push to `main` deploys to GitHub Pages through `.github/workflows/deploy.yml`, which runs `npm run check` (`astro check`) before `npm run build`, so a type error stops the deploy.
+Website for the Computational Imaging Group (CIG) at UW–Madison. Built with Astro and Tailwind v4 (`@tailwindcss/vite`, plus `@tailwindcss/typography`). Every push to `main` deploys to GitHub Pages (custom domain https://cig.ece.wisc.edu; uw-cig.github.io redirects there) through `.github/workflows/deploy.yml`, which runs `npm run check` (`astro check`) before `npm run build`, so a type error stops the deploy.
 
 ## Where content lives
 

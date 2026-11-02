@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://uw-cig.github.io',
+  site: 'https://cig.ece.wisc.edu',
 
   integrations: [sitemap()],
 

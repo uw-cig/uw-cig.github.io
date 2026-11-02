@@ -1,5 +1,5 @@
 # uw-cig.github.io
-Website of the Computational Imaging Group (CIG) at UW–Madison
+Website of the Computational Imaging Group (CIG) at UW–Madison, live at <https://cig.ece.wisc.edu>.
 
 ## Development
 
@@ -172,5 +172,5 @@ Every page has a description, a canonical URL, and Open Graph / Twitter tags, so
 - **Structured data.** The homepage includes JSON-LD for the group (name, address, X and Google Scholar links) built from `site.yml`.
 - **Google Search Console.** To verify the site, choose the "HTML tag" method and put its `content` value in `site.yml` as `google_site_verification`.
 - **Analytics.** If `goatcounter` is set in `site.yml` (currently `uw-cig`), every page loads GoatCounter's counting script, and visits show up at `https://uw-cig.goatcounter.com`. GoatCounter uses no cookies and no other trackers are loaded. The script is only added to production builds, so `npm run dev` doesn't count your own visits. Remove the field to turn analytics off.
-- **Sitemap.** `@astrojs/sitemap` writes `https://uw-cig.github.io/sitemap-index.xml` on every build; `public/robots.txt` points crawlers to it.
+- **Sitemap.** `@astrojs/sitemap` writes `https://cig.ece.wisc.edu/sitemap-index.xml` on every build; `public/robots.txt` points crawlers to it.
 - **404 page.** `src/pages/404.astro` is served by GitHub Pages for unknown URLs. It links to the main pages, has a publications search box, and is kept out of search results.
