@@ -13,8 +13,6 @@ description: Undergraduate course on signals and systems.
 ## Course Information
 
 **Instructor:** Ulugbek S. Kamilov  
-**Institution:** Washington University in St. Louis  
-**Term:** Spring 2025
 
 ## Course Description
 

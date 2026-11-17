@@ -12,7 +12,7 @@ interface Props {
 
 const { course } = Astro.props;
 const { data } = course;
-// Rendered Markdown without its "Course Information" section. Local images in course
+// Rendered Markdown, including any "Course Information" section. Local images in course
 // files are not supported here, since rendered.html leaves them unresolved.
 const body = courseBodyHtml(course);
 ---

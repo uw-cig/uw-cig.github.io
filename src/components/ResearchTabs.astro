@@ -74,6 +74,23 @@ for (const area of areas) {
 				</div>
 			))}
 
+			{/* Open on a random area. This runs inline, as soon as the panels are parsed, so the
+			   first area doesn't flash before the switch; the module script below reads the
+			   selected tab from the DOM. Without JavaScript, the first area stays selected. */}
+			<script is:inline>
+				(() => {
+					const root = document.currentScript.closest("[data-tabs]");
+					const tabs = [...root.querySelectorAll('[role="tab"]')];
+					const pick = tabs[Math.floor(Math.random() * tabs.length)];
+					for (const t of tabs) {
+						const selected = t === pick;
+						t.setAttribute("aria-selected", String(selected));
+						t.tabIndex = selected ? 0 : -1;
+						document.getElementById(t.getAttribute("aria-controls")).hidden = !selected;
+					}
+				})();
+			</script>
+
 			{/* Without JavaScript, show every area one after another instead of tabs. The rule
 			   must be in Tailwind's base layer to override its important [hidden] rule. */}
 			<noscript>

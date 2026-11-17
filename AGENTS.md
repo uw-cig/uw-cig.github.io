@@ -31,7 +31,7 @@ Each YAML file starts with a comment header that documents its fields. Keep that
 - `src/pages/team.astro` shows `GroupPhoto`, then `TeamCard`s grouped by role, student researchers and alumni. Under Alumni, Former Student Researchers and Visitors are compact tables that become stacked rows on phones; each is hidden when empty.
 - `src/pages/publications.astro` lists papers (`PaperEntry`) as Preprints and Published by year. It has a type filter and a search box that syncs `?q=` and `?type=` to the URL; `|` in `q` means OR.
 - `src/pages/news.astro` (grouped by year) and `src/pages/news/[...slug].astro` (full posts).
-- `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` with the "Course Information" section stripped, so local images in course files aren't supported.
+- `src/pages/teaching.astro` lists courses by term, newest first (via `src/utils/teaching.ts`). `src/pages/teaching/[...slug].astro` shows one course; it renders `rendered.html` as is (including any "Course Information" section), so local images in course files aren't supported.
 - `src/pages/join.astro` shows the open `join` sections in order, with jump links, status badges and Apply buttons. The `student-researchers` section also gets a list of `ProjectCard`s (square media on the left) with All/Available/Reserved filter pills.
 
 ## Design conventions

@@ -12,9 +12,11 @@ description: Undergraduate course on matrix methods and their applications in ma
 
 ## Course Information
 
-**Instructor:** Ulugbek S. Kamilov  
-**Institution:** University of Wisconsin–Madison  
-**Term:** Spring 2026
+**Instructor:** [Ulugbek S. Kamilov](https://kamilov.io/)  
+**Teaching Assistants:** [Gokcan Tatli](https://gokcantatli.github.io/), [Karan Rupashree](https://scholar.google.com/citations?user=GGpTnKAAAAAJ&hl=en), [Guruprasad Ramesh](https://guruprasad68.github.io/)  
+**Location:** Tuesday and Thursday, 4–5:15pm, Biochem 1120
+
+
 
 ## Course Description
 

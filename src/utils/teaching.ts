@@ -11,8 +11,5 @@ export async function getCourses() {
 	);
 }
 
-// The course header already shows the code, term and institution, so drop the
-// "Course Information" section: its heading and everything up to the next heading.
-const COURSE_INFO = /<h([1-6])\b[^>]*>\s*Course Information\s*<\/h\1>[\s\S]*?(?=<h[1-6]\b|$)/i;
-
-export const courseBodyHtml = (course: Course) => (course.rendered?.html ?? "").replace(COURSE_INFO, "");
+// The course's rendered Markdown body, every section included.
+export const courseBodyHtml = (course: Course) => course.rendered?.html ?? "";
