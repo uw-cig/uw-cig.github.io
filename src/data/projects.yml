@@ -72,7 +72,11 @@
     - Chicago Park
     - Ulugbek S. Kamilov
   description: >-
-    Patient motion during 3D whole-body MRI can blur images and obscure anatomical details. In collaboration with the UW School of Medicine, this project develops computational methods to estimate and correct motion during image reconstruction. By combining MRI physics with optimization and generative modeling, we aim to improve image quality and the reliability of whole-body imaging.
+    Patient motion during 3D whole-body MRI can blur images and obscure anatomical 
+    details. In collaboration with the UW School of Medicine, this project develops 
+    computational methods to estimate and correct motion during image reconstruction. 
+    By combining MRI physics with optimization and generative modeling, we aim to 
+    improve image quality and the reliability of whole-body imaging.
   status: reserved
   student: Joshua Wang
   media: mri-motion-correction.mp4
@@ -85,9 +89,65 @@
     - Xiao Shi
     - Ulugbek S. Kamilov
   description: >-
-    This project develops MRI reconstruction methods that use diffusion models as learned image priors. By combining generative modeling with MRI physics, we aim to recover high-quality images from undersampled measurements, enabling faster scans. The work is conducted in collaboration with the UW School of Medicine.
+    This project develops MRI reconstruction methods that use diffusion models as 
+    learned image priors. By combining generative modeling with MRI physics, we 
+    aim to recover high-quality images from undersampled measurements, enabling faster 
+    scans. The work is conducted in collaboration with the UW School of Medicine.
   status: reserved
   student: Tyler Seils
   media: mri-diffusion-reconstruction.mp4
+  level:
+    - BS
+
+- title: Deep Parameter Interpolation for MRI Reconstruction
+  semester: Fall 2026
+  mentors:
+    - Chicago Park
+    - Ulugbek S. Kamilov
+  description: >-
+    Deep Parameter Interpolation (DPI) is a framework for efficiently 
+    adapting pretrained neural networks to new imaging conditions by interpolating 
+    their learned parameters. This project explores DPI for MRI reconstruction from 
+    undersampled measurements, where acquisition settings and sampling patterns can 
+    vary. By combining MRI physics with deep learning and efficient model adaptation, 
+    we aim to improve reconstruction quality and robustness while reducing the 
+    need for extensive retraining.
+  status: reserved
+  student: Alex Ryan
+  media: dpi-mri.mp4
+  level:
+    - BS
+
+- title: Estimating Quantitative MRI using Diffusion Models.
+  semester: Fall 2026
+  mentors:
+    - Xiao Shi
+    - Ulugbek S. Kamilov
+  description: >-
+    Quantitative MRI provides measurements of tissue properties that can 
+    help characterize anatomy and detect disease. In collaboration with the 
+    UW School of Medicine, this project develops diffusion models to estimate 
+    quantitative tissue maps from MRI measurements. By combining MRI physics 
+    with advanced generative modeling, we aim to 
+    improve the accuracy for clinical applications.
+  status: reserved
+  student: Sam Cook
+  media: qmri-pipeline.mp4
+  level:
+    - BS
+
+- title: Generative Models for Computed Tomography Reconstruction
+  semester: Fall 2026
+  mentors:
+    - Edward Chandler
+    - Ulugbek S. Kamilov
+  description: >-
+    Computed tomography (CT) reconstructs images of internal anatomy from X-ray 
+    measurements, often using incomplete or noisy data. This project develops 
+    flow-based generative models that combine learned image priors with CT 
+    physics to improve reconstruction quality.
+  status: reserved
+  student: Tirth Patel
+  media: ct-reconstruction-grid.mp4
   level:
     - BS
