@@ -47,6 +47,40 @@
 #     - BS
 #     - MS
 
+- title: Generative Models for Remote Sensing
+  semester: Spring 2027
+  mentors:
+    - Edward Chandler
+    - Ulugbek S. Kamilov
+  description: >-
+    Remote sensing provides critical observations of Earth's atmosphere, 
+    surface, and environment, but measurements are often incomplete, 
+    noisy, or limited in resolution. This project, in collaboration with the 
+    Space Science and Engineering Center (SSEC) at UW–Madison, will develop 
+    generative models to improve the reconstruction and analysis of remote sensing data.
+  status: available
+  media: gen-models-remote-sensing.mp4
+  level:
+    - BS
+    - MS
+
+- title: Neural Operators for Computational Microscopy
+  semester: Spring 2027
+  mentors:
+    - Harry Mellow
+    - Ulugbek S. Kamilov
+  description: >-
+    Multiple scattering of light makes high-resolution imaging of biological 
+    specimens computationally challenging. This project explores neural 
+    operators as efficient models of light propagation in complex media. 
+    By combining wave physics with machine learning, we aim to develop 
+    scalable reconstruction methods for three-dimensional optical microscopy.
+  status: available
+  media: neural-operators-computational-microscopy.mp4
+  level:
+    - BS
+    - MS
+
 - title: Generative Models as Priors for Ptychography
   semester: Fall 2026
   mentors:
