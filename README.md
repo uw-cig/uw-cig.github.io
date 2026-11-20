@@ -61,7 +61,7 @@ Both fields are optional. Without `color`, the badge uses the site's accent colo
 
 ## News
 
-News items are Markdown files in `src/content/news/`, shown on `/news/` newest first and grouped by year. Name files `YYYY-MM-DD-short-name.md` (e.g. `2027-01-04-new-student-harry.md`). For full posts the file name becomes the URL (`/news/2027-01-04-new-student-harry/`).
+News items are Markdown files in `src/content/news/`, shown on `/news/` newest first and grouped by year. Name files `YYYY-MM-DD-short-name.md` (e.g. `2027-01-04-new-student-harry.md`). For full posts the file name becomes the URL (`/news/2027-01-04-new-student-harry/`). The homepage shows the latest few items; set how many with `news_count` in `src/data/home.yml` (default 5).
 
 **One-line item** (the common case): only a `date`, and the body is shown in the list.
 

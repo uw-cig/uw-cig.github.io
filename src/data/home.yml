@@ -4,6 +4,8 @@
 # Fields:
 #   mission:  shown under "Our mission" at the top of the homepage
 #                                                             [mandatory]
+#   news_count:  how many of the latest news items the homepage shows;
+#                a positive whole number (default: 5)          [optional]
 #
 # Keep the text on the indented lines after "mission: >-"; line breaks
 # are joined into one paragraph.
@@ -17,3 +19,5 @@ mission: >-
   physical models, statistical inference, optimization, and generative AI.
   Our research connects fundamental theory with practical algorithms to
   advance imaging and sensing across science, medicine, and engineering.
+
+news_count: 10
