@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2026-11-17 08:00:00-0400
-title: UW–Madison ECE is recruiting faculty at all ranks in Physical AI
+title: UW–Madison ECE is hiring faculty at all ranks in Physical AI
 inline: false
 related_posts: false
 ---

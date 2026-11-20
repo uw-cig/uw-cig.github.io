@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Prof. Kamilov is serving as an area chair for [NeurIPS 2026](https://neurips.cc).
+[Ulugbek Kamilov](https://kamilov.io/) is serving as an area chair for [NeurIPS 2026](https://neurips.cc).

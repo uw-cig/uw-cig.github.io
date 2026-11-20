@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- Prof. Kamilov was a plenary speaker at [IEEE ICIP 2026](https://2026.ieeeicip.org), which took place in Tampere, Finland.
+ [Ulugbek Kamilov](https://kamilov.io/) was a plenary speaker at [IEEE ICIP 2026](https://2026.ieeeicip.org), which took place in Tampere, Finland.

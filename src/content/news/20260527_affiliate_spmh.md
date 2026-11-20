@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Prof. Kamilov has been appointed an Affiliate Professor of [Radiology](https://www.radiology.wisc.edu) at UW–Madison.
+[Ulugbek Kamilov](https://kamilov.io/) has been appointed an Affiliate Professor of [Radiology](https://www.radiology.wisc.edu) at UW–Madison.

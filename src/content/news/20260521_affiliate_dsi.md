@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Prof. Kamilov has become an affiliate of the [Data Science Institute](https://dsi.wisc.edu) at UW–Madison.
+[Ulugbek Kamilov](https://kamilov.io/) has become an affiliate of the [Data Science Institute](https://dsi.wisc.edu) at UW–Madison.

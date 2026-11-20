@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2025-04-03 08:00:00-0400
-title: Three papers from CIG were accepted to the IEEE Statistical Signal Processing Workshop (SSP).
+title: Three CIG papers accepted to IEEE SSP 2025
 inline: false
 related_posts: false
 ---

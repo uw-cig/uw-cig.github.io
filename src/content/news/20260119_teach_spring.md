@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
- Prof. Kamilov is teaching [Matrix Methods in Machine Learning](/teaching/2026-spring-ece532/) in Spring 2026 at UW–Madison.
+ [Ulugbek Kamilov](https://kamilov.io/) is teaching [Matrix Methods in Machine Learning](/teaching/2026-spring-ece532/) in Spring 2026 at UW–Madison.

@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Prof. Kamilov has been appointed an Affiliate Professor of [Computer Sciences](https://www.cs.wisc.edu/) at UW–Madison.
+[Ulugbek Kamilov](https://kamilov.io/) has been appointed an Affiliate Professor of [Computer Sciences](https://www.cs.wisc.edu/) at UW–Madison.

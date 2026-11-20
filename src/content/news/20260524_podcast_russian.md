@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Prof. Kamilov was a guest on the Russian-language [SEREDIN podcast](https://www.youtube.com/watch?v=GRK7z1OC_HA).
+[Ulugbek Kamilov](https://kamilov.io/) was a guest on the Russian-language [SEREDIN podcast](https://www.youtube.com/watch?v=GRK7z1OC_HA).
