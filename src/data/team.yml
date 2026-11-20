@@ -65,13 +65,6 @@
 # website: [optional]
 # current_role: [optional] (string or list of strings; override the default “PhD Student, Institution” line)
 
-- name: Shirin Shoushtari
-  type: phd
-  current: true
-  institution: WashU
-  photo: shirin-shoushtari.jpg
-  website: https://shirinsg.github.io/aboutme/
-
 - name: Edward Chandler
   type: phd
   current: true
@@ -184,6 +177,15 @@
   thesis_key: Hu2026phd
   current_role: Research Scientist, Google
   website: https://hu-yuyang.github.io
+
+- name: Shirin Shoushtari
+  type: phd
+  photo: shirin-shoushtari.jpg
+  year: 2026
+  thesis: Robust Deep Learning Models for Imaging Inverse Problems
+  current_role: Postdoctoral Fellow, MIT
+  institution: WashU
+  website: https://shirinsg.github.io/aboutme/
 
 #-----------------------
 # Postdoc alumnus
